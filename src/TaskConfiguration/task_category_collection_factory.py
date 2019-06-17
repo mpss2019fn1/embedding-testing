@@ -1,6 +1,7 @@
 import yaml
 
 from src.TaskConfiguration import TaskCategoryCollection
+from src.TaskConfiguration import TaskCategoryFactory
 
 
 class TaskCategoryCollectionFactory:
@@ -10,7 +11,6 @@ class TaskCategoryCollectionFactory:
 
     @staticmethod
     def create_configuration_from_file(configuration_file):
-        from src.TaskConfiguration import TaskCategoryFactory
 
         with open(configuration_file, 'r') as stream:
             configuration = yaml.safe_load(stream)

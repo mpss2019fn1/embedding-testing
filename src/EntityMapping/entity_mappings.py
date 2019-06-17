@@ -7,7 +7,7 @@ class EntityMappings:
         self.imported = time.time()
         self._entity_mappings = {}
 
-    def add(self, knowledgebase_id, embedding_tag):
+    def add(self, embedding_tag, knowledgebase_id):
         self._entity_mappings[knowledgebase_id] = embedding_tag
 
     def __getitem__(self, item):

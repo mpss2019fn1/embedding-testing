@@ -22,7 +22,7 @@ class TestTaskCategoryFactory(BaseTestCase):
 
     def test_extract_name(self):
         config = {"name": "test-name"}
-        self.assertEquals("test-name", TaskCategoryFactory._extract_name(config))
+        self.assertEqual("test-name", TaskCategoryFactory._extract_name(config))
 
     def test_extract_name_with_missing_key_raises_exception(self):
         config = {"invalid_key", "test-name"}
@@ -55,16 +55,16 @@ class TestTaskCategoryFactory(BaseTestCase):
         }
 
         tasks = TaskCategoryFactory._extract_tasks(config)
-        self.assertEquals(2, len(tasks))
+        self.assertEqual(2, len(tasks))
 
         task = tasks[0]
-        self.assertEquals("task-name-1", task.name)
-        self.assertEquals(AnalogyTask, task.__class__)
-        self.assertEquals(TaskMetric.COSINE_SIMILARITY, task.metric)
-        self.assertEquals(self.empty_file, task.test_set)
+        self.assertEqual("task-name-1", task.name)
+        self.assertEqual(AnalogyTask, task.__class__)
+        self.assertEqual(TaskMetric.COSINE_SIMILARITY, task.metric)
+        self.assertEqual(self.empty_file, task.test_set)
 
         task = tasks[1]
-        self.assertEquals("task-name-2", task.name)
-        self.assertEquals(SimilarityTask, task.__class__)
-        self.assertEquals(TaskMetric.EUCLIDEAN_DISTANCE, task.metric)
-        self.assertEquals(self.empty_file, task.test_set)
+        self.assertEqual("task-name-2", task.name)
+        self.assertEqual(SimilarityTask, task.__class__)
+        self.assertEqual(TaskMetric.EUCLIDEAN_DISTANCE, task.metric)
+        self.assertEqual(self.empty_file, task.test_set)

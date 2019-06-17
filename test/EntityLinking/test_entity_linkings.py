@@ -1,25 +1,26 @@
 import time
+import unittest
 
-from src.EntityLinking.entity_linkings import EntityMappings
-from test.base_test_case import BaseTestCase
+from src.EntityLinking.entity_linkings import EntityLinkings
 
 
-class TestEntityMapping(BaseTestCase):
+class TestEntityMapping(unittest.TestCase):
 
     def test_initialization(self):
-        entity_mapping = EntityMappings()
+        entity_mapping = EntityLinkings()
 
         self.assertIsNotNone(entity_mapping)
         self.assertLess(entity_mapping.imported, time.time())
 
     def test_add(self):
-        entity_mapping = EntityMappings()
+        entity_mapping = EntityLinkings()
         entity_mapping.add("Angela_Merkel", "Q567")
 
         self.assertTrue("Q567" in entity_mapping)
+        self.assertEqual(1, len(entity_mapping))
 
     def test_fetching_mapping(self):
-        entity_mapping = EntityMappings()
+        entity_mapping = EntityLinkings()
         entity_mapping.add("Angela_Merkel", "Q567")
 
         self.assertEqual(entity_mapping["Q567"], "Angela_Merkel")

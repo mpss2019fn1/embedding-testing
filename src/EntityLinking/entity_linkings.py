@@ -1,7 +1,7 @@
 import time
 
 
-class EntityMappings:
+class EntityLinkings:
 
     def __init__(self):
         self.imported = time.time()
@@ -15,3 +15,6 @@ class EntityMappings:
 
     def __contains__(self, item):
         return item in self._entity_mappings
+
+    def __len__(self):
+        return len(self._entity_mappings)

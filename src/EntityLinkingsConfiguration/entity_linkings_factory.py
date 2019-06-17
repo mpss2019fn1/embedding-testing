@@ -1,9 +1,9 @@
 import csv
 
-from src.EntityLinking.entity_linkings import EntityMappings
+from src.EntityLinking.entity_linkings import EntityLinkings
 
 
-class EntityMappingsFactory:
+class EntityLinkingsFactory:
     COLUMN_INDEX_KNOWLEDGEBASE_ID = 1
     COLUMN_INDEX_EMBEDDING_LABEL = 0
 
@@ -11,12 +11,15 @@ class EntityMappingsFactory:
     def create_from_configuration_file(configuration_file):
         with open(configuration_file, 'r') as csv_stream:
             csv_reader = csv.reader(csv_stream, delimiter=',')
-            entity_mappings = EntityMappings()
+            entity_mappings = EntityLinkings()
 
             next(csv_reader, None)  # skip header
             for row in csv_reader:
-                knowledgebase_id = row[EntityMappingsFactory.COLUMN_INDEX_KNOWLEDGEBASE_ID]
-                embedding_tag = row[EntityMappingsFactory.COLUMN_INDEX_EMBEDDING_LABEL]
+                if not row:
+                    continue
+
+                knowledgebase_id = row[EntityLinkingsFactory.COLUMN_INDEX_KNOWLEDGEBASE_ID]
+                embedding_tag = row[EntityLinkingsFactory.COLUMN_INDEX_EMBEDDING_LABEL]
                 entity_mappings.add(embedding_tag, knowledgebase_id)
 
             return entity_mappings

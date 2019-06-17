@@ -1,0 +1,71 @@
+configuration:
+    task_configurations:
+        - task_configuration: 
+            type: similarity
+            enabled: true
+        - task_configuration:
+            type: analogy
+            enabled: true
+        - task_configuration:
+            type: neighborhood
+            enabled: false
+        - task_configuration:
+            type: outlier_detection
+            enabled: true
+    categories:
+        - category:
+            name: Geography
+            enabled: true
+            tasks:
+                - task:
+                    name: is_conutry_similar_cosine
+                    type: similarity
+                    metric: cosine
+                    test_set: is_conutry_similar/data.csv
+                - task:
+                    name: is_conutry_similar_euclidean
+                    type: similarity
+                    metric: euclidean
+                    test_set: is_conutry_similar/data.csv
+                - task:
+                    name: is_capital_of
+                    type: analogy
+                    metric: cosine
+                    test_set: is_capital_of/data.csv
+            categories:
+                - category:
+                    name: Europe
+                    enabled: false
+                    tasks:
+                        - task:
+                            name: is_capital_of
+                            type: neighborhood
+                            metric: euclidean
+                            test_set: is_capital_of/data.csv
+                    categories:
+                - category:
+                    name: North_America
+                    enabled: true
+                    tasks:
+                        - task:
+                            name: is_capital_of
+                            type: outlier_detection
+                            metric: cosine
+                            test_set: is_capital_of/data.csv
+                    categories:
+        - category:
+            name: Food
+            enabled: false
+            tasks:
+            categories:
+                - category:
+                    name: Meat
+                    enabled: true
+                    tasks:
+                        - task:
+                            name: is_similar_food
+                            type: similarity
+                            metric: euclidean
+                            test_set: food/data.csv
+                    categories:
+

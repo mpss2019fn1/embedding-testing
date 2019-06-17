@@ -1,6 +1,7 @@
 import shutil
 import tempfile
 import unittest
+import uuid
 from pathlib import Path
 
 
@@ -13,3 +14,6 @@ class BaseTestCase(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.test_dir)
+
+    def _random_test_file(self):
+        return Path(self.test_dir, f"{uuid.uuid4()}")

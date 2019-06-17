@@ -68,3 +68,11 @@ class TestTaskCategoryFactory(BaseTestCase):
         self.assertEqual(SimilarityTask, task.__class__)
         self.assertEqual(TaskMetric.EUCLIDEAN_DISTANCE, task.metric)
         self.assertEqual(self.empty_file, task.test_set)
+
+    def test_extract_tasks_with_empty_list(self):
+        config = {
+            "tasks": None
+        }
+
+        tasks = TaskCategoryFactory._extract_tasks(config)
+        self.assertEqual(0, len(tasks))

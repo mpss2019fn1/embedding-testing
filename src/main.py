@@ -5,7 +5,7 @@ from src.TaskConfiguration import TaskCategoryCollectionFactory
 
 
 def main(args):
-    test_configuration = TaskCategoryCollectionFactory.create_configuration_from_file(args.test_set_config)
+    test_configuration = TaskCategoryCollectionFactory.create_categories_from_file(args.test_set_config)
 
 
 if __name__ == "__main__":

@@ -10,8 +10,7 @@ class TaskCategoryCollectionFactory:
     LABEL_CATEGORY = "category"
 
     @staticmethod
-    def create_configuration_from_file(configuration_file):
-
+    def create_categories_from_file(configuration_file):
         with open(configuration_file, 'r') as stream:
             configuration = yaml.safe_load(stream)
         configuration = configuration[TaskCategoryCollectionFactory.LABEL_ROOT][

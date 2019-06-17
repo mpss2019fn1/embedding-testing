@@ -49,7 +49,11 @@ class TaskCategoryFactory:
         from src.Task import TaskFactory
 
         tasks = []
-        for task in configuration[TaskCategoryFactory.LABEL_TASKS]:
+        task_configurations = configuration[TaskCategoryFactory.LABEL_TASKS]
+        if not task_configurations:
+            return tasks
+
+        for task in task_configurations:
             task = task[TaskCategoryFactory.LABEL_TASK]
             tasks.append(TaskFactory.create_task_from_configuration(task))
         return tasks
@@ -57,7 +61,11 @@ class TaskCategoryFactory:
     @staticmethod
     def _extract_categories(configuration):
         categories = []
-        for sub_category_configuration in configuration[TaskCategoryFactory.LABEL_CATEGORIES]:
+        category_configurations = configuration[TaskCategoryFactory.LABEL_CATEGORIES]
+        if not category_configurations:
+            return categories
+
+        for sub_category_configuration in category_configurations:
             sub_category_configuration = sub_category_configuration[TaskCategoryFactory.LABEL_CATEGORY]
             categories.append(TaskCategoryFactory.create_category_from_configuration(sub_category_configuration))
         return categories

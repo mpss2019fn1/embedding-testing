@@ -17,6 +17,6 @@ class EntityMappingsFactory:
             for row in csv_reader:
                 knowledgebase_id = row[EntityMappingsFactory.COLUMN_INDEX_KNOWLEDGEBASE_ID]
                 embedding_tag = row[EntityMappingsFactory.COLUMN_INDEX_EMBEDDING_LABEL]
-                entity_mappings.add(knowledgebase_id, embedding_tag)
+                entity_mappings.add(embedding_tag, knowledgebase_id)
 
             return entity_mappings

@@ -8,7 +8,7 @@ from test.base_test_case import BaseTestCase
 class TestTaskCategoryCollectionFactory(BaseTestCase):
 
     def test_create_categories_from_file(self):
-        file = Path(self.test_dir, f"{uuid.uuid4()}.yaml")
+        file = self._random_test_file()
         with open(file, "w+") as file_output:
             print(f"""
             configuration:

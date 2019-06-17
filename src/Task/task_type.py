@@ -14,6 +14,10 @@ class TaskType(Enum):
     def from_string(cls, task_type):
         for member in TaskType:
             if member.value.configuration_identifier() == task_type:
-                return member.value
+                return member
         logging.error(f"Unable to find TestTaskType {task_type}")
         raise KeyError
+
+    @classmethod
+    def value_from_string(cls, task_type):
+        return TaskType.from_string(task_type).value

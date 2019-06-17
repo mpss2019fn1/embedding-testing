@@ -14,7 +14,7 @@ class TaskFactory:
         from src.Task import TaskType, TaskMetric
 
         name = TaskFactory._extract_name(configuration)
-        task_class = TaskType.from_string(configuration[TaskFactory.LABEL_TYPE])
+        task_class = TaskType.value_from_string(configuration[TaskFactory.LABEL_TYPE])
         metric = TaskMetric.from_string(configuration[TaskFactory.LABEL_METRIC])
         test_set = TaskFactory._extract_test_set(configuration)
 

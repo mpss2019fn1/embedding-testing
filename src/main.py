@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from src.EntityMappingConfiguration.entity_mappings_factory import EntityMappingsFactory
+from src.EntityMappingConfiguration.entity_linkings_factory import EntityMappingsFactory
 from src.TaskConfiguration import TaskCategoryCollectionFactory
 
 

@@ -1,6 +1,6 @@
 import time
 
-from src.EntityMapping.entity_mappings import EntityMappings
+from src.EntityLinking.entity_linkings import EntityMappings
 from test.base_test_case import BaseTestCase
 
 

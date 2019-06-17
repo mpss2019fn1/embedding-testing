@@ -1,6 +1,6 @@
 import csv
 
-from src.EntityMapping.entity_mappings import EntityMappings
+from src.EntityLinking.entity_linkings import EntityMappings
 
 
 class EntityMappingsFactory:

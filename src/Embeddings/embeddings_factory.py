@@ -7,10 +7,8 @@ from src.Embeddings.embeddings import Embeddings
 
 class EmbeddingsFactory:
 
-    VALID_FILE_EXTENSION = ".kv"
-
     @staticmethod
-    def create_from_file(file: Path):
+    def create_from_file(file):
         if not file.exists() or not file.is_file():
             logging.error("Unable to locate embedding file")
             raise FileNotFoundError
@@ -24,7 +22,10 @@ class EmbeddingsFactory:
     @staticmethod
     def header_is_present(file: Path):
         with file.open() as f:
-            first_line = f.readline()
+            header_line = f.readline()
             f.seek(0)
 
-        return len(first_line.split(" ")) == 2 and first_line.replace(" ", "").replace("\n", "").isdigit()
+        has_two_columns = len(header_line.split(" ")) == 2
+        consists_only_of_digits = header_line.replace(" ", "").replace("\n", "").isdigit()
+
+        return has_two_columns and consists_only_of_digits

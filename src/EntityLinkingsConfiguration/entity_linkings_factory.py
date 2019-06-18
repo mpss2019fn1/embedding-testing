@@ -20,6 +20,6 @@ class EntityLinkingsFactory:
 
                 knowledgebase_id = row[EntityLinkingsFactory.COLUMN_INDEX_KNOWLEDGEBASE_ID]
                 embedding_tag = row[EntityLinkingsFactory.COLUMN_INDEX_EMBEDDING_LABEL]
-                entity_mappings.add(embedding_tag, knowledgebase_id)
+                entity_mappings.add(knowledgebase_id, embedding_tag)
 
             return entity_mappings

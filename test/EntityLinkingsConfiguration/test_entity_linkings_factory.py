@@ -13,6 +13,6 @@ class TestEntityLinkingsFactory(BaseTestCase):
 
         entity_linkings = EntityLinkingsFactory.create_from_file(file)
 
-        self.assertEqual(2, len(entity_linkings))
-        self.assertEqual(entity_linkings["wd:Q567"], "Angela_Merkel")
-        self.assertEqual(entity_linkings["wd:Q22686"], "Donald_Trump")
+        assert 2 == len(entity_linkings)
+        assert entity_linkings["wd:Q567"] == "Angela_Merkel"
+        assert entity_linkings["wd:Q22686"] == "Donald_Trump"

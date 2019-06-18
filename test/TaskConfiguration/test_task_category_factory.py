@@ -36,13 +36,13 @@ class TestTaskCategoryFactory(BaseTestCase):
                   file=file_output)
 
         categories = TaskCategoryFactory.create_categories_from_file(file)
-        self.assertEqual(1, len(categories))
+        assert 1 == len(categories)
 
         category = categories[0]
-        self.assertEqual("category_name_1", category.name)
-        self.assertTrue(category.enabled)
-        self.assertEqual(2, len(category.tasks))
-        self.assertEqual(1, len(categories))
+        assert "category_name_1" == category.name
+        assert category.enabled
+        assert 2 == len(category.tasks)
+        assert 1 == len(categories)
 
     def test_extract_enabled(self):
         assert TaskCategoryFactory._extract_enabled({"enabled": "true"})

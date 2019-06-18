@@ -1,6 +1,3 @@
-import uuid
-from pathlib import Path
-
 from src.TaskConfiguration import TaskCategoryCollectionFactory
 from test.base_test_case import BaseTestCase
 

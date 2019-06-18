@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from src.Embeddings.embeddings_factory import EmbeddingsFactory
+from src.Embedding.embeddings_factory import EmbeddingsFactory
 from src.EntityLinking.entity_linkings_factory import EntityLinkingsFactory
 from src.TaskConfiguration import TaskConfigurationFactory, TaskCategoryFactory
 from src.TestConfiguration.test_configuration import TestConfiguration

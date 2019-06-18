@@ -1,7 +1,7 @@
 import logging
 from gensim.models import KeyedVectors
 
-from src.Embeddings.embeddings import Embeddings
+from src.Embedding.embeddings import Embeddings
 
 
 class EmbeddingsFactory:

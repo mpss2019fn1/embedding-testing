@@ -1,6 +1,6 @@
 from typing import List
 
-from src.Embeddings.embeddings import Embeddings
+from src.Embedding.embeddings import Embeddings
 from src.EntityLinking.entity_linkings import EntityLinkings
 from src.Task import TaskType
 from src.TaskConfiguration import TaskCategory, TaskConfiguration

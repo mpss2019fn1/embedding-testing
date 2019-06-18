@@ -1,6 +1,6 @@
 import pytest
 
-from src.Embeddings.embeddings_factory import EmbeddingsFactory
+from src.Embedding.embeddings_factory import EmbeddingsFactory
 from test.base_test_case import BaseTestCase
 
 

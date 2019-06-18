@@ -1,6 +1,6 @@
 from typing import List
 
-from src.Embedding.embeddings import Embeddings
+from src.Embedding.embedding import Embedding
 from src.EntityLinking.entity_linkings import EntityLinkings
 from src.Task import TaskType
 from src.TaskConfiguration import TaskCategory, TaskConfiguration
@@ -8,7 +8,7 @@ from src.TaskConfiguration import TaskCategory, TaskConfiguration
 
 class TestConfiguration:
 
-    def __init__(self, embeddings: Embeddings, entity_linkings: EntityLinkings, categories: List[TaskCategory],
+    def __init__(self, embeddings: Embedding, entity_linkings: EntityLinkings, categories: List[TaskCategory],
                  task_configurations: List[TaskConfiguration]):
         self.embeddings = embeddings
         self.entity_linkings = entity_linkings

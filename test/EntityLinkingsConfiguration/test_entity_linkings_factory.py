@@ -11,7 +11,7 @@ class TestEntityLinkingsFactory(BaseTestCase):
                   "Angela_Merkel,Q567\n" +
                   "Donald_Trump,Q22686", file=file_output)
 
-        entity_linkings = EntityLinkingsFactory.create_from_configuration_file(file)
+        entity_linkings = EntityLinkingsFactory.create_from_file(file)
 
         self.assertEqual(2, len(entity_linkings))
         self.assertEqual(entity_linkings["Q567"], "Angela_Merkel")

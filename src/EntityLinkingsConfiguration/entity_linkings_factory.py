@@ -8,7 +8,7 @@ class EntityLinkingsFactory:
     COLUMN_INDEX_EMBEDDING_LABEL = 0
 
     @staticmethod
-    def create_from_configuration_file(configuration_file):
+    def create_from_file(configuration_file):
         with open(configuration_file, 'r') as csv_stream:
             csv_reader = csv.reader(csv_stream, delimiter=',')
             entity_mappings = EntityLinkings()

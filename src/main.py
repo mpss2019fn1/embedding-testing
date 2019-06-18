@@ -27,7 +27,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--embeddings",
         type=Path,
-        help=f"Path to the keyed vectors file ({EmbeddingsFactory.VALID_FILE_EXTENSION} file)",
+        help=f"Path to the embeddings file (word2vec format)",
         required=True
     )
     main(parser.parse_args())

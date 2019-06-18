@@ -24,4 +24,10 @@ if __name__ == "__main__":
         help="Path to the csv file containing knowledgebase to embedding tags entity mappings.",
         required=True
     )
+    parser.add_argument(
+        "--embeddings",
+        type=Path,
+        help="Path to the keyed vectors file (.kv file)",
+        required=True
+    )
     main(parser.parse_args())

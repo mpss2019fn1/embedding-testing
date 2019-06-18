@@ -13,8 +13,8 @@ class EntityLinkings:
     def __getitem__(self, item):
         return self._entity_mappings[item]
 
-    def __contains__(self, item):
-        return item in self._entity_mappings
+    def __contains__(self, knowledgebase_id):
+        return knowledgebase_id in self._entity_mappings
 
     def __len__(self):
         return len(self._entity_mappings)

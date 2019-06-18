@@ -8,11 +8,11 @@ class TestEntityLinkingsFactory(BaseTestCase):
         file = self._random_test_file()
         with open(file, "w+") as file_output:
             print(f"embedding_label,knowledgebase_id\n" +
-                  "Angela_Merkel,Q567\n" +
-                  "Donald_Trump,Q22686", file=file_output)
+                  "Angela_Merkel,wd:Q567\n" +
+                  "Donald_Trump,wd:Q22686", file=file_output)
 
         entity_linkings = EntityLinkingsFactory.create_from_file(file)
 
         self.assertEqual(2, len(entity_linkings))
-        self.assertEqual(entity_linkings["Q567"], "Angela_Merkel")
-        self.assertEqual(entity_linkings["Q22686"], "Donald_Trump")
+        self.assertEqual(entity_linkings["wd:Q567"], "Angela_Merkel")
+        self.assertEqual(entity_linkings["wd:Q22686"], "Donald_Trump")

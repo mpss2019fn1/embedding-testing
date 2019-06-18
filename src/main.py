@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 
+from src.Embeddings.embeddings_factory import EmbeddingsFactory
 from src.EntityLinkingsConfiguration.entity_linkings_factory import EntityLinkingsFactory
 from src.TaskConfiguration import TaskCategoryCollectionFactory
 
@@ -8,6 +9,7 @@ from src.TaskConfiguration import TaskCategoryCollectionFactory
 def main(args):
     test_configuration = TaskCategoryCollectionFactory.create_categories_from_file(args.test_set_config)
     entity_mappings = EntityLinkingsFactory.create_from_file(args.entity_mapping)
+    embeddings = EmbeddingsFactory.create_from_file(args.embeddings)
 
 
 if __name__ == "__main__":

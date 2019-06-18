@@ -1,5 +1,4 @@
 import logging
-from pathlib import Path
 from gensim.models import KeyedVectors
 
 from src.Embeddings.embeddings import Embeddings
@@ -20,7 +19,7 @@ class EmbeddingsFactory:
         return Embeddings(KeyedVectors.load_word2vec_format(str(file)))
 
     @staticmethod
-    def header_is_present(file: Path):
+    def header_is_present(file):
         with file.open() as f:
             header_line = f.readline()
             f.seek(0)

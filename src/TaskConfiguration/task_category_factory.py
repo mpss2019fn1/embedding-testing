@@ -1,12 +1,10 @@
 import logging
-
 import yaml
 
 from src.TaskConfiguration import TaskCategory
 
 
 class TaskCategoryFactory:
-
     LABEL_ROOT = "configuration"
     LABEL_CATEGORIES = "categories"
     LABEL_CATEGORY = "category"

@@ -1,10 +1,28 @@
 import logging
 
+import yaml
+
 
 class TaskConfigurationFactory:
 
+    LABEL_ROOT = "configuration"
+    LABEL_TASK_CONFIGURATIONS = "task_configurations"
+    LABEL_TASK_CONFIGURATION = "task_configuration"
     LABEL_TYPE = "type"
     LABEL_ENABLED = "enabled"
+
+    @staticmethod
+    def create_configurations_from_file(configuration_file):
+        with open(configuration_file, "r") as stream:
+            configuration = yaml.safe_load(stream)
+        configuration = configuration[TaskConfigurationFactory.LABEL_ROOT][
+            TaskConfigurationFactory.LABEL_TASK_CONFIGURATIONS]
+        task_configurations = []
+        for task_configuration in configuration:
+            task_configuration = task_configuration[TaskConfigurationFactory.LABEL_TASK_CONFIGURATION]
+            task_configurations.append(TaskConfigurationFactory.create_task_configuration(task_configuration))
+
+        return task_configurations
 
     @staticmethod
     def create_task_configuration(configuration):

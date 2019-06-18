@@ -1,4 +1,4 @@
-from src.EntityLinkingsConfiguration.entity_linkings_factory import EntityLinkingsFactory
+from src.EntityLinking.entity_linkings_factory import EntityLinkingsFactory
 from test.base_test_case import BaseTestCase
 
 

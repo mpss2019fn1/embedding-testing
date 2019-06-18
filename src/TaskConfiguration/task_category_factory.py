@@ -1,16 +1,30 @@
 import logging
+import yaml
 
 from src.TaskConfiguration import TaskCategory
 
 
 class TaskCategoryFactory:
-
+    LABEL_ROOT = "configuration"
+    LABEL_CATEGORIES = "categories"
+    LABEL_CATEGORY = "category"
     LABEL_NAME = "name"
     LABEL_ENABLED = "enabled"
     LABEL_TASKS = "tasks"
     LABEL_TASK = "task"
-    LABEL_CATEGORIES = "categories"
-    LABEL_CATEGORY = "category"
+
+    @staticmethod
+    def create_categories_from_file(configuration_file):
+        with open(configuration_file, 'r') as stream:
+            configuration = yaml.safe_load(stream)
+        configuration = configuration[TaskCategoryFactory.LABEL_ROOT][
+            TaskCategoryFactory.LABEL_CATEGORIES]
+        categories = []
+        for category in configuration:
+            category = category[TaskCategoryFactory.LABEL_CATEGORY]
+            categories.append(TaskCategoryFactory.create_category_from_configuration(category))
+
+        return categories
 
     @staticmethod
     def create_category_from_configuration(configuration):

@@ -7,5 +7,10 @@ class AnalogyTask(AbstractTask):
     def configuration_identifier(cls):
         return "analogy"
 
+    @classmethod
+    def task_type(cls):
+        from src.Task import TaskType
+        return TaskType.ANALOGY
+
     def run(self):
         pass

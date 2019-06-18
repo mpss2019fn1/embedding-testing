@@ -13,7 +13,8 @@ class TestTestConfiguration(unittest.TestCase):
             TaskConfiguration(TaskType.NEIGHBORHOOD, False)
         ]
 
+        # noinspection PyTypeChecker
         test_configuration = TestConfiguration(None, None, [], task_configuration)
 
-        self.assertTrue(test_configuration.is_enabled(TaskType.SIMILARITY))
-        self.assertFalse(test_configuration.is_enabled(TaskType.NEIGHBORHOOD))
+        assert test_configuration.is_enabled(TaskType.SIMILARITY)
+        assert not test_configuration.is_enabled(TaskType.NEIGHBORHOOD)

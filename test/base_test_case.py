@@ -4,7 +4,7 @@ import uuid
 from pathlib import Path
 
 
-class BaseTestCase(object):
+class BaseTestCase:
 
     def setup_method(self):
         self.test_dir = tempfile.mkdtemp()

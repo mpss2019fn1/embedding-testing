@@ -1,18 +1,17 @@
 import shutil
 import tempfile
-import unittest
 import uuid
 from pathlib import Path
 
 
-class BaseTestCase(unittest.TestCase):
+class BaseTestCase(object):
 
-    def setUp(self):
+    def setup_method(self):
         self.test_dir = tempfile.mkdtemp()
         self.empty_file = Path(self.test_dir, "empty-file")
         self.empty_file.open("w+").close()
 
-    def tearDown(self):
+    def teardown_method(self):
         shutil.rmtree(self.test_dir)
 
     def _random_test_file(self):

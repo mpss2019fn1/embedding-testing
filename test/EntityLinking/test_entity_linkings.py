@@ -14,7 +14,7 @@ class TestEntityMapping(unittest.TestCase):
 
     def test_add(self):
         entity_mapping = EntityLinkings()
-        entity_mapping.add("Angela_Merkel", "Q567")
+        entity_mapping.add("wd:Q567", "Angela_Merkel")
 
         self.assertTrue("Q567" in entity_mapping)
         self.assertEqual(1, len(entity_mapping))

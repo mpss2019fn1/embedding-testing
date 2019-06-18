@@ -1,11 +1,9 @@
-import unittest
-
 from src.Task import TaskType
 from src.TaskConfiguration import TaskConfiguration
 from src.TestConfiguration.test_configuration import TestConfiguration
 
 
-class TestTestConfiguration(unittest.TestCase):
+class TestTestConfiguration:
 
     def test_task_type_is_enabled(self):
         task_configuration = [

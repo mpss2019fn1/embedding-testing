@@ -21,19 +21,11 @@ class AnalogyTask(AbstractTask):
                 if indexA >= indexB:
                     continue
 
-                entity_a1 = linking[lineA[0]]
-                entity_a2 = linking[lineA[1]]
-                vector_a1 = embedding[entity_a1]
-                vector_a2 = embedding[entity_a2]
-                vector1 = vector_a2 - vector_a1
+                a = linking[lineA[0]]
+                b = linking[lineA[1]]
+                c = linking[lineB[0]]
+                d = linking[lineB[1]]
 
-                entity_b1 = linking[lineB[0]]
-                entity_b2 = linking[lineB[1]]
-                vector_b1 = embedding[entity_b1]
-                vector_b2 = embedding[entity_b2]
-                vector2 = vector_b2 - vector_b1
+                prediction = embedding.word_vectors.most_similar(positive=[c, a], negative=[b], topn=1)[0]
 
-                result = self.metric.compute(vector1, vector2)
-                is_similar = self.metric.is_better_than_noise(result, embedding)
-
-                yield CaseResult([(entity_a1, entity_a2), (entity_b1, entity_b2)], True, result, is_similar)
+                yield CaseResult([(a, b), (c, "?")], d, prediction, prediction[0] == d)

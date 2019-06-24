@@ -1,5 +1,5 @@
 configuration:
   task_configurations:
     - task_configuration:
-        type: similarity
+        type: analogy
         enabled: true

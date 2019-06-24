@@ -10,7 +10,7 @@ class TestEuclideanDistance:
 
         euclidean_distance = EuclideanDistance()
 
-        assert 0 == euclidean_distance.compute(vector1, vector2)
+        assert euclidean_distance.compute(vector1, vector2) == 0
 
     def test_calculation_not_identical(self):
         vector1 = [0, 1]
@@ -18,10 +18,10 @@ class TestEuclideanDistance:
 
         euclidean_distance = EuclideanDistance()
 
-        assert 9 == euclidean_distance.compute(vector1, vector2)
+        assert euclidean_distance.compute(vector1, vector2) == 9
 
     def test_configuration_identifier(self):
-        assert "euclidean" == EuclideanDistance.configuration_identifier()
+        assert EuclideanDistance.configuration_identifier() == "euclidean"
 
     def test_task_metric(self):
-        assert TaskMetric.EUCLIDEAN_DISTANCE == EuclideanDistance.task_metric()
+        assert EuclideanDistance.task_metric() == TaskMetric.EUCLIDEAN_DISTANCE

@@ -27,14 +27,14 @@ class TestAnalogyTask(BaseTestCase):
         task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals.csv"), CosineSimilarity())
         result = task.run(self._test_configuration)
 
-        assert 3 == len(result.case_results)
-        assert 100 == result.pass_rate()
-        assert 0 < result.execution_duration()
+        assert len(result.case_results) == 3
+        assert result.pass_rate() == 100
+        assert result.execution_duration() > 0
 
     def test_run_with_failing_tests(self):
         task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals_with_failures.csv"), CosineSimilarity())
         result = task.run(self._test_configuration)
 
-        assert 3 == len(result.case_results)
-        assert (1 / 3) * 100 == result.pass_rate()
-        assert 0 < result.execution_duration()
+        assert len(result.case_results) == 3
+        assert result.pass_rate() == (1 / 3) * 100
+        assert result.execution_duration() > 0

@@ -22,14 +22,14 @@ class TestTaskConfigurationFactory(BaseTestCase):
                   file=file_output)
 
         task_configurations = TaskConfigurationFactory.create_configurations_from_file(file)
-        assert 2 == len(task_configurations)
+        assert len(task_configurations) == 2
 
         config = task_configurations[0]
-        assert TaskType.ANALOGY == config.task_type
+        assert config.task_type == TaskType.ANALOGY
         assert config.enabled
 
         config = task_configurations[1]
-        assert TaskType.NEIGHBORHOOD == config.task_type
+        assert config.task_type == TaskType.NEIGHBORHOOD
         assert not config.enabled
 
     def test_extract_enabled(self):
@@ -57,5 +57,5 @@ class TestTaskConfigurationFactory(BaseTestCase):
 
         task_configuration = TaskConfigurationFactory.create_task_configuration(config)
 
-        assert TaskType.ANALOGY == task_configuration.task_type
+        assert task_configuration.task_type == TaskType.ANALOGY
         assert task_configuration.enabled

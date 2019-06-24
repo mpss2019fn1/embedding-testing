@@ -16,7 +16,7 @@ class TestEntityMapping:
         entity_mapping.add("wd:Q567", "Angela_Merkel")
 
         assert "wd:Q567" in entity_mapping
-        assert 1 == len(entity_mapping)
+        assert len(entity_mapping) == 1
 
     def test_fetching_mapping(self):
         entity_mapping = EntityLinkings()

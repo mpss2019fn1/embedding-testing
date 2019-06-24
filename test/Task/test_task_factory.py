@@ -9,7 +9,7 @@ class TestTaskFactory(BaseTestCase):
 
     def test_extract_name(self):
         config = {"name": "test_name"}
-        assert "test_name" == TaskFactory._extract_name(config)
+        assert TaskFactory._extract_name(config) == "test_name"
 
     def test_extract_name_with_missing_key_raises_exception(self):
         config = {"invalid_label": "test_name"}

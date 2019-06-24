@@ -2,16 +2,17 @@ from pathlib import Path
 
 import pytest
 
+from src.Metric.cosine_similarity import CosineSimilarity
 from src.Result.case_result import CaseResult
 from src.Result.task_result import TaskResult
-from src.Task import TaskMetric, SimilarityTask
+from src.Task import SimilarityTask
 
 
 class TestTaskResult:
 
     @staticmethod
     def _create_enabled_task_result():
-        task = SimilarityTask("SimilarityTask", Path(), TaskMetric.COSINE_SIMILARITY)
+        task = SimilarityTask("SimilarityTask", Path(), CosineSimilarity())
         task_result = TaskResult(task, True)
 
         case_result = CaseResult("Berlin", "Paris", "Paris", True)

@@ -27,15 +27,15 @@ class TestSimilarityTask(BaseTestCase):
         task = SimilarityTask("Politicians", Path(self.resource_directory, "politicians.csv"), CosineSimilarity())
         result = task.run(self._test_configuration)
 
-        assert 9 == len(result.case_results)
-        assert 100 == result.pass_rate()
-        assert 0 < result.execution_duration()
+        assert len(result.case_results) == 9
+        assert result.pass_rate() == 100
+        assert result.execution_duration() > 0
 
     def test_run_with_failing_tests(self):
         task = SimilarityTask("Politicians", Path(self.resource_directory, "politicians_with_failures.csv"),
                               CosineSimilarity())
         result = task.run(self._test_configuration)
 
-        assert 9 == len(result.case_results)
-        assert (7 / 9) * 100 == result.pass_rate()
-        assert 0 < result.execution_duration()
+        assert len(result.case_results) == 9
+        assert result.pass_rate() == (7 / 9) * 100
+        assert result.execution_duration() > 0

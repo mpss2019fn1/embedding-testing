@@ -7,8 +7,8 @@ from test.base_test_case import BaseTestCase
 class TestTaskMetric(BaseTestCase):
 
     def test_from_string(self):
-        assert TaskMetric.COSINE_SIMILARITY == TaskMetric.from_string("cosine")
-        assert TaskMetric.EUCLIDEAN_DISTANCE == TaskMetric.from_string("euclidean")
+        assert TaskMetric.from_string("cosine") == TaskMetric.COSINE_SIMILARITY
+        assert TaskMetric.from_string("euclidean") == TaskMetric.EUCLIDEAN_DISTANCE
 
     def test_from_string_with_invalid_input_raises_exception(self):
         with pytest.raises(KeyError):

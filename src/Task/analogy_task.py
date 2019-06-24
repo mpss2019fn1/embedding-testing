@@ -26,6 +26,6 @@ class AnalogyTask(AbstractTask):
                 c = linking[lineB[0]]
                 d = linking[lineB[1]]
 
-                prediction = embedding.word_vectors.most_similar(positive=[c, a], negative=[b], topn=1)[0]
+                prediction = embedding.word_vectors.most_similar(positive=[a, c], negative=[b], topn=1)[0]
 
                 yield CaseResult([(a, b), (c, "?")], d, prediction, prediction[0] == d)

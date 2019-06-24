@@ -3,7 +3,6 @@ from pathlib import Path
 from src.Embedding.embedding_factory import EmbeddingFactory
 from src.EntityLinking.entity_linkings_factory import EntityLinkingsFactory
 from src.Metric.cosine_similarity import CosineSimilarity
-from src.Metric.euclidean_distance import EuclideanDistance
 from src.Task import AnalogyTask
 from src.TaskConfiguration import TaskConfigurationFactory
 from src.TestConfiguration.test_configuration import TestConfiguration
@@ -24,7 +23,7 @@ class TestAnalogyTask(BaseTestCase):
         embedding = EmbeddingFactory.create_from_file(Path(self.resource_directory, "embedding"))
         return TestConfiguration(embedding, entity_linking, [], task_configs)
 
-    def test_run_cosine(self):
+    def test_run(self):
         task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals.csv"), CosineSimilarity())
         result = task.run(self._test_configuration)
 
@@ -32,24 +31,8 @@ class TestAnalogyTask(BaseTestCase):
         assert 100 == result.pass_rate()
         assert 0 < result.execution_duration()
 
-    def test_run_cosine_with_failing_tests(self):
+    def test_run_with_failing_tests(self):
         task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals_with_failures.csv"), CosineSimilarity())
-        result = task.run(self._test_configuration)
-
-        assert 3 == len(result.case_results)
-        assert (1 / 3) * 100 == result.pass_rate()
-        assert 0 < result.execution_duration()
-
-    def test_run_euclidean(self):
-        task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals.csv"), EuclideanDistance())
-        result = task.run(self._test_configuration)
-
-        assert 3 == len(result.case_results)
-        assert 100 == result.pass_rate()
-        assert 0 < result.execution_duration()
-
-    def test_run_euclidean_with_failing_tests(self):
-        task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals_with_failures.csv"), EuclideanDistance())
         result = task.run(self._test_configuration)
 
         assert 3 == len(result.case_results)

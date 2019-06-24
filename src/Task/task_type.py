@@ -15,7 +15,7 @@ class TaskType(Enum):
         for member in TaskType:
             if member.value.configuration_identifier() == task_type:
                 return member
-        logging.error(f"Unable to find TestTaskType {task_type}")
+        logging.error(f"Unable to find TaskType {task_type}")
         raise KeyError
 
     @classmethod

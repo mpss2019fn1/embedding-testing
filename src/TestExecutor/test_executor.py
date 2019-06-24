@@ -23,6 +23,5 @@ class TestExecutor:
             self.run_category(sub_category)
 
     def run_task(self, task: AbstractTask):
-        if not self._test_configuration.is_enabled(task.task_type()):
-            return
+        return task.run(self._test_configuration)
 

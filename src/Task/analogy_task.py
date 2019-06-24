@@ -3,6 +3,9 @@ from src.Task import AbstractTask
 
 class AnalogyTask(AbstractTask):
 
+    def _run(self):
+        pass
+
     @classmethod
     def configuration_identifier(cls):
         return "analogy"

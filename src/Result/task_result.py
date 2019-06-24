@@ -11,7 +11,7 @@ class TaskResult:
     def __init__(self, task: AbstractTask, enabled: bool):
         self.name = task.name
         self._task_type = task.__class__.configuration_identifier()
-        self._metric = task.metric.value
+        self._metric = task.metric
         self.enabled = enabled
         self.case_results = []
         self._started = time.time()
@@ -25,6 +25,7 @@ class TaskResult:
             raise Exception("TaskResult has already been finalized")
 
         self._ended = time.time()
+        return self
 
     def has_results(self):
         return self.enabled and self.case_results

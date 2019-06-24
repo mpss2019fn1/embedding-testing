@@ -15,7 +15,7 @@ class TaskFactory:
 
         name = TaskFactory._extract_name(configuration)
         task_class = TaskType.value_from_string(configuration[TaskFactory.LABEL_TYPE])
-        metric = TaskMetric.from_string(configuration[TaskFactory.LABEL_METRIC])
+        metric = TaskMetric.value_from_string(configuration[TaskFactory.LABEL_METRIC])
         test_set = TaskFactory._extract_test_set(configuration)
 
         return task_class(name, test_set, metric)

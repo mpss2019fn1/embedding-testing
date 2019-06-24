@@ -1,5 +1,7 @@
 import pytest
 
+from src.Metric.cosine_similarity import CosineSimilarity
+from src.Metric.euclidean_distance import EuclideanDistance
 from src.Task import AnalogyTask, TaskMetric, SimilarityTask
 from src.TaskConfiguration import TaskCategoryFactory
 from test.base_test_case import BaseTestCase
@@ -103,13 +105,13 @@ class TestTaskCategoryFactory(BaseTestCase):
         task = tasks[0]
         assert "task-name-1" == task.name
         assert AnalogyTask == task.__class__
-        assert TaskMetric.COSINE_SIMILARITY == task.metric
+        assert CosineSimilarity() == task.metric
         assert self.empty_file == task.test_set
 
         task = tasks[1]
         assert "task-name-2" == task.name
         assert SimilarityTask == task.__class__
-        assert TaskMetric.EUCLIDEAN_DISTANCE == task.metric
+        assert EuclideanDistance() == task.metric
         assert self.empty_file == task.test_set
 
     def test_extract_tasks_with_empty_list(self):

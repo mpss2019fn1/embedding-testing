@@ -1,5 +1,6 @@
 import pytest
 
+from src.Metric.cosine_similarity import CosineSimilarity
 from src.Task import TaskFactory, AnalogyTask, TaskMetric
 from test.base_test_case import BaseTestCase
 
@@ -35,5 +36,5 @@ class TestTaskFactory(BaseTestCase):
         task = TaskFactory.create_task_from_configuration(config)
         assert "task-name" == task.name
         assert AnalogyTask == task.__class__
-        assert TaskMetric.COSINE_SIMILARITY == task.metric
+        assert CosineSimilarity() == task.metric
         assert self.empty_file == task.test_set

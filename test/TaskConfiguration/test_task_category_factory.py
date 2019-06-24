@@ -2,7 +2,7 @@ import pytest
 
 from src.Metric.cosine_similarity import CosineSimilarity
 from src.Metric.euclidean_distance import EuclideanDistance
-from src.Task import AnalogyTask, TaskMetric, SimilarityTask
+from src.Task import AnalogyTask, SimilarityTask
 from src.TaskConfiguration import TaskCategoryFactory
 from test.base_test_case import BaseTestCase
 

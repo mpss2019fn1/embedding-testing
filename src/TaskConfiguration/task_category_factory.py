@@ -1,4 +1,5 @@
 import logging
+
 import yaml
 
 from src.TaskConfiguration import TaskCategory

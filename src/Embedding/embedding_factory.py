@@ -1,4 +1,5 @@
 import logging
+
 from gensim.models import KeyedVectors
 
 from src.Embedding.embedding import Embedding

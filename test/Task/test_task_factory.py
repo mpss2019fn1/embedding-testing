@@ -1,7 +1,7 @@
 import pytest
 
 from src.Metric.cosine_similarity import CosineSimilarity
-from src.Task import TaskFactory, AnalogyTask, TaskMetric
+from src.Task import TaskFactory, AnalogyTask
 from test.base_test_case import BaseTestCase
 
 

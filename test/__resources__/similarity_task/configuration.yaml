@@ -1,0 +1,17 @@
+configuration:
+  task_configurations:
+    - task_configuration:
+        type: similarity
+        enabled: true
+
+  categories:
+    - category:
+        name: Living People
+        enabled: true
+        tasks:
+          - task:
+              name: Politicians
+              type: similarity
+              metric: cosine
+              test_set: ./politicians.csv
+        categories:

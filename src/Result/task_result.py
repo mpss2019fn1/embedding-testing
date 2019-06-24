@@ -5,13 +5,13 @@ from src.Task import AbstractTask
 
 
 class TaskResult:
-
     TYPE_PREFIX = ":"
+    METRIC_PREFIX = "〉"
 
     def __init__(self, task: AbstractTask, enabled: bool):
         self.name = task.name
         self._task_type = task.__class__.configuration_identifier()
-        self._metric = task.metric
+        self._metric = task.metric.__class__.configuration_identifier()
         self.enabled = enabled
         self.case_results = []
         self._started = time.time()
@@ -49,7 +49,7 @@ class TaskResult:
         return self.__str__()
 
     def __str__(self):
-        representation = f"{self.name} {TaskResult.TYPE_PREFIX} {self._task_type}"
+        representation = f"{self.name} {TaskResult.TYPE_PREFIX} {self._task_type} {TaskResult.METRIC_PREFIX} {self._metric}"
 
         if not self.has_results():
             return representation

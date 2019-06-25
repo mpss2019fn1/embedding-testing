@@ -1,5 +1,5 @@
 from src.Metric.euclidean_distance import EuclideanDistance
-from src.Task import TaskMetric
+from src.Task.task_metric import TaskMetric
 
 
 class TestEuclideanDistance:

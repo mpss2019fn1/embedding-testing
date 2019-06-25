@@ -3,7 +3,7 @@ import time
 from src.EntityLinking.entity_linkings import EntityLinkings
 
 
-class TestEntityMapping:
+class TestEntityLinking:
 
     def test_initialization(self):
         entity_mapping = EntityLinkings()

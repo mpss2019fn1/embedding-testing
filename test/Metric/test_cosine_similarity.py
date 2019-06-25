@@ -1,5 +1,5 @@
 from src.Metric.cosine_similarity import CosineSimilarity
-from src.Task import TaskMetric
+from src.Task.task_metric import TaskMetric
 
 
 class TestCosineSimilarity:

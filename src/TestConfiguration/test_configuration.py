@@ -2,8 +2,9 @@ from typing import List
 
 from src.Embedding.embedding import Embedding
 from src.EntityLinking.entity_linkings import EntityLinkings
-from src.Task import TaskType
-from src.TaskConfiguration import TaskCategory, TaskConfiguration
+from src.Task.task_type import TaskType
+from src.TaskConfiguration.task_category import TaskCategory
+from src.TaskConfiguration.task_configuration import TaskConfiguration
 
 
 class TestConfiguration:

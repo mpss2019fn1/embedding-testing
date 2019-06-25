@@ -1,4 +1,4 @@
-from src.EntityLinking.entity_linkings_factory import EntityLinkingsFactory
+from src.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
 from test.base_test_case import BaseTestCase
 
 
@@ -11,7 +11,7 @@ class TestEntityLinkingsFactory(BaseTestCase):
                   "Angela_Merkel,wd:Q567\n" +
                   "Donald_Trump,wd:Q22686", file=file_output)
 
-        entity_linkings = EntityLinkingsFactory.create_from_file(file)
+        entity_linkings = EntityLinkingFileParser.create_from_file(file)
 
         assert 2 == len(entity_linkings)
         assert entity_linkings["wd:Q567"] == "Angela_Merkel"

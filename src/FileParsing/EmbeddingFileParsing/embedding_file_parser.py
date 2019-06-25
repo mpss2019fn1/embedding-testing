@@ -3,9 +3,10 @@ import logging
 from gensim.models import KeyedVectors
 
 from src.Embedding.embedding import Embedding
+from src.FileParsing.abstract_file_parser import AbstractFileParser
 
 
-class EmbeddingFactory:
+class EmbeddingFileParser(AbstractFileParser):
 
     @staticmethod
     def create_from_file(file):
@@ -13,7 +14,7 @@ class EmbeddingFactory:
             logging.error("Unable to locate embedding file")
             raise FileNotFoundError
 
-        if not EmbeddingFactory.header_is_present(file):
+        if not EmbeddingFileParser.header_is_present(file):
             logging.error("Provided file does not contain valid header")
             raise AttributeError
 

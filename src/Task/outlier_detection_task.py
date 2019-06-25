@@ -1,4 +1,4 @@
-from src.Task import AbstractTask
+from src.Task.abstract_task import AbstractTask
 
 
 class OutlierDetectionTask(AbstractTask):
@@ -9,8 +9,8 @@ class OutlierDetectionTask(AbstractTask):
 
     @classmethod
     def task_type(cls):
-        from src.Task import TaskType
+        from src.Task.task_type import TaskType
         return TaskType.OUTLIER_DETECTION
 
-    def run(self):
+    def _run(self):
         pass

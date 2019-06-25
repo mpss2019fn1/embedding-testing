@@ -11,7 +11,7 @@ class CosineSimilarity(AbstractMetric):
 
     @classmethod
     def task_metric(cls):
-        from src.Task import TaskMetric
+        from src.Task.task_metric import TaskMetric
         return TaskMetric.COSINE_SIMILARITY
 
     def compute(self, vector1, vector2):

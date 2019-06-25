@@ -1,7 +1,7 @@
 import time
 
 from src.Result.case_result import CaseResult
-from src.Task import AbstractTask
+from src.Task.abstract_task import AbstractTask
 
 
 class TaskResult:

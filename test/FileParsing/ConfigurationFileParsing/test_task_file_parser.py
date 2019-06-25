@@ -3,7 +3,7 @@ import uuid
 
 from src.FileParsing.ConfigurationFileParsing.task_file_parser import TaskFileParser
 from src.Metric.cosine_similarity import CosineSimilarity
-from src.Task.analogy_task import AnalogyTask
+from src.Task.Analogy.analogy_task import AnalogyTask
 from test.base_test_case import BaseTestCase
 
 

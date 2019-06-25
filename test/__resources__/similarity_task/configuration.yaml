@@ -1,5 +1,8 @@
 configuration:
   task_configurations:
     - task_configuration:
-        type: similarity
+        type: cosine_similarity
+        enabled: true
+    - task_configuration:
+        type: euclidean_similarity
         enabled: true

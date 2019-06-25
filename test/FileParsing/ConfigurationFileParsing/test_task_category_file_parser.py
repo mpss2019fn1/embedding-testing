@@ -1,8 +1,6 @@
 from src.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
-from src.Metric.cosine_similarity import CosineSimilarity
-from src.Metric.euclidean_distance import EuclideanDistance
-from src.Task.analogy_task import AnalogyTask
-from src.Task.similarity_task import SimilarityTask
+from src.Task.Analogy.analogy_task import AnalogyTask
+from src.Task.Similarity.cosine_similarity_task import CosineSimilarityTask
 from test.base_test_case import BaseTestCase
 
 
@@ -21,12 +19,10 @@ class TestTaskCategoryFactory(BaseTestCase):
                             - task:
                                 name: task_name_1
                                 type: analogy
-                                metric: cosine
                                 test_set: {self.empty_file.absolute()}
                             - task:
                                 name: task_name_2
-                                type: similarity
-                                metric: euclidean
+                                type: cosine_similarity
                                 test_set: {self.empty_file.absolute()}
                         categories:
                             - category:
@@ -48,13 +44,11 @@ class TestTaskCategoryFactory(BaseTestCase):
         task = category.tasks[0]
         assert task.name == "task_name_1"
         assert task.__class__ == AnalogyTask
-        assert task.metric == CosineSimilarity()
         assert task.test_set == self.empty_file
 
         task = category.tasks[1]
         assert task.name == "task_name_2"
-        assert task.__class__ == SimilarityTask
-        assert task.metric == EuclideanDistance()
+        assert task.__class__ == CosineSimilarityTask
         assert task.test_set == self.empty_file
 
         subcategory = category.categories[0]

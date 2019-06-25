@@ -1,17 +1,22 @@
+from src.Metric.euclidean_distance import EuclideanDistance
 from src.Result.case_result import CaseResult
 from src.Task.abstract_task import AbstractTask
 
 
-class SimilarityTask(AbstractTask):
+class EuclideanSimilarityTask(AbstractTask):
+
+    def __init__(self, name, test_set):
+        super(EuclideanSimilarityTask, self).__init__(name, test_set)
+        self.metric = EuclideanDistance()
 
     @classmethod
     def configuration_identifier(cls):
-        return "similarity"
+        return "euclidean_similarity"
 
     @classmethod
     def task_type(cls):
         from src.Task.task_type import TaskType
-        return TaskType.SIMILARITY
+        return TaskType.EUCLIDEAN_SIMILARITY
 
     def _run(self):
         embedding = self._test_configuration.embedding
@@ -26,4 +31,7 @@ class SimilarityTask(AbstractTask):
             result = self.metric.compute(vector1, vector2)
             is_similar = self.metric.is_better_than_noise(result, embedding)
 
-            yield CaseResult([entity1, entity2], is_expected_similar, result, is_similar == is_expected_similar)
+            expected_result = " < " if is_expected_similar else " >= "
+            expected_result += str(embedding.squared_euclidean_noise)
+
+            yield CaseResult([entity1, entity2], expected_result, result, is_similar == is_expected_similar)

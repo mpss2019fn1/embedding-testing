@@ -1,5 +1,4 @@
 from src.Metric.euclidean_distance import EuclideanDistance
-from src.Task.task_metric import TaskMetric
 
 
 class TestEuclideanDistance:
@@ -19,9 +18,3 @@ class TestEuclideanDistance:
         euclidean_distance = EuclideanDistance()
 
         assert euclidean_distance.compute(vector1, vector2) == 9
-
-    def test_configuration_identifier(self):
-        assert EuclideanDistance.configuration_identifier() == "euclidean"
-
-    def test_task_metric(self):
-        assert EuclideanDistance.task_metric() == TaskMetric.EUCLIDEAN_DISTANCE

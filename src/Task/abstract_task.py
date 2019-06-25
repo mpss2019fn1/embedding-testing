@@ -14,10 +14,9 @@ class AbstractTask(ABC):
     def task_type(cls):
         raise NotImplementedError
 
-    def __init__(self, name, test_set, metric):
+    def __init__(self, name, test_set):
         self.name = name
         self.test_set = test_set
-        self.metric = metric
         self._test_configuration = None
 
     def run(self, test_configuration):

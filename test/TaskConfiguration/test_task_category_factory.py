@@ -1,6 +1,8 @@
 import pytest
 
-from src.Task import AnalogyTask, TaskMetric, SimilarityTask
+from src.Metric.cosine_similarity import CosineSimilarity
+from src.Metric.euclidean_distance import EuclideanDistance
+from src.Task import AnalogyTask, SimilarityTask
 from src.TaskConfiguration import TaskCategoryFactory
 from test.base_test_case import BaseTestCase
 
@@ -36,13 +38,13 @@ class TestTaskCategoryFactory(BaseTestCase):
                   file=file_output)
 
         categories = TaskCategoryFactory.create_categories_from_file(file)
-        assert 1 == len(categories)
+        assert len(categories) == 1
 
         category = categories[0]
-        assert "category_name_1" == category.name
+        assert category.name == "category_name_1"
         assert category.enabled
-        assert 2 == len(category.tasks)
-        assert 1 == len(categories)
+        assert len(category.tasks) == 2
+        assert len(categories) == 1
 
     def test_extract_enabled(self):
         assert TaskCategoryFactory._extract_enabled({"enabled": "true"})
@@ -63,7 +65,7 @@ class TestTaskCategoryFactory(BaseTestCase):
 
     def test_extract_name(self):
         config = {"name": "test-name"}
-        assert "test-name" == TaskCategoryFactory._extract_name(config)
+        assert TaskCategoryFactory._extract_name(config) == "test-name"
 
     def test_extract_name_with_missing_key_raises_exception(self):
         config = {"invalid_key", "test-name"}
@@ -98,19 +100,19 @@ class TestTaskCategoryFactory(BaseTestCase):
         }
 
         tasks = TaskCategoryFactory._extract_tasks(config)
-        assert 2 == len(tasks)
+        assert len(tasks) == 2
 
         task = tasks[0]
-        assert "task-name-1" == task.name
-        assert AnalogyTask == task.__class__
-        assert TaskMetric.COSINE_SIMILARITY == task.metric
-        assert self.empty_file == task.test_set
+        assert task.name == "task-name-1"
+        assert task.__class__ == AnalogyTask
+        assert task.metric == CosineSimilarity()
+        assert task.test_set == self.empty_file
 
         task = tasks[1]
-        assert "task-name-2" == task.name
-        assert SimilarityTask == task.__class__
-        assert TaskMetric.EUCLIDEAN_DISTANCE == task.metric
-        assert self.empty_file == task.test_set
+        assert task.name == "task-name-2"
+        assert task.__class__ == SimilarityTask
+        assert task.metric == EuclideanDistance()
+        assert task.test_set == self.empty_file
 
     def test_extract_tasks_with_empty_list(self):
         config = {
@@ -118,4 +120,4 @@ class TestTaskCategoryFactory(BaseTestCase):
         }
 
         tasks = TaskCategoryFactory._extract_tasks(config)
-        assert 0 == len(tasks)
+        assert len(tasks) == 0

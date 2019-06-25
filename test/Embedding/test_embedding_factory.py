@@ -1,10 +1,10 @@
 import pytest
 
-from src.Embeddings.embeddings_factory import EmbeddingsFactory
+from src.Embedding.embedding_factory import EmbeddingFactory
 from test.base_test_case import BaseTestCase
 
 
-class TestEmbeddingsFactory(BaseTestCase):
+class TestEmbeddingFactory(BaseTestCase):
 
     def test_create_embeddings_from_file(self):
         file = self._random_test_file()
@@ -12,7 +12,7 @@ class TestEmbeddingsFactory(BaseTestCase):
             print("1 3\n" +
                   "word -0.0762464299711 0.0128308048976 0.0712385589283", file=file_output)
 
-        entity_linkings = EmbeddingsFactory.create_from_file(file)
+        entity_linkings = EmbeddingFactory.create_from_file(file)
 
         assert entity_linkings["word"] is not None
 
@@ -22,4 +22,4 @@ class TestEmbeddingsFactory(BaseTestCase):
             print("word -0.0762464299711 0.0128308048976 0.0712385589283", file=file_output)
 
         with pytest.raises(AttributeError):
-            EmbeddingsFactory.create_from_file(file)
+            EmbeddingFactory.create_from_file(file)

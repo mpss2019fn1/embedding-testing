@@ -1,10 +1,11 @@
 import logging
+
 from gensim.models import KeyedVectors
 
-from src.Embeddings.embeddings import Embeddings
+from src.Embedding.embedding import Embedding
 
 
-class EmbeddingsFactory:
+class EmbeddingFactory:
 
     @staticmethod
     def create_from_file(file):
@@ -12,11 +13,11 @@ class EmbeddingsFactory:
             logging.error("Unable to locate embedding file")
             raise FileNotFoundError
 
-        if not EmbeddingsFactory.header_is_present(file):
+        if not EmbeddingFactory.header_is_present(file):
             logging.error("Provided file does not contain valid header")
             raise AttributeError
 
-        return Embeddings(KeyedVectors.load_word2vec_format(str(file)))
+        return Embedding(KeyedVectors.load_word2vec_format(str(file)))
 
     @staticmethod
     def header_is_present(file):

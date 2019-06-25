@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from src.Embeddings.embeddings_factory import EmbeddingsFactory
+from src.Embedding.embedding_factory import EmbeddingFactory
 from src.EntityLinking.entity_linkings_factory import EntityLinkingsFactory
 from src.TaskConfiguration import TaskConfigurationFactory, TaskCategoryFactory
 from src.TestConfiguration.test_configuration import TestConfiguration
@@ -11,7 +11,7 @@ def main(args):
     categories = TaskCategoryFactory.create_categories_from_file(args.test_set_config)
     task_configurations = TaskConfigurationFactory.create_configurations_from_file(args.test_set_config)
     entity_linkings = EntityLinkingsFactory.create_from_file(args.entity_mapping)
-    embeddings = EmbeddingsFactory.create_from_file(args.embeddings)
+    embeddings = EmbeddingFactory.create_from_file(args.embeddings)
 
     test_configuration = TestConfiguration(embeddings, entity_linkings, categories, task_configurations)
 

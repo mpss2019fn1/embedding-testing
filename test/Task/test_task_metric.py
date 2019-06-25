@@ -1,6 +1,6 @@
 import pytest
 
-from src.Task import TaskMetric
+from src.Task.task_metric import TaskMetric
 from test.base_test_case import BaseTestCase
 
 

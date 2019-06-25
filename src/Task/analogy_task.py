@@ -1,5 +1,5 @@
 from src.Result.case_result import CaseResult
-from src.Task import AbstractTask
+from src.Task.abstract_task import AbstractTask
 
 
 class AnalogyTask(AbstractTask):
@@ -10,7 +10,7 @@ class AnalogyTask(AbstractTask):
 
     @classmethod
     def task_type(cls):
-        from src.Task import TaskType
+        from src.Task.task_type import TaskType
         return TaskType.ANALOGY
 
     def _run(self):

@@ -15,30 +15,33 @@ class TaskConfigurationFileParser(AbstractFileParser):
 
     @staticmethod
     def create_configurations_from_file(configuration_file):
-        with open(configuration_file, "r") as stream:
+        return TaskConfigurationFileParser(configuration_file).create_configurations()
+
+    def create_configurations(self):
+        with open(self._file_path, "r") as stream:
             configuration = yaml.safe_load(stream)
-        configuration = configuration[TaskConfigurationFileParser.LABEL_ROOT][
-            TaskConfigurationFileParser.LABEL_TASK_CONFIGURATIONS]
+        configuration = configuration[self.LABEL_ROOT][self.LABEL_TASK_CONFIGURATIONS]
         task_configurations = []
+
+        if not configuration:
+            return task_configurations
+
         for task_configuration in configuration:
-            task_configuration = task_configuration[TaskConfigurationFileParser.LABEL_TASK_CONFIGURATION]
-            task_configurations.append(TaskConfigurationFileParser.create_task_configuration(task_configuration))
+            task_configuration = task_configuration[self.LABEL_TASK_CONFIGURATION]
+            task_configurations.append(self._create_task_configuration(task_configuration))
 
         return task_configurations
 
-    @staticmethod
-    def create_task_configuration(configuration):
-        from src.Task import TaskType
-        from src.TaskConfiguration import TaskConfiguration
-
-        task_type = TaskType.from_string(configuration[TaskConfigurationFileParser.LABEL_TYPE])
-        enabled = TaskConfigurationFileParser._extract_enabled(configuration)
+    def _create_task_configuration(self, configuration):
+        from src.Task.task_type import TaskType
+        from src.TaskConfiguration.task_configuration import TaskConfiguration
+        task_type = TaskType.from_string(configuration[self.LABEL_TYPE])
+        enabled = self._extract_enabled(configuration)
 
         return TaskConfiguration(task_type, enabled)
 
-    @staticmethod
-    def _extract_enabled(configuration):
-        enabled = str(configuration[TaskConfigurationFileParser.LABEL_ENABLED]).lower()
+    def _extract_enabled(self, configuration):
+        enabled = str(configuration[self.LABEL_ENABLED]).lower()
 
         if enabled not in ["true", "false"]:
             logging.error("The provided boolean value for enabled are not valid")

@@ -1,7 +1,10 @@
 import logging
 from enum import Enum
 
-from src.Task import AnalogyTask, NeighborhoodTask, OutlierDetectionTask, SimilarityTask
+from src.Task.analogy_task import AnalogyTask
+from src.Task.neighborhood_task import NeighborhoodTask
+from src.Task.outlier_detection_task import OutlierDetectionTask
+from src.Task.similarity_task import SimilarityTask
 
 
 class TaskType(Enum):

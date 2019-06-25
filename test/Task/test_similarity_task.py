@@ -1,10 +1,10 @@
 from pathlib import Path
 
+from src.FileParsing.ConfigurationFileParsing.task_configuration_file_parser import TaskConfigurationFileParser
 from src.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
 from src.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
 from src.Metric.cosine_similarity import CosineSimilarity
-from src.Task import SimilarityTask
-from src.TaskConfiguration import TaskConfigurationFileParser
+from src.Task.similarity_task import SimilarityTask
 from src.TestConfiguration.test_configuration import TestConfiguration
 from test.base_test_case import BaseTestCase
 

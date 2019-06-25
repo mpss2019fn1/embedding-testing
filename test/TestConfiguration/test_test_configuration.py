@@ -1,5 +1,5 @@
-from src.Task import TaskType
-from src.TaskConfiguration import TaskConfiguration
+from src.Task.task_type import TaskType
+from src.TaskConfiguration.task_configuration import TaskConfiguration
 from src.TestConfiguration.test_configuration import TestConfiguration
 
 

@@ -1,7 +1,10 @@
 import pytest
 
-from src.Task import AnalogyTask, NeighborhoodTask, OutlierDetectionTask, SimilarityTask
-from src.Task import TaskType
+from src.Task.analogy_task import AnalogyTask
+from src.Task.neighborhood_task import NeighborhoodTask
+from src.Task.outlier_detection_task import OutlierDetectionTask
+from src.Task.similarity_task import SimilarityTask
+from src.Task.task_type import TaskType
 from test.base_test_case import BaseTestCase
 
 

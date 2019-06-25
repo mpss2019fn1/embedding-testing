@@ -5,7 +5,7 @@ import pytest
 from src.Metric.cosine_similarity import CosineSimilarity
 from src.Result.case_result import CaseResult
 from src.Result.task_result import TaskResult
-from src.Task import SimilarityTask
+from src.Task.similarity_task import SimilarityTask
 
 
 class TestTaskResult:
@@ -55,4 +55,3 @@ class TestTaskResult:
         task_result.finalize()
 
         assert len(str(task_result).split("\n")) == 3
-

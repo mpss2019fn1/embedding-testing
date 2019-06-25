@@ -3,7 +3,7 @@ import pytest
 from src.Metric.cosine_similarity import CosineSimilarity
 from src.Metric.euclidean_distance import EuclideanDistance
 from src.Task import AnalogyTask, SimilarityTask
-from src.TaskConfiguration import TaskCategoryFactory
+from src.TaskConfiguration import CategoryFileParser
 from test.base_test_case import BaseTestCase
 
 
@@ -37,7 +37,7 @@ class TestTaskCategoryFactory(BaseTestCase):
                                 categories:""",
                   file=file_output)
 
-        categories = TaskCategoryFactory.create_categories_from_file(file)
+        categories = CategoryFileParser.create_categories_from_file(file)
         assert len(categories) == 1
 
         category = categories[0]
@@ -47,35 +47,35 @@ class TestTaskCategoryFactory(BaseTestCase):
         assert len(categories) == 1
 
     def test_extract_enabled(self):
-        assert TaskCategoryFactory._extract_enabled({"enabled": "true"})
-        assert TaskCategoryFactory._extract_enabled({"enabled": "TRUE"})
+        assert CategoryFileParser._extract_enabled({"enabled": "true"})
+        assert CategoryFileParser._extract_enabled({"enabled": "TRUE"})
 
-        assert not TaskCategoryFactory._extract_enabled({"enabled": "false"})
-        assert not TaskCategoryFactory._extract_enabled({"enabled": "FALSE"})
+        assert not CategoryFileParser._extract_enabled({"enabled": "false"})
+        assert not CategoryFileParser._extract_enabled({"enabled": "FALSE"})
 
     def test_extract_enabled_with_missing_key_raises_exception(self):
         config = {"invalid_key": "true"}
         with pytest.raises(KeyError):
-            TaskCategoryFactory._extract_enabled(config)
+            CategoryFileParser._extract_enabled(config)
 
     def test_extract_enabled_with_invalid_value_raises_exception(self):
         config = {"enabled": "not-a-boolean"}
         with pytest.raises(KeyError):
-            TaskCategoryFactory._extract_enabled(config)
+            CategoryFileParser._extract_enabled(config)
 
     def test_extract_name(self):
         config = {"name": "test-name"}
-        assert TaskCategoryFactory._extract_name(config) == "test-name"
+        assert CategoryFileParser._extract_name(config) == "test-name"
 
     def test_extract_name_with_missing_key_raises_exception(self):
         config = {"invalid_key", "test-name"}
         with pytest.raises(KeyError):
-            TaskCategoryFactory._extract_name(config)
+            CategoryFileParser._extract_name(config)
 
     def test_extract_name_with_empty_value_raises_exception(self):
         config = {"name": ""}
         with pytest.raises(KeyError):
-            TaskCategoryFactory._extract_name(config)
+            CategoryFileParser._extract_name(config)
 
     def test_extract_tasks(self):
         config = {
@@ -99,7 +99,7 @@ class TestTaskCategoryFactory(BaseTestCase):
             ]
         }
 
-        tasks = TaskCategoryFactory._extract_tasks(config)
+        tasks = CategoryFileParser._extract_tasks(config)
         assert len(tasks) == 2
 
         task = tasks[0]
@@ -119,5 +119,5 @@ class TestTaskCategoryFactory(BaseTestCase):
             "tasks": None
         }
 
-        tasks = TaskCategoryFactory._extract_tasks(config)
+        tasks = CategoryFileParser._extract_tasks(config)
         assert len(tasks) == 0

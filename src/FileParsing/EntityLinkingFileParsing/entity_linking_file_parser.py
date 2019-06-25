@@ -1,9 +1,10 @@
 import csv
 
 from src.EntityLinking.entity_linkings import EntityLinkings
+from src.FileParsing.abstract_file_parser import AbstractFileParser
 
 
-class EntityLinkingsFactory:
+class EntityLinkingFileParser(AbstractFileParser):
     COLUMN_INDEX_KNOWLEDGEBASE_ID = 1
     COLUMN_INDEX_EMBEDDING_LABEL = 0
 
@@ -18,8 +19,8 @@ class EntityLinkingsFactory:
                 if not row:
                     continue
 
-                knowledgebase_id = row[EntityLinkingsFactory.COLUMN_INDEX_KNOWLEDGEBASE_ID]
-                embedding_tag = row[EntityLinkingsFactory.COLUMN_INDEX_EMBEDDING_LABEL]
+                knowledgebase_id = row[EntityLinkingFileParser.COLUMN_INDEX_KNOWLEDGEBASE_ID]
+                embedding_tag = row[EntityLinkingFileParser.COLUMN_INDEX_EMBEDDING_LABEL]
                 entity_mappings.add(knowledgebase_id, embedding_tag)
 
             return entity_mappings

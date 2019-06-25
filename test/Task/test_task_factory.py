@@ -1,7 +1,7 @@
 import pytest
 
 from src.Metric.cosine_similarity import CosineSimilarity
-from src.Task import TaskFactory, AnalogyTask
+from src.Task import TaskFileParser, AnalogyTask
 from test.base_test_case import BaseTestCase
 
 
@@ -9,21 +9,21 @@ class TestTaskFactory(BaseTestCase):
 
     def test_extract_name(self):
         config = {"name": "test_name"}
-        assert TaskFactory._extract_name(config) == "test_name"
+        assert TaskFileParser._extract_name(config) == "test_name"
 
     def test_extract_name_with_missing_key_raises_exception(self):
         config = {"invalid_label": "test_name"}
         with pytest.raises(KeyError):
-            TaskFactory._extract_name(config)
+            TaskFileParser._extract_name(config)
 
     def test_extract_test_set(self):
         config = {"test_set": str(self.empty_file.absolute())}
-        assert self.empty_file == TaskFactory._extract_test_set(config)
+        assert self.empty_file == TaskFileParser._extract_test_set(config)
 
     def test_extract_test_set_with_non_existing_file_raises_exception(self):
         config = {"test_set": "./non-existing-test-set.csv"}
         with pytest.raises(KeyError):
-            TaskFactory._extract_test_set(config)
+            TaskFileParser._extract_test_set(config)
 
     def test_create_task_from_configuration(self):
         config = {
@@ -33,7 +33,7 @@ class TestTaskFactory(BaseTestCase):
             "test_set": str(self.empty_file.absolute())
         }
 
-        task = TaskFactory.create_task_from_configuration(config)
+        task = TaskFileParser.create_task_from_configuration(config)
         assert "task-name" == task.name
         assert AnalogyTask == task.__class__
         assert CosineSimilarity() == task.metric

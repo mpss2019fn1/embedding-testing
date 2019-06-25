@@ -8,6 +8,10 @@ class AbstractMetric(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def batch_compute(self, vectors):
+        raise NotImplementedError
+
+    @abstractmethod
     def is_better_than_noise(self, result, embedding):
         raise NotImplementedError
 

@@ -20,7 +20,7 @@ class EuclideanSimilarityTask(AbstractTask):
 
     def _run(self):
         embedding = self._test_configuration.embedding
-        linking = self._test_configuration.entity_linkings
+        linking = self._test_configuration.entity_linking
         for line in self._test_set_lines():
             entity1 = linking[line[0]]
             entity2 = linking[line[1]]

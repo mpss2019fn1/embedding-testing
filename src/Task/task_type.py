@@ -2,7 +2,8 @@ import logging
 from enum import Enum
 
 from src.Task.Analogy.analogy_task import AnalogyTask
-from src.Task.Neighborhood.neighborhood_task import NeighborhoodTask
+from src.Task.Neighborhood.cosine_neighborhood_task import CosineNeighborhoodTask
+from src.Task.Neighborhood.euclidean_neighborhood_task import EuclideanNeighborhoodTask
 from src.Task.OutlierDetection.outlier_detection_task import OutlierDetectionTask
 from src.Task.Similarity.cosine_similarity_task import CosineSimilarityTask
 from src.Task.Similarity.euclidean_similarity_task import EuclideanSimilarityTask
@@ -10,7 +11,8 @@ from src.Task.Similarity.euclidean_similarity_task import EuclideanSimilarityTas
 
 class TaskType(Enum):
     ANALOGY = AnalogyTask
-    NEIGHBORHOOD = NeighborhoodTask
+    COSINE_NEIGHBORHOOD = CosineNeighborhoodTask
+    EUCLIDEAN_NEIGHBORHOOD = EuclideanNeighborhoodTask
     OUTLIER_DETECTION = OutlierDetectionTask
     COSINE_SIMILARITY = CosineSimilarityTask
     EUCLIDEAN_SIMILARITY = EuclideanSimilarityTask

@@ -1,0 +1,8 @@
+configuration:
+  task_configurations:
+    - task_configuration:
+        type: cosine_neighborhood
+        enabled: true
+    - task_configuration:
+        type: euclidean_neighborhood
+        enabled: true

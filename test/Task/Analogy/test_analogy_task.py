@@ -24,7 +24,7 @@ class TestAnalogyTask(BaseTestCase):
         return TestConfiguration(embedding, entity_linking, [], task_configs)
 
     def test_run(self):
-        task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals.csv"), CosineSimilarity())
+        task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals.csv"))
         result = task.run(self._test_configuration)
 
         assert len(result.case_results) == 3
@@ -32,7 +32,7 @@ class TestAnalogyTask(BaseTestCase):
         assert result.execution_duration() > 0
 
     def test_run_with_failing_tests(self):
-        task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals_with_failures.csv"), CosineSimilarity())
+        task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals_with_failures.csv"))
         result = task.run(self._test_configuration)
 
         assert len(result.case_results) == 3

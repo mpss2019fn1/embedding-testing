@@ -5,15 +5,6 @@ from src.Metric.abstract_metric import AbstractMetric
 
 class CosineSimilarity(AbstractMetric):
 
-    @classmethod
-    def configuration_identifier(cls):
-        return "cosine"
-
-    @classmethod
-    def task_metric(cls):
-        from src.Task.task_metric import TaskMetric
-        return TaskMetric.COSINE_SIMILARITY
-
     def compute(self, vector1, vector2):
         return 1 - cosine(vector1, vector2)
 

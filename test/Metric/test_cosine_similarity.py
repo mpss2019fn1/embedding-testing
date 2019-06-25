@@ -1,5 +1,4 @@
 from src.Metric.cosine_similarity import CosineSimilarity
-from src.Task.task_metric import TaskMetric
 
 
 class TestCosineSimilarity:
@@ -27,9 +26,3 @@ class TestCosineSimilarity:
         cosine_similarity = CosineSimilarity()
 
         assert cosine_similarity.compute(vector1, vector2) == -1
-
-    def test_configuration_identifier(self):
-        assert CosineSimilarity.configuration_identifier() == "cosine"
-
-    def test_task_metric(self):
-        assert CosineSimilarity.task_metric() == TaskMetric.COSINE_SIMILARITY

@@ -12,14 +12,12 @@ class TaskFileParser(AbstractFileParser):
     LABEL_METRIC = "metric"
 
     def create_task_from_configuration(self, configuration):
-        from src.Task.task_metric import TaskMetric
         from src.Task.task_type import TaskType
         name = self._extract_name(configuration)
         task_class = TaskType.value_from_string(configuration[TaskFileParser.LABEL_TYPE])
-        metric = TaskMetric.value_from_string(configuration[TaskFileParser.LABEL_METRIC])
         test_set = self._extract_test_set(configuration)
 
-        return task_class(name, test_set, metric)
+        return task_class(name, test_set)
 
     def _extract_name(self, configuration):
         name = configuration[self.LABEL_NAME]

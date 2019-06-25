@@ -12,7 +12,7 @@ class TestTaskResult:
 
     @staticmethod
     def _create_enabled_task_result():
-        task = CosineSimilarityTask("SimilarityTask", Path(), CosineSimilarity())
+        task = CosineSimilarityTask("SimilarityTask", Path())
         task_result = TaskResult(task, True)
 
         case_result = CaseResult("Berlin", "Paris", "Paris", True)

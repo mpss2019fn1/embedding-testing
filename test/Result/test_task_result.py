@@ -54,3 +54,15 @@ class TestTaskResult:
         task_result.finalize()
 
         assert len(str(task_result).split("\n")) == 3
+        assert task_result.__str__() == task_result.__repr__()
+
+    def test_empty_result(self):
+        task = CosineSimilarityTask("SimilarityTask", Path())
+        task_result = TaskResult(task, True)
+        task_result.finalize()
+
+        assert not task_result.has_results()
+        assert task_result.pass_rate() == 0.0
+        assert task_result.execution_duration() == 0
+        assert len(str(task_result)) > 0
+        assert len(str(task_result).split("\n")) == 1

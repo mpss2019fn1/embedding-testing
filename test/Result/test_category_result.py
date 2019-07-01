@@ -136,3 +136,8 @@ class TestCategoryResult:
 
         with pytest.raises(Exception):
             result.print("")
+
+    def test_finalize_returns_self(self):
+        result = self._create_enabled_category_result()
+
+        assert result == result.finalize()

@@ -15,7 +15,7 @@ class CaseResult:
         return self.__str__()
 
     def __str__(self):
-        return print("\t")
+        return self.print("")
 
     def print(self, indent):
         representation = f"{self.test_input} {CaseResult.ACTUAL_OUTPUT_PREFIX} {self.actual_output}"

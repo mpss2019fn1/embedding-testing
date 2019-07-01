@@ -25,8 +25,7 @@ class TestExecutor:
         for sub_category in category.categories:
             result.add_category_result(self.run_category(sub_category))
 
-        result.finalize()
-        return result
+        return result.finalize()
 
     def run_task(self, task: AbstractTask):
         return task.run(self._test_configuration)

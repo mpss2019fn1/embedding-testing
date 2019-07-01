@@ -28,6 +28,8 @@ class CategoryResult:
         self._raise_if_ended()
         self._ended = time.time()
 
+        return self
+
     def has_results(self):
         self._raise_if_not_ended()
         return self.enabled and (self.category_results or self.task_results)

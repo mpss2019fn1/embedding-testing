@@ -95,3 +95,8 @@ class TestTaskResult:
 
         with pytest.raises(Exception):
             task_result.execution_duration()
+
+    def test_finalize_returns_self(self):
+        task_result = self._create_enabled_task_result()
+
+        assert task_result == task_result.finalize()

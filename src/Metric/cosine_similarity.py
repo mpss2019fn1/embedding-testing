@@ -10,11 +10,11 @@ class CosineSimilarity(AbstractMetric):
 
     def batch_compute(self, vectors):
         running_average = 0
-        number_of_comparisons = len(vectors) * (len(vectors) - 1)
-        for a, vector1 in enumerate(vectors):
-            for b, vector2 in enumerate(vectors):
-                if a == b:
-                    continue
+        number_of_comparisons = len(vectors) * (len(vectors) - 1) / 2
+        for a in range(0, len(vectors)):
+            vector1 = vectors[a]
+            for b in range(a + 1, len(vectors)):
+                vector2 = vectors[b]
                 running_average += self.compute(vector1, vector2) / number_of_comparisons
         return running_average
 

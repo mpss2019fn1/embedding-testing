@@ -1,0 +1,4 @@
+a,b,is_similar
+wd:Q142,wd:Q183,true
+wd:Q142,wd:Q414,false
+wd:Q183,wd:Q414,false

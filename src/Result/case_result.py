@@ -15,8 +15,11 @@ class CaseResult:
         return self.__str__()
 
     def __str__(self):
-        representation = f"\t{self.test_input} {CaseResult.ACTUAL_OUTPUT_PREFIX} {self.actual_output}"
+        return print("\t")
+
+    def print(self, indent):
+        representation = f"{self.test_input} {CaseResult.ACTUAL_OUTPUT_PREFIX} {self.actual_output}"
         if self.passed:
-            return f"{CaseResult.PASSED_PREFIX}{representation}"
+            return indent + f"{CaseResult.PASSED_PREFIX}{representation}"
         else:
-            return f"{CaseResult.NOT_PASSED_PREFIX}{representation} {CaseResult.EXPECTED_OUTPUT_PREFIX} {self.expected_output}"
+            return indent + f"{CaseResult.NOT_PASSED_PREFIX}{representation} {CaseResult.EXPECTED_OUTPUT_PREFIX} {self.expected_output}"

@@ -27,17 +27,9 @@ class TestTaskResult:
 
     def test_has_execution_duration(self):
         task_result = TestTaskResult._create_enabled_task_result()
-        assert task_result.execution_duration() == 0
-
         task_result.finalize()
+
         assert task_result.execution_duration() > 0
-
-    def test_should_not_be_finalized_twice(self):
-        task_result = TestTaskResult._create_enabled_task_result()
-        task_result.finalize()
-
-        with pytest.raises(Exception):
-            task_result.finalize()
 
     def test_pass_rate(self):
         task_result = TestTaskResult._create_enabled_task_result()
@@ -66,3 +58,40 @@ class TestTaskResult:
         assert task_result.execution_duration() == 0
         assert len(str(task_result)) > 0
         assert len(str(task_result).split("\n")) == 1
+
+    def test_add_case_result_raises_if_ended(self):
+        task = CosineSimilarityTask("SimilarityTask", Path())
+        task_result = TaskResult(task, True)
+        task_result.finalize()
+
+        with pytest.raises(Exception):
+            task_result.add_case_result(CaseResult("input", "expected", "actual", False))
+
+    def test_finalize_raises_if_ended(self):
+        task = CosineSimilarityTask("SimilarityTask", Path())
+        task_result = TaskResult(task, True)
+        task_result.finalize()
+
+        with pytest.raises(Exception):
+            task_result.finalize()
+
+    def test_has_results_raises_if_not_ended(self):
+        task = CosineSimilarityTask("SimilarityTask", Path())
+        task_result = TaskResult(task, True)
+
+        with pytest.raises(Exception):
+            task_result.has_results()
+
+    def test_pass_rate_raises_if_not_ended(self):
+        task = CosineSimilarityTask("SimilarityTask", Path())
+        task_result = TaskResult(task, True)
+
+        with pytest.raises(Exception):
+            task_result.pass_rate()
+
+    def test_execution_duration_raises_if_not_ended(self):
+        task = CosineSimilarityTask("SimilarityTask", Path())
+        task_result = TaskResult(task, True)
+
+        with pytest.raises(Exception):
+            task_result.execution_duration()

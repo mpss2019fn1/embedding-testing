@@ -1,11 +1,11 @@
 import argparse
 from pathlib import Path
 
-from src.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
-from src.FileParsing.ConfigurationFileParsing.task_configuration_file_parser import TaskConfigurationFileParser
-from src.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
-from src.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
-from src.TestConfiguration.test_configuration import TestConfiguration
+from src.Testing.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
+from src.Testing.FileParsing.ConfigurationFileParsing.task_configuration_file_parser import TaskConfigurationFileParser
+from src.Testing.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
+from src.Testing.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
+from src.Testing.TestConfiguration.test_configuration import TestConfiguration
 
 
 def main(args):

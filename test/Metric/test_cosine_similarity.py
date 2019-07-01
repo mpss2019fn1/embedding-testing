@@ -1,4 +1,3 @@
-from src.Embedding.embedding import Embedding
 from src.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
 from src.Metric.cosine_similarity import CosineSimilarity
 from src.Metric.euclidean_distance import EuclideanDistance

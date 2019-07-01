@@ -1,6 +1,10 @@
+[run]
+omit =
+    */tests*
+
 [report]
 exclude_lines =
     pragma: no cover
-
-    # Don't complain if tests don't hit defensive assertion code:
     raise NotImplementedError
+    if __name__ == .__main__.:
+    def parse_args

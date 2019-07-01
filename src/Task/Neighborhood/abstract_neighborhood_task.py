@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from src.Result.case_result import CaseResult
 from src.Task.abstract_task import AbstractTask
@@ -42,5 +42,10 @@ class AbstractNeighborhoodTask(AbstractTask, ABC):
         result = self.metric.batch_compute([embedding[word] for word in self._current_group])
         is_similar = self.metric.is_better_than_noise(result, embedding)
         passed = is_similar == self._current_is_expected_similar
+        expected_result = self._stringify_expected_result(self._current_is_expected_similar)
 
-        return CaseResult(self._current_group, self._current_is_expected_similar, is_similar, passed)
+        return CaseResult(self._current_group, expected_result, result, passed)
+
+    @abstractmethod
+    def _stringify_expected_result(self, is_expected_similar):
+        raise NotImplementedError

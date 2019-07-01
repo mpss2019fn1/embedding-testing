@@ -2,7 +2,6 @@ from pathlib import Path
 
 import pytest
 
-from src.Metric.cosine_similarity import CosineSimilarity
 from src.Result.case_result import CaseResult
 from src.Result.task_result import TaskResult
 from src.Task.Similarity.cosine_similarity_task import CosineSimilarityTask

@@ -15,3 +15,9 @@ class CosineNeighborhoodTask(AbstractNeighborhoodTask):
 
     def __init__(self, name, test_set):
         super(CosineNeighborhoodTask, self).__init__(name, test_set, CosineSimilarity())
+
+    def _stringify_expected_result(self, is_expected_similar):
+        expected_result = " > " if is_expected_similar else " <= "
+        expected_result += str(self._test_configuration.embedding.random_cosine_noise)
+
+        return expected_result

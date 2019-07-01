@@ -1,3 +1,5 @@
+import pytest
+
 from src.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
 from src.Task.Analogy.analogy_task import AnalogyTask
 from src.Task.Similarity.cosine_similarity_task import CosineSimilarityTask
@@ -66,3 +68,65 @@ class TestTaskCategoryFactory(BaseTestCase):
 
         categories = TaskCategoryFileParser.create_categories_from_file(file)
         assert len(categories) == 0
+
+    def test_enabled_is_not_a_boolean(self):
+        file = self._random_test_file()
+        with open(file, "w+") as file_output:
+            print(f"""
+                    configuration:
+                        categories:
+                            - category:
+                                name: category_name_1
+                                enabled: not_a_boolean
+                                tasks:
+                                categories:""",
+                  file=file_output)
+
+        with pytest.raises(KeyError):
+            categories = TaskCategoryFileParser.create_categories_from_file(file)
+
+    def test_enabled_is_missing(self):
+        file = self._random_test_file()
+        with open(file, "w+") as file_output:
+            print(f"""
+                    configuration:
+                        categories:
+                            - category:
+                                name: category_name_1
+                                tasks:
+                                categories:""",
+                  file=file_output)
+
+        with pytest.raises(KeyError):
+            categories = TaskCategoryFileParser.create_categories_from_file(file)
+
+    def test_name_is_empty(self):
+        file = self._random_test_file()
+        with open(file, "w+") as file_output:
+            print(f"""
+                    configuration:
+                        categories:
+                            - category:
+                                name: 
+                                enabled: not_a_boolean
+                                tasks:
+                                categories:""",
+                  file=file_output)
+
+        with pytest.raises(KeyError):
+            categories = TaskCategoryFileParser.create_categories_from_file(file)
+
+    def test_name_is_missing(self):
+        file = self._random_test_file()
+        with open(file, "w+") as file_output:
+            print(f"""
+                    configuration:
+                        categories:
+                            - category:
+                                enabled: not_a_boolean
+                                tasks:
+                                categories:""",
+                  file=file_output)
+
+        with pytest.raises(KeyError):
+            categories = TaskCategoryFileParser.create_categories_from_file(file)

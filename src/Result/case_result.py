@@ -12,7 +12,7 @@ class CaseResult:
         self.passed = passed
 
     def __repr__(self):
-        self.__str__()
+        return self.__str__()
 
     def __str__(self):
         representation = f"\t{self.test_input} {CaseResult.ACTUAL_OUTPUT_PREFIX} {self.actual_output}"

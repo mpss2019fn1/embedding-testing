@@ -21,7 +21,7 @@ task_configuration:
     properties:
         type:
             type: string
-            enum: [cosine_similarity, euclidean_similarity, cosine_neighborhood, euclidean_neighborhood]
+            enum: [cosine_similarity, euclidean_similarity, cosine_neighborhood, euclidean_neighborhood, cosine_outlier_detection, euclidean_outlier_detection]
         enabled:
             type: boolean            
 
@@ -57,7 +57,7 @@ task:
             type: string
         type:
             type: string
-            enum: [similarity, analogy, neighborhood, outlier_detection]
+            enum: [cosine_similarity, euclidean_similarity, cosine_neighborhood, euclidean_neighborhood, cosine_outlier_detection, euclidean_outlier_detection]
         test_set:
             type: string
             description: Path to local test-set file.

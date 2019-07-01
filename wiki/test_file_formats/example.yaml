@@ -1,16 +1,25 @@
 configuration:
     task_configurations:
         - task_configuration: 
-            type: similarity
+            type: cosine_similarity
+            enabled: true
+        - task_configuration:
+            type: euclidean_similarity
             enabled: true
         - task_configuration:
             type: analogy
             enabled: true
         - task_configuration:
-            type: neighborhood
+            type: cosine_neighborhood
             enabled: false
         - task_configuration:
-            type: outlier_detection
+            type: euclidean_neighborbood
+            enabled: false
+        - task_configuration:
+            type: cosine_outlier_detection
+            enabled: true
+        - task_configuration:
+            type: euclidean_outlier_detection
             enabled: true
     categories:
         - category:
@@ -19,11 +28,11 @@ configuration:
             tasks:
                 - task:
                     name: is_conutry_similar_cosine
-                    type: similarity
+                    type: cosine_similarity
                     test_set: is_conutry_similar/data.csv
                 - task:
                     name: is_conutry_similar_euclidean
-                    type: similarity
+                    type: euclidean_similarity
                     test_set: is_conutry_similar/data.csv
                 - task:
                     name: is_capital_of
@@ -37,7 +46,7 @@ configuration:
                     tasks:
                         - task:
                             name: is_capital_of
-                            type: neighborhood
+                            type: cosine_neighborhood
                             test_set: is_capital_of/data.csv
                     categories:
                 - category:
@@ -46,7 +55,7 @@ configuration:
                     tasks:
                         - task:
                             name: is_capital_of
-                            type: outlier_detection
+                            type: cosine_outlier_detection
                             test_set: is_capital_of/data.csv
                     categories:
         - category:
@@ -60,7 +69,7 @@ configuration:
                     tasks:
                         - task:
                             name: is_similar_food
-                            type: similarity
+                            type: cosine_similarity
                             test_set: food/data.csv
                     categories:
 

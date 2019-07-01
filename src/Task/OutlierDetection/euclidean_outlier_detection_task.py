@@ -20,7 +20,7 @@ class EuclideanOutlierDetectionTask(AbstractOutlierDetectionTask):
         super(EuclideanOutlierDetectionTask, self).__init__(name, test_set, EuclideanDistance())
 
     def _identify_outlier(self, embedding):
-        vectors = vstack(embedding.word_vectors.word_vec(word) for word in self._current_group).astype(float32)
-        centroid = vectors.mean(axis=0).astype(float32)
+        vectors = vstack(embedding.word_vectors.word_vec(word) for word in self._current_group)
+        centroid = vectors.mean(axis=0)
         distances = cdist([centroid], vectors)
         return sorted(zip(distances[0], self._current_group), reverse=True)[0][1]

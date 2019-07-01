@@ -20,8 +20,7 @@ class CosineOutlierDetectionTask(AbstractOutlierDetectionTask):
         super(CosineOutlierDetectionTask, self).__init__(name, test_set, CosineSimilarity())
 
     def _identify_outlier(self, embedding):
-        vectors = vstack(embedding.word_vectors.word_vec(word, use_norm=True) for word in self._current_group)\
-            .astype(float32)
-        mean = matutils.unitvec(vectors.mean(axis=0)).astype(float32)
+        vectors = vstack(embedding.word_vectors.word_vec(word, use_norm=True) for word in self._current_group)
+        mean = matutils.unitvec(vectors.mean(axis=0))
         similarities = dot(vectors, mean)
         return sorted(zip(similarities, self._current_group))[0][1]

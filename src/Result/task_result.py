@@ -38,7 +38,7 @@ class TaskResult:
         return pass_rate
 
     def execution_duration(self):
-        if not self._ended:
+        if not self.has_results() or not self._ended:
             return 0
 
         return self._ended - self._started

@@ -3,7 +3,6 @@ from pathlib import Path
 from src.FileParsing.ConfigurationFileParsing.task_configuration_file_parser import TaskConfigurationFileParser
 from src.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
 from src.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
-from src.Task.OutlierDetection.cosine_outlier_detection_task import CosineOutlierDetectionTask
 from src.Task.OutlierDetection.euclidean_outlier_detection_task import EuclideanOutlierDetectionTask
 from src.TestConfiguration.test_configuration import TestConfiguration
 from test.base_test_case import BaseTestCase

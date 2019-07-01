@@ -1,4 +1,4 @@
-from numpy import float32, vstack
+from numpy import vstack
 from scipy.spatial.distance import cdist
 
 from src.Metric.euclidean_distance import EuclideanDistance

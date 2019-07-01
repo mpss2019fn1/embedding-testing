@@ -1,5 +1,5 @@
 from gensim import matutils
-from numpy import vstack, float32, dot
+from numpy import vstack, dot
 
 from src.Metric.cosine_similarity import CosineSimilarity
 from src.Task.OutlierDetection.abstract_outlier_detection_task import AbstractOutlierDetectionTask

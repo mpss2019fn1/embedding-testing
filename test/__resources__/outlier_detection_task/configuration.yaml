@@ -1,0 +1,8 @@
+configuration:
+  task_configurations:
+    - task_configuration:
+        type: cosine_outlier_detection
+        enabled: true
+    - task_configuration:
+        type: euclidean_outlier_detection
+        enabled: true

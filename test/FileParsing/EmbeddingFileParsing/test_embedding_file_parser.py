@@ -1,3 +1,6 @@
+import uuid
+from pathlib import Path
+
 import pytest
 
 from src.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
@@ -23,3 +26,7 @@ class TestEmbeddingFactory(BaseTestCase):
 
         with pytest.raises(AttributeError):
             EmbeddingFileParser.create_from_file(file)
+
+    def test_file_does_not_exist(self):
+        with pytest.raises(FileNotFoundError):
+            EmbeddingFileParser.create_from_file(Path(f"{uuid.uuid4()}"))

@@ -8,11 +8,11 @@ class TestTestConfiguration:
     def test_task_type_is_enabled(self):
         task_configuration = [
             TaskConfiguration(TaskType.COSINE_SIMILARITY, True),
-            TaskConfiguration(TaskType.NEIGHBORHOOD, False)
+            TaskConfiguration(TaskType.COSINE_NEIGHBORHOOD, False)
         ]
 
         # noinspection PyTypeChecker
         test_configuration = TestConfiguration(None, None, [], task_configuration)
 
         assert test_configuration.is_enabled(TaskType.COSINE_SIMILARITY)
-        assert not test_configuration.is_enabled(TaskType.NEIGHBORHOOD)
+        assert not test_configuration.is_enabled(TaskType.COSINE_NEIGHBORHOOD)

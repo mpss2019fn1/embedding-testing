@@ -20,12 +20,10 @@ configuration:
                 - task:
                     name: is_conutry_similar_cosine
                     type: similarity
-                    metric: cosine
                     test_set: is_conutry_similar/data.csv
                 - task:
                     name: is_conutry_similar_euclidean
                     type: similarity
-                    metric: euclidean
                     test_set: is_conutry_similar/data.csv
                 - task:
                     name: is_capital_of
@@ -40,7 +38,6 @@ configuration:
                         - task:
                             name: is_capital_of
                             type: neighborhood
-                            metric: euclidean
                             test_set: is_capital_of/data.csv
                     categories:
                 - category:
@@ -50,7 +47,6 @@ configuration:
                         - task:
                             name: is_capital_of
                             type: outlier_detection
-                            metric: cosine
                             test_set: is_capital_of/data.csv
                     categories:
         - category:
@@ -65,7 +61,6 @@ configuration:
                         - task:
                             name: is_similar_food
                             type: similarity
-                            metric: euclidean
                             test_set: food/data.csv
                     categories:
 

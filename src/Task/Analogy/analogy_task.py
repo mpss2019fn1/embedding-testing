@@ -15,7 +15,7 @@ class AnalogyTask(AbstractTask):
 
     def _run(self):
         embedding = self._test_configuration.embedding
-        linking = self._test_configuration.entity_linkings
+        linking = self._test_configuration.entity_linking
         for indexA, lineA in enumerate(self._test_set_lines()):
             for indexB, lineB in enumerate(self._test_set_lines()):
                 if indexA >= indexB:

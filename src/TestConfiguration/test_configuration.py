@@ -9,10 +9,10 @@ from src.TaskConfiguration.task_configuration import TaskConfiguration
 
 class TestConfiguration:
 
-    def __init__(self, embedding: Embedding, entity_linkings: EntityLinkings, categories: List[TaskCategory],
+    def __init__(self, embedding: Embedding, entity_linking: EntityLinkings, categories: List[TaskCategory],
                  task_configurations: List[TaskConfiguration]):
         self.embedding = embedding
-        self.entity_linkings = entity_linkings
+        self.entity_linking = entity_linking
         self.categories = categories
         self.task_configurations = task_configurations
 

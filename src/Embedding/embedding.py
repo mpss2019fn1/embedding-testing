@@ -1,8 +1,7 @@
 import random
 
-import numpy as np
-
 from src.Metric.cosine_similarity import CosineSimilarity
+from src.Metric.euclidean_distance import EuclideanDistance
 
 
 class Embedding:
@@ -18,22 +17,13 @@ class Embedding:
         return self.word_vectors[word]
 
     def _calculate_squared_euclidean_noise(self):
-        matrix = np.array(self.word_vectors.vectors)
-        return np.var(matrix, 0, ddof=1).sum() * 2
+        return EuclideanDistance().batch_compute(self.word_vectors.vectors)
 
     def _calculate_random_cosine_noise(self):
-        sample = self._select_random_elements()
-        cosine_similarity = CosineSimilarity()
-        running_average = 0
-        number_of_comparisons = len(sample) * (len(sample) - 1)
-        for a, vector1 in enumerate(sample):
-            for b, vector2 in enumerate(sample):
-                if a == b:
-                    continue
-                running_average += cosine_similarity.compute(vector1, vector2) / number_of_comparisons
-        return running_average
+        vectors = self._select_random_vectors()
+        return CosineSimilarity().batch_compute(vectors)
 
-    def _select_random_elements(self):
+    def _select_random_vectors(self):
         size = len(self.word_vectors.vectors)
         number_of_elements = min(size, max(
             Embedding.MIN_COSINE_NOISE_ELEMENTS, int(size * Embedding.COSINE_NOISE_FACTOR)))

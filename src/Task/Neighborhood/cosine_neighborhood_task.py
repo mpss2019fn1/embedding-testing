@@ -1,20 +1,20 @@
 from src.Metric.cosine_similarity import CosineSimilarity
-from src.Task.Similarity.abstract_similarity_task import AbstractSimilarityTask
+from src.Task.Neighborhood.abstract_neighborhood_task import AbstractNeighborhoodTask
 
 
-class CosineSimilarityTask(AbstractSimilarityTask):
+class CosineNeighborhoodTask(AbstractNeighborhoodTask):
 
     @classmethod
     def configuration_identifier(cls):
-        return "cosine_similarity"
+        return "cosine_neighborhood"
 
     @classmethod
     def task_type(cls):
         from src.Task.task_type import TaskType
-        return TaskType.COSINE_SIMILARITY
+        return TaskType.COSINE_NEIGHBORHOOD
 
     def __init__(self, name, test_set):
-        super(CosineSimilarityTask, self).__init__(name, test_set, CosineSimilarity())
+        super(CosineNeighborhoodTask, self).__init__(name, test_set, CosineSimilarity())
 
     def _stringify_expected_result(self, is_expected_similar):
         expected_result = " > " if is_expected_similar else " <= "

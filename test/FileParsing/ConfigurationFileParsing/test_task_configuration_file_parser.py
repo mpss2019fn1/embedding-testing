@@ -17,7 +17,7 @@ class TestTaskConfigurationFileParser(BaseTestCase):
                         type: analogy
                         enabled: true
                     - task_configuration:
-                        type: neighborhood
+                        type: cosine_neighborhood
                         enabled: false""",
                   file=file_output)
 
@@ -29,7 +29,7 @@ class TestTaskConfigurationFileParser(BaseTestCase):
         assert config.enabled
 
         config = task_configurations[1]
-        assert config.task_type == TaskType.NEIGHBORHOOD
+        assert config.task_type == TaskType.COSINE_NEIGHBORHOOD
         assert not config.enabled
 
     def test_create_configurations_from_file_invalid_boolean_value(self):
@@ -42,7 +42,7 @@ class TestTaskConfigurationFileParser(BaseTestCase):
                         type: analogy
                         enabled: true
                     - task_configuration:
-                        type: neighborhood
+                        type: cosine_neighborhood
                         enabled: invalidBool""",
                   file=file_output)
 

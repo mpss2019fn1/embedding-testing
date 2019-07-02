@@ -44,7 +44,7 @@ class AbstractNeighborhoodTask(AbstractTask, ABC):
         passed = is_similar == self._current_is_expected_similar
         expected_result = self._stringify_expected_result(self._current_is_expected_similar)
 
-        return CaseResult(self._current_group, expected_result, result, passed)
+        return CaseResult(self._current_group, expected_result, '%06.4f' % result, passed)
 
     @abstractmethod
     def _stringify_expected_result(self, is_expected_similar):

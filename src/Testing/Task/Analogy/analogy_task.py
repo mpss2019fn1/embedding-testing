@@ -28,4 +28,4 @@ class AnalogyTask(AbstractTask):
 
                 prediction = embedding.word_vectors.most_similar(positive=[a, c], negative=[b], topn=1)[0]
 
-                yield CaseResult([(a, b), (c, "?")], d, prediction, prediction[0] == d)
+                yield CaseResult([(a, b), (c, "?")], d, prediction[0], prediction[0] == d)

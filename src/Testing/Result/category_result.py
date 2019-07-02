@@ -43,12 +43,18 @@ class CategoryResult:
         if not self.has_results():
             return 0
 
-        all_case_results = list(self.case_results_recursive())
-        number_passed_cases = sum(1 for case_result in all_case_results if case_result.passed)
-        pass_rate = number_passed_cases / len(all_case_results)
+        number_passed_cases = self.number_of_passed_cases()
+        pass_rate = number_passed_cases / self.number_of_all_cases()
         pass_rate *= 100.0
 
         return pass_rate
+
+    def number_of_passed_cases(self):
+        all_case_results = list(self.case_results_recursive())
+        return sum(1 for case_result in all_case_results if case_result.passed)
+
+    def number_of_all_cases(self):
+        return len(list(self.case_results_recursive()))
 
     def case_results_recursive(self):
         for task_result in self.task_results_recursive():

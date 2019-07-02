@@ -39,10 +39,14 @@ configuration:
                             name: is_capital_of_eu
                             type: analogy
                             test_set: is_capital_of_eu.csv
+                        - task:
+                              name: is_capital_of_eu2
+                              type: analogy
+                              test_set: is_capital_of_eu.csv
                     categories:
         - category:
             name: Food
-            enabled: false
+            enabled: true
             tasks:
             categories:
                 - category:
@@ -54,4 +58,13 @@ configuration:
                             type: cosine_outlier_detection
                             test_set: outlier_meat.csv
                     categories:
+                        - category:
+                              name: Processed Meat
+                              enabled: true
+                              tasks:
+                                  - task:
+                                        name: outlier_meat
+                                        type: cosine_outlier_detection
+                                        test_set: outlier_meat.csv
+                              categories:
 

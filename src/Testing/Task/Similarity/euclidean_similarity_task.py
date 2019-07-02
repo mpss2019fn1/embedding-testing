@@ -18,6 +18,6 @@ class EuclideanSimilarityTask(AbstractSimilarityTask):
 
     def _stringify_expected_result(self, is_expected_similar):
         expected_result = " < " if is_expected_similar else " >= "
-        expected_result += str(self._test_configuration.embedding.squared_euclidean_noise)
+        expected_result += '%06.4f' % self._test_configuration.embedding.squared_euclidean_noise
 
         return expected_result

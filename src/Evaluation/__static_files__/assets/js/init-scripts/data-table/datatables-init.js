@@ -5,13 +5,13 @@
     /*  Data Table
     -------------*/
 
-    $('#bootstrap-data-table').DataTable({
+    $('table.bootstrap-data-table').DataTable({
         lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
     });
 
-    $('#bootstrap-data-table-export').DataTable({
+    $('table.bootstrap-data-table-export').DataTable({
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+        buttons: ['copy', 'csv', 'excel', 'pdf'],
     });
 
 	$('#row-select').DataTable( {

@@ -2,11 +2,11 @@ from pathlib import Path
 
 import pytest
 
-from src.Result.case_result import CaseResult
-from src.Result.category_result import CategoryResult
-from src.Result.task_result import TaskResult
-from src.Task.Similarity.cosine_similarity_task import CosineSimilarityTask
-from src.TaskConfiguration.task_category import TaskCategory
+from src.Testing.Result.case_result import CaseResult
+from src.Testing.Result.category_result import CategoryResult
+from src.Testing.Result.task_result import TaskResult
+from src.Testing.Task.Similarity.cosine_similarity_task import CosineSimilarityTask
+from src.Testing.TaskConfiguration.task_category import TaskCategory
 
 
 class TestCategoryResult:

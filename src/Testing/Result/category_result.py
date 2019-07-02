@@ -1,7 +1,7 @@
 import time
 
-from src.Result.task_result import TaskResult
-from src.TaskConfiguration.task_category import TaskCategory
+from src.Testing.Result.task_result import TaskResult
+from src.Testing.TaskConfiguration.task_category import TaskCategory
 
 
 class CategoryResult:

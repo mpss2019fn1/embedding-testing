@@ -5,7 +5,7 @@ from src.FileParsing.ConfigurationFileParsing.task_configuration_file_parser imp
 from src.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
 from src.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
 from src.TestConfiguration.test_configuration import TestConfiguration
-from src.TestExecution.test_executor import TestExecutor
+from src.Testing.TestExecution import TestExecutor
 from test.base_test_case import BaseTestCase
 
 

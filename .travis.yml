@@ -9,6 +9,6 @@ install:
   - pip install -r requirements.txt
   - pip install coveralls
   - pip install pytest-cov
-script: pytest --cov-report term --cov=src/ --ignore=src/
+script: pytest --cov-config=.coveragerc --cov-report term --cov=src/ --ignore=src/
 after_success:
   - coveralls

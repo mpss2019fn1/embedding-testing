@@ -4,6 +4,8 @@ from src.FileParsing.ConfigurationFileParsing.task_configuration_file_parser imp
 from src.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
 from src.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
 from src.Task.Analogy.analogy_task import AnalogyTask
+from src.Task.task_type import TaskType
+from src.TaskConfiguration.task_configuration import TaskConfiguration
 from src.TestConfiguration.test_configuration import TestConfiguration
 from test.base_test_case import BaseTestCase
 
@@ -37,3 +39,12 @@ class TestAnalogyTask(BaseTestCase):
         assert len(result.case_results) == 3
         assert result.pass_rate() == (1 / 3) * 100
         assert result.execution_duration() > 0
+
+    def test_run_disabled_returns_empty_result(self):
+        test_configuration = TestConfiguration({}, {}, {}, [TaskConfiguration(TaskType.ANALOGY, False)])
+        task = AnalogyTask("Disabled Task", Path())
+
+        result = task.run(test_configuration)
+
+        assert result.is_finalized()
+        assert not result.has_results()

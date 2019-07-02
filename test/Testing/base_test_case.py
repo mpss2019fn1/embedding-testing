@@ -11,7 +11,7 @@ class BaseTestCase:
         self.test_dir = tempfile.mkdtemp()
         self.empty_file = Path(self.test_dir, "empty-file")
         self.empty_file.open("w+").close()
-        self.resource_directory = Path(os.path.dirname(os.path.abspath(__file__)), "__templates__")
+        self.resource_directory = Path(os.path.dirname(os.path.abspath(__file__)), "__resources__")
 
     def teardown_method(self):
         shutil.rmtree(self.test_dir)

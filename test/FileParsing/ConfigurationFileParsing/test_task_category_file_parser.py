@@ -83,7 +83,7 @@ class TestTaskCategoryFactory(BaseTestCase):
                   file=file_output)
 
         with pytest.raises(KeyError):
-            categories = TaskCategoryFileParser.create_categories_from_file(file)
+            TaskCategoryFileParser.create_categories_from_file(file)
 
     def test_enabled_is_missing(self):
         file = self._random_test_file()
@@ -98,7 +98,7 @@ class TestTaskCategoryFactory(BaseTestCase):
                   file=file_output)
 
         with pytest.raises(KeyError):
-            categories = TaskCategoryFileParser.create_categories_from_file(file)
+            TaskCategoryFileParser.create_categories_from_file(file)
 
     def test_name_is_empty(self):
         file = self._random_test_file()
@@ -114,7 +114,7 @@ class TestTaskCategoryFactory(BaseTestCase):
                   file=file_output)
 
         with pytest.raises(KeyError):
-            categories = TaskCategoryFileParser.create_categories_from_file(file)
+            TaskCategoryFileParser.create_categories_from_file(file)
 
     def test_name_is_missing(self):
         file = self._random_test_file()
@@ -129,4 +129,4 @@ class TestTaskCategoryFactory(BaseTestCase):
                   file=file_output)
 
         with pytest.raises(KeyError):
-            categories = TaskCategoryFileParser.create_categories_from_file(file)
+            TaskCategoryFileParser.create_categories_from_file(file)

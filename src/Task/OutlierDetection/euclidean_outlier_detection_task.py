@@ -22,5 +22,6 @@ class EuclideanOutlierDetectionTask(AbstractOutlierDetectionTask):
     def _identify_outlier(self, embedding):
         vectors = vstack(embedding.word_vectors.word_vec(word) for word in self._current_group)
         centroid = vectors.mean(axis=0)
+        # noinspection PyTypeChecker
         distances = cdist([centroid], vectors)
         return sorted(zip(distances[0], self._current_group), reverse=True)[0][1]

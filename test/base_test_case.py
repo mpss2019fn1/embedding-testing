@@ -7,6 +7,7 @@ from pathlib import Path
 
 class BaseTestCase:
 
+    # noinspection PyAttributeOutsideInit
     def setup_method(self):
         self.test_dir = tempfile.mkdtemp()
         self.empty_file = Path(self.test_dir, "empty-file")

@@ -41,6 +41,7 @@ class TestAnalogyTask(BaseTestCase):
         assert result.execution_duration() > 0
 
     def test_run_disabled_returns_empty_result(self):
+        # noinspection PyTypeChecker
         test_configuration = TestConfiguration({}, {}, {}, [TaskConfiguration(TaskType.ANALOGY, False)])
         task = AnalogyTask("Disabled Task", Path())
 

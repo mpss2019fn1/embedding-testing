@@ -50,6 +50,7 @@ class TestCosineOutlierDetection(BaseTestCase):
         assert result.execution_duration() > 0
 
     def test_run_disabled_returns_empty_result(self):
+        # noinspection PyTypeChecker
         test_configuration = TestConfiguration({}, {}, {}, [TaskConfiguration(TaskType.COSINE_OUTLIER_DETECTION, False)])
         task = CosineOutlierDetectionTask("Disabled Task", Path())
 

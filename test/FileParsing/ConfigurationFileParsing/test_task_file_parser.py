@@ -41,7 +41,7 @@ class TestTaskFileParser(BaseTestCase):
         }
         task_file_parser = TaskFileParser(self.empty_file)
         with pytest.raises(KeyError):
-            task = task_file_parser.create_task_from_configuration(config)
+            task_file_parser.create_task_from_configuration(config)
 
     def test_name_is_missing(self):
         config = {
@@ -50,7 +50,7 @@ class TestTaskFileParser(BaseTestCase):
         }
         task_file_parser = TaskFileParser(self.empty_file)
         with pytest.raises(KeyError):
-            task = task_file_parser.create_task_from_configuration(config)
+            task_file_parser.create_task_from_configuration(config)
 
     def test_name_is_empty(self):
         config = {
@@ -60,7 +60,7 @@ class TestTaskFileParser(BaseTestCase):
         }
         task_file_parser = TaskFileParser(self.empty_file)
         with pytest.raises(KeyError):
-            task = task_file_parser.create_task_from_configuration(config)
+            task_file_parser.create_task_from_configuration(config)
 
     def test_test_set_missing(self):
         config = {
@@ -69,7 +69,7 @@ class TestTaskFileParser(BaseTestCase):
         }
         task_file_parser = TaskFileParser(self.empty_file)
         with pytest.raises(KeyError):
-            task = task_file_parser.create_task_from_configuration(config)
+            task_file_parser.create_task_from_configuration(config)
 
     def test_type_missing(self):
         config = {
@@ -78,4 +78,4 @@ class TestTaskFileParser(BaseTestCase):
         }
         task_file_parser = TaskFileParser(self.empty_file)
         with pytest.raises(KeyError):
-            task = task_file_parser.create_task_from_configuration(config)
+            task_file_parser.create_task_from_configuration(config)

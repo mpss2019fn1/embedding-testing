@@ -47,7 +47,7 @@ class TestTaskConfigurationFileParser(BaseTestCase):
                   file=file_output)
 
         with pytest.raises(KeyError):
-            task_configurations = TaskConfigurationFileParser.create_configurations_from_file(file)
+            TaskConfigurationFileParser.create_configurations_from_file(file)
 
     def test_create_configurations_from_file_invalid_task_type(self):
         file = self._random_test_file()
@@ -64,7 +64,7 @@ class TestTaskConfigurationFileParser(BaseTestCase):
                   file=file_output)
 
         with pytest.raises(KeyError):
-            task_configurations = TaskConfigurationFileParser.create_configurations_from_file(file)
+            TaskConfigurationFileParser.create_configurations_from_file(file)
 
     def test_create_configurations_from_file_empty_configurations(self):
         file = self._random_test_file()

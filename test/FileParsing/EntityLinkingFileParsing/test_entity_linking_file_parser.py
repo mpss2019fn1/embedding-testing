@@ -19,7 +19,8 @@ class TestEntityLinkingFileParser(BaseTestCase):
         assert entity_linking["wd:Q71074"] == "Hasso_Plattner"
 
         with pytest.raises(KeyError):
-            invalid = entity_linking["wd:Q1234"]
+            # noinspection PyStatementEffect
+            entity_linking["wd:Q1234"]
 
     def test_empty_line_is_ignored(self):
         file = self._random_test_file()

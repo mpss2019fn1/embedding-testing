@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 
+from src.Evaluation.result_server import result_server
 from src.Testing.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
 from src.Testing.FileParsing.ConfigurationFileParsing.task_configuration_file_parser import TaskConfigurationFileParser
 from src.Testing.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
@@ -18,23 +19,25 @@ def main(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--test-set-config",
-        type=Path,
-        help="Path to the test set configuration file.",
-        required=True
-    )
-    parser.add_argument(
-        "--entity-mapping",
-        type=Path,
-        help="Path to the csv file containing knowledgebase to embedding tags entity mappings.",
-        required=True
-    )
-    parser.add_argument(
-        "--embeddings",
-        type=Path,
-        help=f"Path to the embeddings file (word2vec format)",
-        required=True
-    )
-    main(parser.parse_args())
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument(
+    #     "--test-set-config",
+    #     type=Path,
+    #     help="Path to the test set configuration file.",
+    #     required=True
+    # )
+    # parser.add_argument(
+    #     "--entity-mapping",
+    #     type=Path,
+    #     help="Path to the csv file containing knowledgebase to embedding tags entity mappings.",
+    #     required=True
+    # )
+    # parser.add_argument(
+    #     "--embeddings",
+    #     type=Path,
+    #     help=f"Path to the embeddings file (word2vec format)",
+    #     required=True
+    # )
+    # main(parser.parse_args())
+
+    result_server.run(debug=False)

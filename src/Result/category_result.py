@@ -17,25 +17,28 @@ class CategoryResult:
         self._ended = None
 
     def add_task_result(self, task_result: TaskResult):
-        self._raise_if_ended()
+        self._raise_if_finalized()
         self.task_results.append(task_result)
 
     def add_category_result(self, category_result):
-        self._raise_if_ended()
+        self._raise_if_finalized()
         self.category_results.append(category_result)
 
     def finalize(self):
-        self._raise_if_ended()
+        self._raise_if_finalized()
         self._ended = time.time()
 
         return self
 
+    def is_finalized(self):
+        return self._ended is not None
+
     def has_results(self):
-        self._raise_if_not_ended()
         return self.enabled and (self.category_results or self.task_results)
 
     def pass_rate(self):
-        self._raise_if_not_ended()
+        if not self.is_finalized():
+            return 0
 
         if not self.has_results():
             return 0
@@ -58,19 +61,17 @@ class CategoryResult:
             yield from category_result.task_results_recursive()
 
     def execution_duration(self):
-        self._raise_if_not_ended()
+        if not self.is_finalized():
+            return 0
+
         if not self.has_results():
             return 0
 
         return self._ended - self._started
 
-    def _raise_if_ended(self):
-        if self._ended:
+    def _raise_if_finalized(self):
+        if self.is_finalized():
             raise Exception("This category result has already been finalized")
-
-    def _raise_if_not_ended(self):
-        if not self._ended:
-            raise Exception("This category result has not yet been finalized")
 
     def __repr__(self):
         return self.__str__()
@@ -79,8 +80,6 @@ class CategoryResult:
         return self.print("")
 
     def print(self, indent):
-        self._raise_if_not_ended()
-
         representation = f"{self.category.name}"
 
         if not self.enabled:

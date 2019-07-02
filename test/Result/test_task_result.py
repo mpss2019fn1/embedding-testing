@@ -57,6 +57,7 @@ class TestTaskResult:
         task = CosineSimilarityTask("SimilarityTask", Path())
         task_result = TaskResult(task, False)
 
+        assert not task_result.enabled
         assert str(task_result).startswith(TaskResult.DISABLED_PREFIX)
         assert len(str(task_result).split("\n")) == 1
 

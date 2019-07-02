@@ -30,21 +30,26 @@ class TestCategoryResult:
 
     def test_has_results(self):
         result = self._create_enabled_category_result()
-        result.finalize()
+        assert result.has_results()
 
+        result.finalize()
         assert result.has_results()
 
     def test_has_execution_duration(self):
         result = self._create_enabled_category_result()
-        result.finalize()
+        assert result.execution_duration() == 0
 
+        result.finalize()
         assert result.execution_duration() > 0
 
     def test_pass_rate(self):
         result = self._create_enabled_category_result()
-        result.add_task_result(self._create_enabled_task_result(False))
-        result.finalize()
+        assert result.pass_rate() == 0
 
+        result.add_task_result(self._create_enabled_task_result(False))
+        assert result.pass_rate() == 0
+
+        result.finalize()
         assert result.pass_rate() == 50
 
     def test_representation_contains_all_case_result(self):
@@ -53,6 +58,24 @@ class TestCategoryResult:
 
         assert len(str(result).split("\n")) == 3
         assert result.__str__() == result.__repr__()
+
+    def test_representation_contains_all_sub_categories(self):
+        result = self._create_enabled_category_result()
+        sub_result = self._create_enabled_category_result()
+        sub_result.finalize()
+        result.add_category_result(sub_result)
+        result.finalize()
+
+        assert len(str(result).split("\n")) == 6
+        assert result.__str__() == result.__repr__()
+
+    def test_disabled_representation_starts_with_prefix(self):
+        category = TaskCategory("CategoryName", False, [], [])
+        result = CategoryResult(category)
+
+        assert not result.enabled
+        assert str(result).startswith(CategoryResult.DISABLED_PREFIX)
+        assert len(str(result).split("\n")) == 1
 
     def test_empty_result(self):
         category = TaskCategory("CategoryName", True, [], [])
@@ -87,7 +110,7 @@ class TestCategoryResult:
         assert len(result.category_results) == 1
         assert len(list(result.case_results_recursive())) == 2
 
-    def test_add_task_result_raises_if_ended(self):
+    def test_add_task_result_raises_if_finalized(self):
         result = self._create_enabled_category_result()
         result.finalize()
 
@@ -97,7 +120,7 @@ class TestCategoryResult:
         with pytest.raises(Exception):
             result.add_task_result(task_result)
 
-    def test_add_category_result_raises_if_ended(self):
+    def test_add_category_result_raises_if_finalized(self):
         result = self._create_enabled_category_result()
         result.finalize()
 
@@ -106,36 +129,12 @@ class TestCategoryResult:
         with pytest.raises(Exception):
             result.add_category_result(category_result)
 
-    def test_finalize_raises_if_ended(self):
+    def test_finalize_raises_if_finalized(self):
         result = self._create_enabled_category_result()
         result.finalize()
 
         with pytest.raises(Exception):
             result.finalize()
-
-    def test_has_result_raises_if_not_ended(self):
-        result = self._create_enabled_category_result()
-
-        with pytest.raises(Exception):
-            result.has_results()
-
-    def test_pass_rate_raises_if_not_ended(self):
-        result = self._create_enabled_category_result()
-
-        with pytest.raises(Exception):
-            result.pass_rate()
-
-    def test_execution_duration_raises_if_not_ended(self):
-        result = self._create_enabled_category_result()
-
-        with pytest.raises(Exception):
-            result.execution_duration()
-
-    def test_print_raises_if_not_ended(self):
-        result = self._create_enabled_category_result()
-
-        with pytest.raises(Exception):
-            result.print("")
 
     def test_finalize_returns_self(self):
         result = self._create_enabled_category_result()

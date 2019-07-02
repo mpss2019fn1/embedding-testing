@@ -18,21 +18,24 @@ class TaskResult:
         self._ended = None
 
     def add_case_result(self, case_result: CaseResult):
-        self._raise_if_ended()
+        self._raise_if_finalized()
         self.case_results.append(case_result)
 
     def finalize(self):
-        self._raise_if_ended()
+        self._raise_if_finalized()
         self._ended = time.time()
 
         return self
 
+    def is_finalized(self):
+        return self._ended is not None
+
     def has_results(self):
-        self._raise_if_not_ended()
         return self.enabled and self.case_results
 
     def pass_rate(self):
-        self._raise_if_not_ended()
+        if not self.is_finalized():
+            return 0
 
         if not self.has_results():
             return 0
@@ -43,20 +46,17 @@ class TaskResult:
         return pass_rate
 
     def execution_duration(self):
-        self._raise_if_not_ended()
+        if not self.is_finalized():
+            return 0
 
         if not self.has_results():
             return 0
 
         return self._ended - self._started
 
-    def _raise_if_ended(self):
-        if self._ended:
+    def _raise_if_finalized(self):
+        if self.is_finalized():
             raise Exception("This task result has already been finalized")
-
-    def _raise_if_not_ended(self):
-        if not self._ended:
-            raise Exception("This task result has not yet been finalized")
 
     def __repr__(self):
         return self.__str__()

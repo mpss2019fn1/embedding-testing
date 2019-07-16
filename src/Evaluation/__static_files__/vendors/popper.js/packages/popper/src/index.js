@@ -1,7 +1,6 @@
 // Utils
 import debounce from './utils/debounce';
 import isFunction from './utils/isFunction';
-
 // Methods
 import update from './methods/update';
 import destroy from './methods/destroy';
@@ -14,8 +13,8 @@ export default class Popper {
   /**
    * Creates a new Popper.js instance.
    * @class Popper
-   * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper
-   * @param {HTMLElement} popper - The HTML element used as the popper
+   * @param {Element|referenceObject} reference - The reference element used to position the popper
+   * @param {Element} popper - The HTML / XML element used as the popper
    * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
    * @return {Object} instance - The generated Popper.js instance
    */

@@ -11,10 +11,10 @@ configuration:
             enabled: true
         - task_configuration:
             type: cosine_neighborhood
-            enabled: false
+            enabled: true
         - task_configuration:
             type: euclidean_neighborhood
-            enabled: false
+            enabled: true
         - task_configuration:
             type: cosine_outlier_detection
             enabled: true
@@ -23,26 +23,160 @@ configuration:
             enabled: true
     categories:
         - category:
+            name: Human (-> sex)
+            enabled: true
+            tasks:
+              - task:
+                  name: Outlier Detection
+                  type: euclidean_outlier_detection
+                  test_set: outlier_human.csv
+              - task:
+                  name: male <-> female (Analogy Task)
+                  type: analogy
+                  test_set: male_female.csv
+            categories:
+              - category:
+                  name: Female (-> occupation)
+                  enabled: true
+                  tasks:
+                    - task:
+                          name: Occupation (Similarity Task)
+                          type: euclidean_similarity
+                          test_set: occupation_similarity_female.csv
+                    - task:
+                        name: Occupation (Neighborhood Task)
+                        type: euclidean_neighborhood
+                        test_set: neighborhood_occupation_female.csv
+                  categories:
+                    - category:
+                        name: Actor
+                        enabled: true
+                        tasks:
+                          - task:
+                              name: Actor (Neighborhood Task)
+                              type: euclidean_neighborhood
+                              test_set: neighborhood_occupation_female_actor.csv
+                        categories:
+                    - category:
+                        name: Politician
+                        enabled: true
+                        tasks:
+                          - task:
+                              name: Politician (Neighborhood Task)
+                              type: euclidean_neighborhood
+                              test_set: neighborhood_occupation_female_politician.csv
+                        categories:
+              - category:
+                  name: Male (-> occupation)
+                  enabled: true
+                  tasks:
+                    - task:
+                        name: Occupation (Similarity Task)
+                        type: euclidean_similarity
+                        test_set: occupation_similarity_male.csv
+                    - task:
+                        name: Occupation (Neighborhood Task)
+                        type: euclidean_neighborhood
+                        test_set: neighborhood_occupation_male.csv
+                  categories:
+                    - category:
+                        name: Actor
+                        enabled: true
+                        tasks:
+                          - task:
+                              name: Actor (Neighborhood Task)
+                              type: euclidean_neighborhood
+                              test_set: neighborhood_occupation_male_actor.csv
+                        categories:
+                    - category:
+                        name: Politician
+                        enabled: true
+                        tasks:
+                          - task:
+                              name: Politician (Neighborhood Task)
+                              type: euclidean_neighborhood
+                              test_set: neighborhood_occupation_male_politician.csv
+                        categories:
+        - category:
             name: Geography
             enabled: true
             tasks:
-                - task:
-                    name: is_conutry_similar_cosine
-                    type: cosine_similarity
-                    test_set: is_country_similar.csv
+              - task:
+                  name: check_to_true
+                  type: euclidean_similarity
+                  test_set: check_to_true.csv
             categories:
                 - category:
-                    name: Europe
+                      name: Europe
+                      enabled: true
+                      tasks:
+                        - task:
+                            name: check_to_true
+                            type: euclidean_similarity
+                            test_set: check_to_true.csv
+                      categories:
+                        - category:
+                            name: Germany
+                            enabled: true
+                            tasks:
+                              - task:
+                                  name: check_to_true
+                                  type: euclidean_similarity
+                                  test_set: check_to_true.csv
+                            categories:
+                        - category:
+                            name: France
+                            enabled: true
+                            tasks:
+                              - task:
+                                  name: check_to_true
+                                  type: euclidean_similarity
+                                  test_set: check_to_true.csv
+                            categories:
+                - category:
+                    name: Asia
                     enabled: true
                     tasks:
-                        - task:
-                            name: is_capital_of_eu
-                            type: analogy
-                            test_set: is_capital_of_eu.csv
-                        - task:
-                              name: is_capital_of_eu2
-                              type: analogy
-                              test_set: is_capital_of_eu.csv
+                      - task:
+                          name: check_to_true
+                          type: euclidean_similarity
+                          test_set: check_to_true.csv
+                    categories:
+                - category:
+                    name: North America
+                    enabled: true
+                    tasks:
+                      - task:
+                          name: check_to_true
+                          type: euclidean_similarity
+                          test_set: check_to_true.csv
+                    categories:
+                - category:
+                    name: South America
+                    enabled: true
+                    tasks:
+                      - task:
+                          name: check_to_true
+                          type: euclidean_similarity
+                          test_set: check_to_true.csv
+                    categories:
+                      - category:
+                          name: Argentinia
+                          enabled: true
+                          tasks:
+                            - task:
+                                name: check_to_true
+                                type: euclidean_similarity
+                                test_set: check_to_true.csv
+                          categories:
+                - category:
+                    name: Africa
+                    enabled: true
+                    tasks:
+                      - task:
+                          name: check_to_true
+                          type: euclidean_similarity
+                          test_set: check_to_true.csv
                     categories:
         - category:
             name: Food
@@ -54,17 +188,26 @@ configuration:
                     enabled: true
                     tasks:
                         - task:
-                            name: outlier_meat
-                            type: cosine_outlier_detection
-                            test_set: outlier_meat.csv
+                            name: check_to_true
+                            type: euclidean_similarity
+                            test_set: check_to_true.csv
                     categories:
                         - category:
                               name: Processed Meat
                               enabled: true
                               tasks:
                                   - task:
-                                        name: outlier_meat
-                                        type: cosine_outlier_detection
-                                        test_set: outlier_meat.csv
+                                      name: check_to_true
+                                      type: euclidean_similarity
+                                      test_set: check_to_true.csv
                               categories:
+                - category:
+                    name: Milk
+                    enabled: true
+                    tasks:
+                      - task:
+                          name: check_to_true
+                          type: euclidean_similarity
+                          test_set: check_to_true.csv
+                    categories:
 

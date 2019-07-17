@@ -1,0 +1,13 @@
+a,group_id,is_outlier
+wd:Q1025,1,false
+wd:Q1026,1,false
+wd:Q1015,1,true
+wd:Q1022,2,false
+wd:Q1016,2,false
+wd:Q567,2,true
+wd:Q1009,3,false
+wd:Q1011,3,false
+wd:Q1002,3,true
+wd:Q1005,4,false
+wd:Q1004,4,false
+wd:Q1020,4,true

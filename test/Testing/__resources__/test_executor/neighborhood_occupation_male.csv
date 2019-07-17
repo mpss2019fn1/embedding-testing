@@ -1,0 +1,13 @@
+a,group_id,is_similar
+wd:Q1022,1,true
+wd:Q1023,1,true
+wd:Q1027,1,true
+wd:Q1026,1,true
+wd:Q1016,2,true
+wd:Q1017,2,true
+wd:Q1018,2,true
+wd:Q1019,2,true
+wd:Q1022,3,false
+wd:Q1023,3,false
+wd:Q1020,3,false
+wd:Q1021,3,false

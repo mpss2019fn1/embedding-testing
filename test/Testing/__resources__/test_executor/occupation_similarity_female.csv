@@ -1,0 +1,7 @@
+a,b,is_similar
+wd:Q567,wd:Q1007,true
+wd:Q1010,wd:Q1007,true
+wd:Q1000,wd:Q1003,true
+wd:Q567,wd:Q1000,false
+wd:Q1010,wd:Q1005,false
+wd:Q1001,wd:Q1013,false

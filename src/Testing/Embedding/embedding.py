@@ -11,7 +11,7 @@ class Embedding:
     def __init__(self, word_vectors):
         self.word_vectors = word_vectors
         self.word_vectors.init_sims()
-        self.squared_euclidean_noise = self._calculate_squared_euclidean_noise()
+        self.squared_euclidean_noise = self._calculate_squared_euclidean_noise() / 4
         self.random_cosine_noise = self._calculate_random_cosine_noise()
 
     def __getitem__(self, word):

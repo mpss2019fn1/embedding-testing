@@ -1,0 +1,7 @@
+a,b,is_similar
+wd:Q1023,wd:Q1022,true
+wd:Q1024,wd:Q1026,true
+wd:Q1017,wd:Q1018,true
+wd:Q1023,wd:Q1017,false
+wd:Q1025,wd:Q1021,false
+wd:Q1023,wd:Q1020,false

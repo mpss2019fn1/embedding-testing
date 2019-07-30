@@ -11,7 +11,7 @@ class TaskResult:
 
     def __init__(self, task: AbstractTask, enabled: bool):
         self.name = task.name
-        self._task_type = task.__class__.configuration_identifier()
+        self.task_type = task.__class__.configuration_identifier()
         self.enabled = enabled
         self.case_results = []
         self._started = time.time()
@@ -65,7 +65,7 @@ class TaskResult:
         return self.print("")
 
     def print(self, indent):
-        representation = f"{self.name} {TaskResult.TYPE_PREFIX} {self._task_type}"
+        representation = f"{self.name} {TaskResult.TYPE_PREFIX} {self.task_type}"
 
         if not self.enabled:
             return indent + f"{self.DISABLED_PREFIX} {representation}"

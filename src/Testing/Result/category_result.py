@@ -1,6 +1,8 @@
 import time
+from typing import Optional
 
 from src.Testing.Result.task_result import TaskResult
+from src.Testing.Result.task_type_results import TaskTypeResults
 from src.Testing.TaskConfiguration.task_category import TaskCategory
 
 
@@ -15,6 +17,7 @@ class CategoryResult:
         self.category_results = []
         self._started = time.time()
         self._ended = None
+        self._task_type_results: Optional[TaskTypeResults] = None
 
     def add_task_result(self, task_result: TaskResult):
         self._raise_if_finalized()
@@ -27,8 +30,12 @@ class CategoryResult:
     def finalize(self):
         self._raise_if_finalized()
         self._ended = time.time()
+        self._task_type_results = TaskTypeResults(self)
 
         return self
+
+    def task_type_results(self) -> TaskTypeResults:
+        return self._task_type_results
 
     def is_finalized(self):
         return self._ended is not None

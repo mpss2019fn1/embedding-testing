@@ -1,5 +1,6 @@
 import pytest
 
+from src.Testing.EntityLabel.entity_labels import EntityLabels
 from src.Testing.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
 from src.Testing.Task.Analogy.analogy_task import AnalogyTask
 from src.Testing.Task.Similarity.cosine_similarity_task import CosineSimilarityTask
@@ -34,7 +35,8 @@ class TestTaskCategoryFactory(BaseTestCase):
                                 categories:""",
                   file=file_output)
 
-        categories = TaskCategoryFileParser.create_categories_from_file(file)
+        entity_labels = EntityLabels()
+        categories = TaskCategoryFileParser.create_categories_from_file(file, entity_labels)
         assert len(categories) == 1
 
         category = categories[0]
@@ -66,7 +68,8 @@ class TestTaskCategoryFactory(BaseTestCase):
             configuration:
                 categories:""", file=file_output)
 
-        categories = TaskCategoryFileParser.create_categories_from_file(file)
+        entity_labels = EntityLabels()
+        categories = TaskCategoryFileParser.create_categories_from_file(file, entity_labels)
         assert len(categories) == 0
 
     def test_enabled_is_not_a_boolean(self):
@@ -83,7 +86,8 @@ class TestTaskCategoryFactory(BaseTestCase):
                   file=file_output)
 
         with pytest.raises(KeyError):
-            categories = TaskCategoryFileParser.create_categories_from_file(file)
+            entity_labels = EntityLabels()
+            categories = TaskCategoryFileParser.create_categories_from_file(file, entity_labels)
 
     def test_enabled_is_missing(self):
         file = self._random_test_file()
@@ -98,7 +102,8 @@ class TestTaskCategoryFactory(BaseTestCase):
                   file=file_output)
 
         with pytest.raises(KeyError):
-            categories = TaskCategoryFileParser.create_categories_from_file(file)
+            entity_labels = EntityLabels()
+            categories = TaskCategoryFileParser.create_categories_from_file(file, entity_labels)
 
     def test_name_is_empty(self):
         file = self._random_test_file()
@@ -114,7 +119,8 @@ class TestTaskCategoryFactory(BaseTestCase):
                   file=file_output)
 
         with pytest.raises(KeyError):
-            categories = TaskCategoryFileParser.create_categories_from_file(file)
+            entity_labels = EntityLabels()
+            categories = TaskCategoryFileParser.create_categories_from_file(file, entity_labels)
 
     def test_name_is_missing(self):
         file = self._random_test_file()
@@ -129,4 +135,5 @@ class TestTaskCategoryFactory(BaseTestCase):
                   file=file_output)
 
         with pytest.raises(KeyError):
-            categories = TaskCategoryFileParser.create_categories_from_file(file)
+            entity_labels = EntityLabels()
+            categories = TaskCategoryFileParser.create_categories_from_file(file, entity_labels)

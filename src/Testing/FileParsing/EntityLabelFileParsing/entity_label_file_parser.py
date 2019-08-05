@@ -11,7 +11,7 @@ class EntityLabelFileParser(AbstractFileParser):
 
     @staticmethod
     def create_from_file(configuration_file: Path):
-        if not configuration_file.exists():
+        if not configuration_file or not configuration_file.exists():
             return EntityLabels()
 
         with configuration_file.open("r") as csv_stream:

@@ -54,8 +54,8 @@
                 </li>
                 <h3 class="menu-title">Test Categories</h3>
                 {% for result in results %}
-                <li class="menu-item-has-children {% if selected_category ==  result %}active{% endif %}">
-                    <a href="{{ url_for('category', search_id=result.category.id) }}"  aria-haspopup="true"
+                <li id="{{ result.category.id }}" class="menu-item-has-children {% if selected_category ==  result %}active{% endif %}">
+                    <a href="{{ url_for('category', search_id=result.category.id) }}#{{ result.category.id }}"  aria-haspopup="true"
                        aria-expanded="false">
                         {% if result.pass_rate() >= 80 %}<i class="menu-icon fa fa-check check-green"></i>
                         {% else %}<i class="menu-icon fa fa-times times-red"></i>
@@ -64,8 +64,8 @@
                     </a>
                     <ul class="sub-menu children">
                         {% for category_result in result.category_results recursive %}
-                        <li class="{% if selected_category ==  category_result %}active{% endif %}">
-                            <a href="{{ url_for('category', search_id=category_result.category.id) }}">
+                        <li id="{{ category_result.category.id }}" class="{% if selected_category ==  category_result %}active{% endif %}">
+                            <a href="{{ url_for('category', search_id=category_result.category.id) }}#{{ category_result.category.id }}">
                                 {% if category_result.pass_rate() >= 80 %}<i class="menu-icon fa fa-check check-green"></i>
                                 {% else %}<i class="menu-icon fa fa-times times-red"></i>
                                 {% endif %}

@@ -2,6 +2,7 @@ import uuid
 
 import pytest
 
+from src.Testing.EntityLabel.entity_labels import EntityLabels
 from src.Testing.FileParsing.ConfigurationFileParsing.task_file_parser import TaskFileParser
 from src.Testing.Task.Analogy.analogy_task import AnalogyTask
 from test.Testing.base_test_case import BaseTestCase
@@ -15,9 +16,9 @@ class TestTaskFileParser(BaseTestCase):
             "type": "analogy",
             "test_set": str(self.empty_file.absolute())
         }
-        task_file_parser = TaskFileParser(self.empty_file)
+        task_file_parser = TaskFileParser(self.empty_file, EntityLabels())
         task = task_file_parser.create_task_from_configuration(config)
-        assert task.name == "task-name"
+        assert task.name == "analogy: task-name"
         assert task.__class__ == AnalogyTask
         assert task.test_set == self.empty_file
 
@@ -27,9 +28,9 @@ class TestTaskFileParser(BaseTestCase):
             "type": "analogy",
             "test_set": str(self.empty_file.relative_to(self.test_dir))
         }
-        task_file_parser = TaskFileParser(self.empty_file)
+        task_file_parser = TaskFileParser(self.empty_file, EntityLabels())
         task = task_file_parser.create_task_from_configuration(config)
-        assert task.name == "task-name"
+        assert task.name == "analogy: task-name"
         assert task.__class__ == AnalogyTask
         assert task.test_set == self.empty_file
 
@@ -39,7 +40,7 @@ class TestTaskFileParser(BaseTestCase):
             "type": "analogy",
             "test_set": f"./{uuid.uuid4()}"
         }
-        task_file_parser = TaskFileParser(self.empty_file)
+        task_file_parser = TaskFileParser(self.empty_file, EntityLabels())
         with pytest.raises(KeyError):
             task = task_file_parser.create_task_from_configuration(config)
 
@@ -48,7 +49,7 @@ class TestTaskFileParser(BaseTestCase):
             "type": "analogy",
             "test_set": str(self.empty_file.relative_to(self.test_dir))
         }
-        task_file_parser = TaskFileParser(self.empty_file)
+        task_file_parser = TaskFileParser(self.empty_file, EntityLabels())
         with pytest.raises(KeyError):
             task = task_file_parser.create_task_from_configuration(config)
 
@@ -58,7 +59,7 @@ class TestTaskFileParser(BaseTestCase):
             "type": "analogy",
             "test_set": str(self.empty_file.relative_to(self.test_dir))
         }
-        task_file_parser = TaskFileParser(self.empty_file)
+        task_file_parser = TaskFileParser(self.empty_file, EntityLabels())
         with pytest.raises(KeyError):
             task = task_file_parser.create_task_from_configuration(config)
 
@@ -67,7 +68,7 @@ class TestTaskFileParser(BaseTestCase):
             "name": "task-name",
             "type": "analogy",
         }
-        task_file_parser = TaskFileParser(self.empty_file)
+        task_file_parser = TaskFileParser(self.empty_file, EntityLabels())
         with pytest.raises(KeyError):
             task = task_file_parser.create_task_from_configuration(config)
 
@@ -76,6 +77,6 @@ class TestTaskFileParser(BaseTestCase):
             "name": "",
             "test_set": str(self.empty_file.relative_to(self.test_dir))
         }
-        task_file_parser = TaskFileParser(self.empty_file)
+        task_file_parser = TaskFileParser(self.empty_file, EntityLabels())
         with pytest.raises(KeyError):
             task = task_file_parser.create_task_from_configuration(config)

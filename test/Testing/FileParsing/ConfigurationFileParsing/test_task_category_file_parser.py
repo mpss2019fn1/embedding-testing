@@ -46,12 +46,12 @@ class TestTaskCategoryFactory(BaseTestCase):
         assert len(categories) == 1
 
         task = category.tasks[0]
-        assert task.name == "task_name_1"
+        assert task.name == "analogy: task_name_1"
         assert task.__class__ == AnalogyTask
         assert task.test_set == self.empty_file
 
         task = category.tasks[1]
-        assert task.name == "task_name_2"
+        assert task.name == "cosine_similarity: task_name_2"
         assert task.__class__ == CosineSimilarityTask
         assert task.test_set == self.empty_file
 

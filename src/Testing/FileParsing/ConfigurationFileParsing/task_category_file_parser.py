@@ -77,7 +77,7 @@ class TaskCategoryFileParser(AbstractFileParser):
         if not task_configurations:
             return tasks
 
-        task_file_parser = TaskFileParser(self._file_path)
+        task_file_parser = TaskFileParser(self._file_path, self._entity_labels)
 
         for task in task_configurations:
             task = task[self.LABEL_TASK]

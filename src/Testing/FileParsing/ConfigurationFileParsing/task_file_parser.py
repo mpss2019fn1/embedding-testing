@@ -1,6 +1,7 @@
 import logging
 from pathlib import Path
 
+from src.Testing.EntityLabel.entity_labels import EntityLabels
 from src.Testing.FileParsing.abstract_file_parser import AbstractFileParser
 
 
@@ -11,10 +12,14 @@ class TaskFileParser(AbstractFileParser):
     LABEL_TEST_SET = "test_set"
     LABEL_METRIC = "metric"
 
+    def __init__(self, configuration_file: Path, entity_labels: EntityLabels):
+        super(TaskFileParser, self).__init__(configuration_file)
+        self._entity_labels = entity_labels
+
     def create_task_from_configuration(self, configuration):
         from src.Testing.Task.task_type import TaskType
-        name = self._extract_name(configuration)
         task_class = TaskType.value_from_string(configuration[TaskFileParser.LABEL_TYPE])
+        name = task_class.configuration_identifier() + ": " + self._extract_name(configuration)
         test_set = self._extract_test_set(configuration)
 
         return task_class(name, test_set)
@@ -26,7 +31,7 @@ class TaskFileParser(AbstractFileParser):
             logging.error("The provided task name must not be empty")
             raise KeyError
 
-        return name
+        return self._entity_labels[name]
 
     def _extract_test_set(self, configuration):
         test_set = Path(configuration[self.LABEL_TEST_SET])

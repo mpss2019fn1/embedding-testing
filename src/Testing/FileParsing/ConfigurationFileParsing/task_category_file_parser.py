@@ -1,7 +1,9 @@
 import logging
+from pathlib import Path
 
 import yaml
 
+from src.Testing.EntityLabel.entity_labels import EntityLabels
 from src.Testing.FileParsing.abstract_file_parser import AbstractFileParser
 from src.Testing.TaskConfiguration.task_category import TaskCategory
 
@@ -17,8 +19,12 @@ class TaskCategoryFileParser(AbstractFileParser):
     LABEL_TASK = "task"
 
     @staticmethod
-    def create_categories_from_file(configuration_file):
-        return TaskCategoryFileParser(configuration_file).create_categories()
+    def create_categories_from_file(configuration_file, entity_labels):
+        return TaskCategoryFileParser(configuration_file, entity_labels).create_categories()
+
+    def __init__(self, configuration_file: Path, entity_labels: EntityLabels):
+        super(TaskCategoryFileParser, self).__init__(configuration_file)
+        self._entity_labels: EntityLabels = entity_labels
 
     def create_categories(self):
         with open(self._file_path, "r") as stream:
@@ -62,7 +68,7 @@ class TaskCategoryFileParser(AbstractFileParser):
             logging.error("The provided task name must not be empty")
             raise KeyError
 
-        return name
+        return self._entity_labels[name]
 
     def _extract_tasks(self, configuration):
         from src.Testing.FileParsing.ConfigurationFileParsing.task_file_parser import TaskFileParser

@@ -16,6 +16,7 @@ class AnalogyTask(AbstractTask):
     def _run(self):
         embedding = self._test_configuration.embedding
         linking = self._test_configuration.entity_linking
+        labels = self._test_configuration.entity_labels
         for indexA, lineA in enumerate(self._test_set_lines()):
             for indexB, lineB in enumerate(self._test_set_lines()):
                 if indexA >= indexB:
@@ -28,4 +29,9 @@ class AnalogyTask(AbstractTask):
 
                 prediction = embedding.word_vectors.most_similar(positive=[a, c], negative=[b], topn=1)[0]
 
-                yield CaseResult([(a, b), (c, "?")], d, prediction[0], prediction[0] == d)
+                label_a = labels[lineA[0]]
+                label_b = labels[lineA[1]]
+                label_c = labels[lineB[0]]
+                label_d = labels[lineB[1]]
+
+                yield CaseResult([(label_a, label_b), (label_c, "?")], label_d, prediction[0], prediction[0] == d)

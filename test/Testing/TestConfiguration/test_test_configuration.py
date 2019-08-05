@@ -12,7 +12,7 @@ class TestTestConfiguration:
         ]
 
         # noinspection PyTypeChecker
-        test_configuration = TestConfiguration(None, None, [], task_configuration)
+        test_configuration = TestConfiguration(None, None, None, [], task_configuration)
 
         assert test_configuration.is_enabled(TaskType.COSINE_SIMILARITY)
         assert not test_configuration.is_enabled(TaskType.COSINE_NEIGHBORHOOD)

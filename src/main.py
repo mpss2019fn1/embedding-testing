@@ -5,18 +5,20 @@ from src.Evaluation.result_server import result_server
 from src.Testing.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
 from src.Testing.FileParsing.ConfigurationFileParsing.task_configuration_file_parser import TaskConfigurationFileParser
 from src.Testing.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
+from src.Testing.FileParsing.EntityLabelFileParsing.entity_label_file_parser import EntityLabelFileParser
 from src.Testing.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
 from src.Testing.TestConfiguration.test_configuration import TestConfiguration
 from src.Testing.TestExecution.test_executor import TestExecutor
 
 
 def main(args):
-    categories = TaskCategoryFileParser.create_categories_from_file(args.test_set_config)
+    entity_labels = EntityLabelFileParser.create_from_file(args.entity_labels)
+    categories = TaskCategoryFileParser.create_categories_from_file(args.test_set_config, entity_labels)
     task_configurations = TaskConfigurationFileParser.create_configurations_from_file(args.test_set_config)
     entity_linkings = EntityLinkingFileParser.create_from_file(args.entity_mapping)
     embeddings = EmbeddingFileParser.create_from_file(args.embeddings)
 
-    test_configuration = TestConfiguration(embeddings, entity_linkings, categories, task_configurations)
+    test_configuration = TestConfiguration(embeddings, entity_linkings, entity_labels, categories, task_configurations)
 
     test_executor = TestExecutor(test_configuration)
     test_category_results = list(test_executor.run())
@@ -44,5 +46,11 @@ if __name__ == "__main__":
         type=Path,
         help=f"Path to the embeddings file (word2vec format)",
         required=True
+    )
+    parser.add_argument(
+        "--entity-labels",
+        type=Path,
+        help=f"Path to the file containing entity-labels",
+        required=False
     )
     main(parser.parse_args())

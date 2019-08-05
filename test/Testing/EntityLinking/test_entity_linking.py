@@ -9,7 +9,6 @@ class TestEntityLinking:
         entity_mapping = EntityLinkings()
 
         assert entity_mapping is not None
-        assert entity_mapping.imported < time.time()
 
     def test_add(self):
         entity_mapping = EntityLinkings()

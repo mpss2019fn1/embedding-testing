@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from src.Testing.EntityLabel.entity_labels import EntityLabels
 from src.Testing.FileParsing.ConfigurationFileParsing.task_configuration_file_parser import TaskConfigurationFileParser
 from src.Testing.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
 from src.Testing.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
@@ -20,7 +21,8 @@ class TestAnalogyTask(BaseTestCase):
             Path(self.resource_directory, "configuration.yaml"))
         entity_linking = EntityLinkingFileParser.create_from_file(Path(self.resource_directory, "linking.csv"))
         embedding = EmbeddingFileParser.create_from_file(Path(self.resource_directory, "embedding"))
-        return TestConfiguration(embedding, entity_linking, [], task_configs)
+        entity_labels = EntityLabels()
+        return TestConfiguration(embedding, entity_linking, entity_labels, [], task_configs)
 
     def test_run(self):
         task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals.csv"))

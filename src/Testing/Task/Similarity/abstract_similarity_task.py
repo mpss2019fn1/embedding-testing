@@ -13,6 +13,7 @@ class AbstractSimilarityTask(AbstractTask, ABC):
     def _run(self):
         embedding = self._test_configuration.embedding
         linking = self._test_configuration.entity_linking
+        labels = self._test_configuration.entity_labels
         for line in self._test_set_lines():
             entity1 = linking[line[0]]
             entity2 = linking[line[1]]
@@ -25,7 +26,10 @@ class AbstractSimilarityTask(AbstractTask, ABC):
 
             expected_result = self._stringify_expected_result(is_expected_similar)
 
-            yield CaseResult([entity1, entity2], expected_result, '%06.4f' % result, is_similar == is_expected_similar)
+            label_a = labels[line[0]]
+            label_b = labels[line[1]]
+
+            yield CaseResult([label_a, label_b], expected_result, '%06.4f' % result, is_similar == is_expected_similar)
 
     @abstractmethod
     def _stringify_expected_result(self, is_expected_similar):

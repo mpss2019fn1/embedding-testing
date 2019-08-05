@@ -4,7 +4,6 @@ import time
 class EntityLinkings:
 
     def __init__(self):
-        self.imported = time.time()
         self._entity_mappings = {}
 
     def add(self, knowledgebase_id, embedding_tag):

@@ -6,8 +6,8 @@ from src.Testing.FileParsing.abstract_file_parser import AbstractFileParser
 
 
 class EntityLabelFileParser(AbstractFileParser):
-    COLUMN_INDEX_KNOWLEDGEBASE_ID = 1
-    COLUMN_INDEX_EMBEDDING_LABEL = 0
+    COLUMN_INDEX_KNOWLEDGEBASE_ID = 0
+    COLUMN_INDEX_EMBEDDING_LABEL = 1
 
     @staticmethod
     def create_from_file(configuration_file: Path):

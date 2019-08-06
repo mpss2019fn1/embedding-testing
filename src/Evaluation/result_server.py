@@ -32,7 +32,7 @@ class ResultServer:
         if not result_file.exists():
             raise FileNotFoundError(f"The given file {result_file} does not exist.")
 
-        return pickle.load(result_file.open("r"))
+        return pickle.load(result_file.open("rb"))
 
     @staticmethod
     def run(debug: bool):

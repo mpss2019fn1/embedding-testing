@@ -1,59 +1,40 @@
 import logging
-import math
-import multiprocessing
-from queue import Queue
-from typing import List
 
 from src.Testing.Result.category_result import CategoryResult
+from src.Testing.Task.abstract_task import AbstractTask
 from src.Testing.TaskConfiguration.task_category import TaskCategory
 from src.Testing.TestConfiguration.test_configuration import TestConfiguration
 
 
 class TestExecutor:
 
-    def __init__(self, test_configuration: TestConfiguration, number_of_workers: int = 16):
+    def __init__(self, test_configuration: TestConfiguration):
         self._test_configuration = test_configuration
-        self._number_of_workers: int = number_of_workers
 
     def run(self):
-        def _run_categories(categories_: List[TaskCategory], queue_: Queue):
-            def _run_category(category_: TaskCategory):
-                result = CategoryResult(category_)
+        for index, category in enumerate(self._test_configuration.categories):
+            logging.info(
+                f"{category.name} [{index + 1}/{len(self._test_configuration.categories)} ({(index + 1) / len(self._test_configuration.categories) * 100} %)]")
+            yield self._run_category(category, category.name)
 
-                if not category_.enabled:
-                    return result
+    def _run_category(self, category: TaskCategory, indent: str):
+        result = CategoryResult(category)
 
-                for count, task in enumerate(category_.tasks):
-                    logging.info(
-                        f"     {category_.name} :: [{count + 1} / {len(category_.tasks)} ({(count + 1) / len(category_.tasks) * 100} %)] {task.name}")
-                    result.add_task_result(task.run(self._test_configuration))
+        if not category.enabled:
+            return result
 
-                return result.finalize()
+        for index, task in enumerate(category.tasks):
+            logging.info(
+                f"{indent} -> {task.name} [{index + 1} / {len(category.tasks)} ({(index + 1) / len(category.tasks) * 100} %)]")
+            result.add_task_result(self.run_task(task))
 
-            for index, cat in enumerate(categories_):
-                logging.info(
-                    f"[{index + 1}/{len(categories_)} ({(index + 1) / len(categories_) * 100} %)] {cat.name}")
-                queue_.put(_run_category(cat))
+        for index, sub_category in enumerate(category.categories):
+            sub_indent = f"{indent} :: {sub_category.name}"
+            logging.info(
+                f"{sub_indent} [{index + 1} / {len(category.categories)} ({(index + 1) / len(category.categories) * 100} %)]")
+            result.add_category_result(self._run_category(sub_category, sub_indent))
 
-        categories = set(self._test_configuration.categories)
-        for category in self._test_configuration.categories:
-            for sub_category in category.categories_recursive():
-                categories.add(sub_category)
+        return result.finalize()
 
-        categories = list(categories)
-        shared_queue: Queue = Queue()
-        batch_size: int = math.ceil(len(categories) / self._number_of_workers)
-        workers: List[multiprocessing.Process] = []
-        for i in range(self._number_of_workers):
-            batch: List[TaskCategory] = categories[i * batch_size: (i + 1) * batch_size]
-            worker = multiprocessing.Process(
-                target=_run_categories,
-                args=(batch, shared_queue)
-            )
-            workers.append(worker)
-            worker.start()
-
-        for worker in workers:
-            worker.join()
-
-        return list(shared_queue.queue)
+    def run_task(self, task: AbstractTask):
+        return task.run(self._test_configuration)

@@ -51,7 +51,7 @@ class CategoryResult:
             return 0
 
         number_passed_cases = self.number_of_passed_cases()
-        pass_rate = number_passed_cases / self.number_of_all_cases()
+        pass_rate = number_passed_cases / max(1, self.number_of_all_cases())
         pass_rate *= 100.0
 
         return pass_rate

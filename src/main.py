@@ -1,8 +1,8 @@
 import argparse
 import logging
+import os
 import pickle
 from pathlib import Path
-import os
 
 from src.Evaluation.result_server import ResultServer
 from src.Testing.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
@@ -53,8 +53,8 @@ def _run_tests(args):
     test_configuration = TestConfiguration(embeddings, entity_linkings, entity_labels, categories, task_configurations)
 
     logging.info(f"starting test execution...")
-    test_executor = TestExecutor(test_configuration, args.workers)
-    test_category_results = test_executor.run()
+    test_executor = TestExecutor(test_configuration)
+    test_category_results = list(test_executor.run())
 
     logging.info(f"storing results...")
 
@@ -112,13 +112,6 @@ def _initialize_run_parser(subparsers):
         type=Path,
         help=f"The path where to store the test execution results",
         required=True
-    )
-    run_parser.add_argument(
-        "--workers",
-        type=int,
-        help=f"Number of workers to use",
-        required=False,
-        default=16
     )
 
 

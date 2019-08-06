@@ -36,7 +36,7 @@ def _run_tests(args):
     test_executor = TestExecutor(test_configuration)
     test_category_results = list(test_executor.run())
 
-    args.test_results.mkdirs()
+    args.test_results.mkdir(parents=True, exist_ok=True)
     with args.test_results.open("w+") as output_stream:
         pickle.dump(test_category_results, output_stream)
 

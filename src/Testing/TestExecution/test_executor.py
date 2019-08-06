@@ -1,11 +1,12 @@
+import logging
 import math
 import multiprocessing
+from queue import Queue
 from typing import List
 
 from src.Testing.Result.category_result import CategoryResult
 from src.Testing.TaskConfiguration.task_category import TaskCategory
 from src.Testing.TestConfiguration.test_configuration import TestConfiguration
-from src.Testing.TestExecution.category_runner import CategoryRunner
 
 
 class TestExecutor:
@@ -15,24 +16,42 @@ class TestExecutor:
         self._number_of_workers: int = number_of_workers
 
     def run(self):
+        def _run_categories(categories_: List[TaskCategory], queue: Queue):
+            def _run_category(category_: TaskCategory):
+                result = CategoryResult(category_)
+
+                if not category_.enabled:
+                    return result
+
+                for task in category_.tasks:
+                    result.add_task_result(task.run(self._test_configuration))
+
+                return result.finalize()
+
+            for index, cat in enumerate(categories_):
+                logging.info(
+                    f"[{index + 1}/{len(categories_)} ({(index + 1) / len(categories_) * 100} %)] {cat.name}")
+                queue.put(_run_category(cat))
+
         categories = set(self._test_configuration.categories)
         for category in self._test_configuration.categories:
             for sub_category in category.categories_recursive():
                 categories.add(sub_category)
 
         categories = list(categories)
-        manager: multiprocessing.Manager() = multiprocessing.Manager()
-        results: List[CategoryResult] = manager.list()
-
+        queue: Queue = Queue()
         batch_size: int = math.ceil(len(categories) / self._number_of_workers)
-        workers: List[CategoryRunner] = []
+        workers: List[multiprocessing.Process] = []
         for i in range(self._number_of_workers):
             batch: List[TaskCategory] = categories[i * batch_size: (i + 1) * batch_size]
-            category_runner: CategoryRunner = CategoryRunner(self._test_configuration, batch, results)
-            category_runner.start()
-            workers.append(category_runner)
+            worker = multiprocessing.Process(
+                target=_run_categories,
+                args=(batch, queue)
+            )
+            workers.append(worker)
+            worker.start()
 
         for worker in workers:
             worker.join()
 
-        return list(results)
+        return list(queue.queue)

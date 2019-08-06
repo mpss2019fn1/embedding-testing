@@ -41,14 +41,14 @@ class TestExecutor:
                 categories.add(sub_category)
 
         categories = list(categories)
-        queue: Queue = Queue()
+        shared_queue: Queue = Queue()
         batch_size: int = math.ceil(len(categories) / self._number_of_workers)
         workers: List[multiprocessing.Process] = []
         for i in range(self._number_of_workers):
             batch: List[TaskCategory] = categories[i * batch_size: (i + 1) * batch_size]
             worker = multiprocessing.Process(
                 target=_run_categories,
-                args=(batch, queue)
+                args=(batch, shared_queue)
             )
             workers.append(worker)
             worker.start()
@@ -56,4 +56,4 @@ class TestExecutor:
         for worker in workers:
             worker.join()
 
-        return list(queue.queue)
+        return list(shared_queue.queue)

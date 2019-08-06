@@ -1,4 +1,5 @@
 import argparse
+import logging
 import pickle
 from pathlib import Path
 
@@ -13,6 +14,8 @@ from src.Testing.TestExecution.test_executor import TestExecutor
 
 
 def main(args):
+    logging.basicConfig(format="%(asctime)s : [%(process)s] %(levelname)s : %(message)s", level=logging.INFO)
+
     if "action" not in args or not args.action:
         print(f"No valid action provided.")
         exit(1)
@@ -25,18 +28,29 @@ def main(args):
 
 
 def _run_tests(args):
+    logging.info(f"loading entity labels...")
     entity_labels = EntityLabelFileParser.create_from_file(args.entity_labels)
+
+    logging.info(f"loading task categories...")
     categories = TaskCategoryFileParser.create_categories_from_file(args.test_set_config, entity_labels)
+
+    logging.info(f"loading task configurations...")
     task_configurations = TaskConfigurationFileParser.create_configurations_from_file(args.test_set_config)
+
+    logging.info(f"loading entity linkings...")
     entity_linkings = EntityLinkingFileParser.create_from_file(args.entity_mapping)
+
+    logging.info(f"loading embeddings...")
     embeddings = EmbeddingFileParser.create_from_file(args.embeddings)
 
     test_configuration = TestConfiguration(embeddings, entity_linkings, entity_labels, categories, task_configurations)
 
-    test_executor = TestExecutor(test_configuration)
-    test_category_results = list(test_executor.run())
+    logging.info(f"starting test execution...")
+    test_executor = TestExecutor(test_configuration, args.workers)
+    test_category_results = test_executor.run()
 
-    args.test_results.mkdir(parents=True, exist_ok=True)
+    logging.info(f"storing results...")
+    args.test_results.parent.mkdir(parents=True, exist_ok=True)
     with args.test_results.open("w+") as output_stream:
         pickle.dump(test_category_results, output_stream)
 
@@ -89,6 +103,13 @@ def _initialize_run_parser(subparsers):
         type=Path,
         help=f"The path where to store the test execution results",
         required=True
+    )
+    run_parser.add_argument(
+        "--workers",
+        type=int,
+        help=f"Number of workers to use",
+        required=False,
+        default=16
     )
 
 

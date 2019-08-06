@@ -1,4 +1,5 @@
 import uuid
+from typing import List
 
 
 class TaskCategory:
@@ -9,3 +10,11 @@ class TaskCategory:
         self.tasks = tasks
         self.categories = categories
         self.id = uuid.uuid4()
+
+    def categories_recursive(self) -> List["TaskCategory"]:
+        categories: List["TaskCategory"] = self.categories
+
+        for category in self.categories:
+            categories.extend(category.categories_recursive())
+
+        return categories

@@ -1,6 +1,3 @@
-from gensim import matutils
-from numpy import vstack, dot
-
 from src.Testing.Metric.cosine_similarity import CosineSimilarity
 from src.Testing.Task.OutlierDetection.abstract_outlier_detection_task import AbstractOutlierDetectionTask
 
@@ -20,6 +17,9 @@ class CosineOutlierDetectionTask(AbstractOutlierDetectionTask):
         super(CosineOutlierDetectionTask, self).__init__(name, test_set, CosineSimilarity())
 
     def _identify_outlier(self, embedding):
+        from gensim import matutils
+        from numpy import vstack, dot
+
         vectors = vstack(embedding.word_vectors.word_vec(word, use_norm=True) for word in self._current_group)
         mean = matutils.unitvec(vectors.mean(axis=0))
         similarities = dot(vectors, mean)

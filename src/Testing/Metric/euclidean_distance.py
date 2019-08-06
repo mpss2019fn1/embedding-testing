@@ -1,5 +1,3 @@
-import numpy as np
-
 from src.Testing.Metric.abstract_metric import AbstractMetric
 
 
@@ -10,6 +8,8 @@ class EuclideanDistance(AbstractMetric):
         return sum(distance)
 
     def batch_compute(self, vectors):
+        import numpy as np
+
         matrix = np.array(vectors)
         return np.var(matrix, 0, ddof=1).sum() * 2
 

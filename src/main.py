@@ -2,7 +2,7 @@ import argparse
 import pickle
 from pathlib import Path
 
-from src.Evaluation.result_server import result_server
+from src.Evaluation.result_server import ResultServer
 from src.Testing.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
 from src.Testing.FileParsing.ConfigurationFileParsing.task_configuration_file_parser import TaskConfigurationFileParser
 from src.Testing.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
@@ -42,10 +42,7 @@ def _run_tests(args):
 
 
 def _display_results(args):
-    with args.test_results.open("r") as output_stream:
-        test_category_results = pickle.load(output_stream)
-
-    result_server.config["results"] = test_category_results
+    result_server = ResultServer(args.test_results)
     result_server.run(debug=False)
 
 
@@ -87,7 +84,7 @@ def _initialize_run_parser(subparsers):
         help=f"Path to the file containing entity-labels",
         required=False
     )
-    run_parser.add_subparsers(
+    run_parser.add_argument(
         "--test-results",
         type=Path,
         help=f"The path where to store the test execution results",
@@ -99,7 +96,7 @@ def _initialize_display_parser(subparsers):
     display_parser = subparsers.add_parser("display")
     display_parser.set_defaults(action="display")
 
-    display_parser.add_arguments(
+    display_parser.add_argument(
         "--test-results",
         type=Path,
         help=f"Path to the stored test results",

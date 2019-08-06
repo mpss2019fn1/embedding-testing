@@ -16,14 +16,16 @@ class TestExecutor:
         self._number_of_workers: int = number_of_workers
 
     def run(self):
-        def _run_categories(categories_: List[TaskCategory], queue: Queue):
+        def _run_categories(categories_: List[TaskCategory], queue_: Queue):
             def _run_category(category_: TaskCategory):
                 result = CategoryResult(category_)
 
                 if not category_.enabled:
                     return result
 
-                for task in category_.tasks:
+                for count, task in enumerate(category_.tasks):
+                    logging.info(
+                        f"     {category_.name} :: [{count + 1} / {len(category_.tasks)} ({(count + 1) / len(category_.tasks) * 100} %)] {task.name}")
                     result.add_task_result(task.run(self._test_configuration))
 
                 return result.finalize()
@@ -31,7 +33,7 @@ class TestExecutor:
             for index, cat in enumerate(categories_):
                 logging.info(
                     f"[{index + 1}/{len(categories_)} ({(index + 1) / len(categories_) * 100} %)] {cat.name}")
-                queue.put(_run_category(cat))
+                queue_.put(_run_category(cat))
 
         categories = set(self._test_configuration.categories)
         for category in self._test_configuration.categories:

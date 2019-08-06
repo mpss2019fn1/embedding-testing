@@ -51,7 +51,7 @@ def _run_tests(args):
 
     logging.info(f"storing results...")
     args.test_results.parent.mkdir(parents=True, exist_ok=True)
-    with args.test_results.open("w+") as output_stream:
+    with args.test_results.open("wb+") as output_stream:
         pickle.dump(test_category_results, output_stream)
 
 

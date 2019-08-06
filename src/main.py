@@ -2,6 +2,7 @@ import argparse
 import logging
 import pickle
 from pathlib import Path
+import os
 
 from src.Evaluation.result_server import ResultServer
 from src.Testing.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
@@ -11,6 +12,12 @@ from src.Testing.FileParsing.EntityLabelFileParsing.entity_label_file_parser imp
 from src.Testing.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
 from src.Testing.TestConfiguration.test_configuration import TestConfiguration
 from src.Testing.TestExecution.test_executor import TestExecutor
+
+os.environ["OMP_NUM_THREADS"] = "8"
+os.environ["OPENBLAS_NUM_THREADS"] = "8"
+os.environ["MKL_NUM_THREADS"] = "8"
+os.environ["VECLIB_MAXIMUM_THREADS"] = "8"
+os.environ["NUMEXPR_NUM_THREADS"] = "8"
 
 
 def main(args):
@@ -50,6 +57,8 @@ def _run_tests(args):
     test_category_results = test_executor.run()
 
     logging.info(f"storing results...")
+
+    logging.info(f"Result size: {len(test_category_results)}")
     args.test_results.parent.mkdir(parents=True, exist_ok=True)
     with args.test_results.open("wb+") as output_stream:
         pickle.dump(test_category_results, output_stream)

@@ -24,7 +24,7 @@ class TestExecutor:
         if not category.enabled:
             return result
 
-        self._test_configuration.embedding.enter_nesting(self._read_tags(category))
+        self._test_configuration.embedding.enter_nesting(self._read_considered_tags(category))
 
         for index, task in enumerate(category.tasks):
             logging.info(
@@ -40,15 +40,15 @@ class TestExecutor:
         self._test_configuration.embedding.exit_nesting()
         return result.finalize()
 
-    @staticmethod
-    def _read_tags(category: TaskCategory) -> List[str]:
+    def _read_considered_tags(self, category: TaskCategory) -> List[str]:
         tags: List[str] = []
-        with category.embedding_filter.open("r") as input_stream:
+        with category.considered_entities_file.open("r") as input_stream:
             for line in input_stream:
                 if not line:
                     continue
 
-                tags.append(line.replace("\n", ""))
+                entity = line.replace("\n", "")
+                tags.append(self._test_configuration.entity_linking[entity])
 
         return tags
 

@@ -30,7 +30,7 @@ category:
     required:
         - name
         - enabled
-        - tags
+        - entities
         - tasks
         - categories
     properties:
@@ -38,9 +38,9 @@ category:
             type: string
         enabled:
             type: boolean
-        tags:
+        entities:
             type: string
-            description: Path to file, which contains all embedding tags, which are used to calculate the base noise for tasks.
+            description: Path to file, which contains all linked entities, which are used to calculate the base noise for tasks.
         tasks:
             type: array
             items:

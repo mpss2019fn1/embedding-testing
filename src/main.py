@@ -13,6 +13,12 @@ from src.Testing.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser
 from src.Testing.TestConfiguration.test_configuration import TestConfiguration
 from src.Testing.TestExecution.test_executor import TestExecutor
 
+os.environ["OMP_NUM_THREADS"] = "8"
+os.environ["OPENBLAS_NUM_THREADS"] = "8"
+os.environ["MKL_NUM_THREADS"] = "8"
+os.environ["VECLIB_MAXIMUM_THREADS"] = "8"
+os.environ["NUMEXPR_NUM_THREADS"] = "8"
+
 
 def main(args):
     logging.basicConfig(format="%(asctime)s : [%(process)s] %(levelname)s : %(message)s", level=logging.INFO)
@@ -29,12 +35,6 @@ def main(args):
 
 
 def _run_tests(args):
-    os.environ["OMP_NUM_THREADS"] = str(args.workers)
-    os.environ["OPENBLAS_NUM_THREADS"] = str(args.workers)
-    os.environ["MKL_NUM_THREADS"] = str(args.workers)
-    os.environ["VECLIB_MAXIMUM_THREADS"] = str(args.workers)
-    os.environ["NUMEXPR_NUM_THREADS"] = str(args.workers)
-
     logging.info(f"loading entity labels...")
     entity_labels = EntityLabelFileParser.create_from_file(args.entity_labels)
 
@@ -112,13 +112,6 @@ def _initialize_run_parser(subparsers):
         type=Path,
         help=f"The path where to store the test execution results",
         required=True
-    )
-    run_parser.add_argument(
-        "--workers",
-        type=int,
-        help=f"Number of threads to use",
-        required=False,
-        default=8
     )
 
 

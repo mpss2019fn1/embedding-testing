@@ -1,3 +1,4 @@
+from numpy import vstack
 from scipy.spatial.distance import cdist
 
 from src.Testing.Metric.euclidean_distance import EuclideanDistance
@@ -19,8 +20,6 @@ class EuclideanOutlierDetectionTask(AbstractOutlierDetectionTask):
         super(EuclideanOutlierDetectionTask, self).__init__(name, test_set, EuclideanDistance())
 
     def _identify_outlier(self, embedding):
-        from numpy import vstack
-
         vectors = vstack(embedding.word_vectors.word_vec(word) for word in self._current_group)
         centroid = vectors.mean(axis=0)
         distances = cdist([centroid], vectors)

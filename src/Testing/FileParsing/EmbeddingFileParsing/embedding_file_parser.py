@@ -1,5 +1,7 @@
 import logging
 
+from gensim.models import KeyedVectors
+
 from src.Testing.Embedding.embedding import Embedding
 from src.Testing.FileParsing.abstract_file_parser import AbstractFileParser
 
@@ -8,8 +10,6 @@ class EmbeddingFileParser(AbstractFileParser):
 
     @staticmethod
     def create_from_file(file):
-        from gensim.models import KeyedVectors
-
         if not file.exists() or not file.is_file():
             logging.error("Unable to locate embedding file")
             raise FileNotFoundError

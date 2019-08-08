@@ -1,4 +1,5 @@
 import argparse
+import bz2
 import logging
 import os
 import pickle
@@ -60,7 +61,7 @@ def _run_tests(args):
 
     logging.info(f"Result size: {len(test_category_results)}")
     args.test_results.parent.mkdir(parents=True, exist_ok=True)
-    with args.test_results.open("wb+") as output_stream:
+    with bz2.BZ2File(str(args.test_results.absolute()), "w") as output_stream:
         pickle.dump(test_category_results, output_stream)
 
 

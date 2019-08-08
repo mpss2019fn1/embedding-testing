@@ -1,3 +1,4 @@
+import bz2
 import pickle
 from pathlib import Path
 from typing import List
@@ -34,7 +35,8 @@ class ResultServer:
         if not result_file.exists():
             raise FileNotFoundError(f"The given file {result_file} does not exist.")
 
-        return pickle.load(result_file.open("rb"))
+        with bz2.BZ2File(str(result_file.absolute()), "r") as input_stream:
+            return pickle.load(input_stream)
 
     @staticmethod
     @result_server.route('/', methods=['GET'])

@@ -1,12 +1,13 @@
 from pathlib import Path
 
-from src.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
-from src.FileParsing.ConfigurationFileParsing.task_configuration_file_parser import TaskConfigurationFileParser
-from src.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
-from src.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
-from src.TestConfiguration.test_configuration import TestConfiguration
-from src.Testing.TestExecution import TestExecutor
-from test.base_test_case import BaseTestCase
+from src.Testing.EntityLabel.entity_labels import EntityLabels
+from src.Testing.FileParsing.ConfigurationFileParsing.task_category_file_parser import TaskCategoryFileParser
+from src.Testing.FileParsing.ConfigurationFileParsing.task_configuration_file_parser import TaskConfigurationFileParser
+from src.Testing.FileParsing.EmbeddingFileParsing.embedding_file_parser import EmbeddingFileParser
+from src.Testing.FileParsing.EntityLinkingFileParsing.entity_linking_file_parser import EntityLinkingFileParser
+from src.Testing.TestConfiguration.test_configuration import TestConfiguration
+from src.Testing.TestExecution.test_executor import TestExecutor
+from test.Testing.base_test_case import BaseTestCase
 
 
 class TestTestExecutor(BaseTestCase):
@@ -20,10 +21,10 @@ class TestTestExecutor(BaseTestCase):
         task_configs = TaskConfigurationFileParser.create_configurations_from_file(
             Path(self.resource_directory, "configuration.yaml"))
         categories = TaskCategoryFileParser.create_categories_from_file(
-            Path(self.resource_directory, "configuration.yaml"))
+            Path(self.resource_directory, "configuration.yaml"), EntityLabels())
         entity_linking = EntityLinkingFileParser.create_from_file(Path(self.resource_directory, "linking.csv"))
         embedding = EmbeddingFileParser.create_from_file(Path(self.resource_directory, "embedding"))
-        return TestConfiguration(embedding, entity_linking, categories, task_configs)
+        return TestConfiguration(embedding, entity_linking, EntityLabels(), categories, task_configs)
 
     def test_run(self):
         executor = TestExecutor(self._test_configuration)
@@ -32,4 +33,4 @@ class TestTestExecutor(BaseTestCase):
 
         assert len(category_results) == 2
         assert len(category_results[0].category_results) == 1
-        assert len(category_results[1].category_results) == 0
+        assert len(category_results[1].category_results) == 1

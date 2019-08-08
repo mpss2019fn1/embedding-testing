@@ -18,6 +18,7 @@ class TestTaskCategoryFactory(BaseTestCase):
                     - category:
                         name: category_name_1
                         enabled: true
+                        tags: {self.empty_file.absolute()}
                         tasks:
                             - task:
                                 name: task_name_1
@@ -31,6 +32,7 @@ class TestTaskCategoryFactory(BaseTestCase):
                             - category:
                                 name: sub_category_name_1
                                 enabled: false
+                                tags: {self.empty_file.absolute()}
                                 tasks:
                                 categories:""",
                   file=file_output)

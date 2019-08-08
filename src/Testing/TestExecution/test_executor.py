@@ -1,4 +1,5 @@
 import logging
+from typing import List
 
 from src.Testing.Result.category_result import CategoryResult
 from src.Testing.Task.abstract_task import AbstractTask
@@ -23,10 +24,12 @@ class TestExecutor:
         if not category.enabled:
             return result
 
+        self._test_configuration.embedding.enter_nesting(self._read_tags(category))
+
         for index, task in enumerate(category.tasks):
             logging.info(
                 f"{indent} -> {task.name} [{index + 1} / {len(category.tasks)} ({(index + 1) / len(category.tasks) * 100} %)]")
-            result.add_task_result(self.run_task(task))
+            result.add_task_result(self._run_task(task))
 
         for index, sub_category in enumerate(category.categories):
             sub_indent = f"{indent} :: {sub_category.name}"
@@ -34,7 +37,20 @@ class TestExecutor:
                 f"{sub_indent} [{index + 1} / {len(category.categories)} ({(index + 1) / len(category.categories) * 100} %)]")
             result.add_category_result(self._run_category(sub_category, sub_indent))
 
+        self._test_configuration.embedding.exit_nesting()
         return result.finalize()
 
-    def run_task(self, task: AbstractTask):
+    @staticmethod
+    def _read_tags(category: TaskCategory) -> List[str]:
+        tags: List[str] = []
+        with category.embedding_filter.open("r") as input_stream:
+            for line in input_stream:
+                if not line:
+                    continue
+
+                tags.append(line.replace("\n", ""))
+
+        return tags
+
+    def _run_task(self, task: AbstractTask):
         return task.run(self._test_configuration)

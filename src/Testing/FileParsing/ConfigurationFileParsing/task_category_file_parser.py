@@ -16,6 +16,7 @@ class TaskCategoryFileParser(AbstractFileParser):
     LABEL_NAME = "name"
     LABEL_ENABLED = "enabled"
     LABEL_TASKS = "tasks"
+    LABEL_TAGS = "tags"
     LABEL_TASK = "task"
 
     @staticmethod
@@ -45,8 +46,9 @@ class TaskCategoryFileParser(AbstractFileParser):
         name = self._extract_name(configuration)
         enabled = self._extract_enabled(configuration)
         tasks = self._extract_tasks(configuration)
+        tags_file = self._extract_tags_file(configuration)
         categories = self._extract_categories(configuration)
-        return TaskCategory(name, enabled, tasks, categories)
+        return TaskCategory(name, enabled, tasks, categories, tags_file)
 
     def _extract_enabled(self, configuration):
         enabled = str(configuration[self.LABEL_ENABLED]).lower()
@@ -83,6 +85,18 @@ class TaskCategoryFileParser(AbstractFileParser):
             task = task[self.LABEL_TASK]
             tasks.append(task_file_parser.create_task_from_configuration(task))
         return tasks
+
+    def _extract_tags_file(self, configuration):
+        tags_file = Path(configuration[self.LABEL_TAGS])
+
+        if not tags_file.is_absolute():
+            tags_file = Path(self._file_path.parent, tags_file)
+
+        if not tags_file.exists():
+            logging.error(f"The provided tags {tags_file} does not exist")
+            raise KeyError
+
+        return tags_file
 
     def _extract_categories(self, configuration):
         categories = []

@@ -25,6 +25,7 @@ configuration:
         - category:
             name: Geography
             enabled: true
+            tags: all_tags.txt
             tasks:
                 - task:
                     name: is_conutry_similar_cosine
@@ -43,6 +44,7 @@ configuration:
                 - category:
                     name: Europe
                     enabled: false
+                    tags: geography_tags.txt
                     tasks:
                         - task:
                             name: is_capital_of
@@ -52,6 +54,7 @@ configuration:
                 - category:
                     name: North_America
                     enabled: true
+                    tags: geography_tags.txt
                     tasks:
                         - task:
                             name: is_capital_of
@@ -61,11 +64,13 @@ configuration:
         - category:
             name: Food
             enabled: false
+            tags: all_tags.txt
             tasks:
             categories:
                 - category:
                     name: Meat
                     enabled: true
+                    tags: food_tags.txt
                     tasks:
                         - task:
                             name: is_similar_food

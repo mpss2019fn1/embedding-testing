@@ -1,20 +1,13 @@
 import uuid
-from typing import List
+from pathlib import Path
 
 
 class TaskCategory:
 
-    def __init__(self, name, enabled, tasks, categories):
+    def __init__(self, name, enabled, tasks, categories, embedding_filter: Path):
         self.name = name
         self.enabled = enabled
         self.tasks = tasks
         self.categories = categories
+        self.embedding_filter: Path = embedding_filter
         self.id = uuid.uuid4()
-
-    def categories_recursive(self) -> List["TaskCategory"]:
-        categories: List["TaskCategory"] = self.categories
-
-        for category in self.categories:
-            categories.extend(category.categories_recursive())
-
-        return categories

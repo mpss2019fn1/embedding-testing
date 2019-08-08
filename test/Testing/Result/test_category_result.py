@@ -13,7 +13,7 @@ class TestCategoryResult:
 
     @staticmethod
     def _create_enabled_category_result():
-        category = TaskCategory("CategoryName", True, [], [])
+        category = TaskCategory("CategoryName", True, [], [], None)
         category_result = CategoryResult(category)
         category_result.add_task_result(TestCategoryResult._create_enabled_task_result())
 
@@ -70,7 +70,7 @@ class TestCategoryResult:
         assert result.__str__() == result.__repr__()
 
     def test_disabled_representation_starts_with_prefix(self):
-        category = TaskCategory("CategoryName", False, [], [])
+        category = TaskCategory("CategoryName", False, [], [], None)
         result = CategoryResult(category)
 
         assert not result.enabled
@@ -78,7 +78,7 @@ class TestCategoryResult:
         assert len(str(result).split("\n")) == 1
 
     def test_empty_result(self):
-        category = TaskCategory("CategoryName", True, [], [])
+        category = TaskCategory("CategoryName", True, [], [], None)
         result = CategoryResult(category)
         result.finalize()
 

@@ -16,5 +16,9 @@ class AbstractMetric(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def is_better_than(self, actual, expected):
+        raise NotImplementedError
+
+    @abstractmethod
     def __eq__(self, other):
         raise NotImplementedError

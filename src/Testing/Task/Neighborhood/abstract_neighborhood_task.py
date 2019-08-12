@@ -24,7 +24,7 @@ class AbstractNeighborhoodTask(AbstractTask, ABC):
             group_id = line[1]
             is_expected_similar = line[2].lower() == "true"
 
-            if not self._current_group_id:
+            if self._current_group_id is None:
                 self._current_group_id = group_id
                 self._current_is_expected_similar = is_expected_similar
 

@@ -31,7 +31,7 @@ class Embedding:
         next_euclidean_noise: float = self._calculate_squared_euclidean_noise(vectors)
         self._squared_euclidean_noises.append(min(self.squared_euclidean_noise, next_euclidean_noise))
         next_cosine_noise: float = self._calculate_random_cosine_noise(vectors)
-        self._random_cosine_noises.append(min(abs(self.random_cosine_noise), abs(next_cosine_noise)))
+        self._random_cosine_noises.append(max(self.random_cosine_noise, next_cosine_noise))
 
     def exit_nesting(self):
         if len(self._squared_euclidean_noises) > 1:

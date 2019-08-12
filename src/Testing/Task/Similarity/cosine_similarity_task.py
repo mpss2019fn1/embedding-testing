@@ -1,3 +1,4 @@
+from src.Testing.Embedding.embedding import Embedding
 from src.Testing.Metric.cosine_similarity import CosineSimilarity
 from src.Testing.Task.Similarity.abstract_similarity_task import AbstractSimilarityTask
 
@@ -16,8 +17,5 @@ class CosineSimilarityTask(AbstractSimilarityTask):
     def __init__(self, name, test_set):
         super(CosineSimilarityTask, self).__init__(name, test_set, CosineSimilarity())
 
-    def _stringify_expected_result(self, is_expected_similar):
-        expected_result = " > " if is_expected_similar else " <= "
-        expected_result += '%06.4f' % self._test_configuration.embedding.random_cosine_noise
-
-        return expected_result
+    def _stringify_better_than_noise(self, embedding: Embedding):
+        return " > %06.4f" % self._test_configuration.embedding.random_cosine_noise

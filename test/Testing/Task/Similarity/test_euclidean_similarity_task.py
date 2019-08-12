@@ -28,7 +28,7 @@ class TestEuclideanSimilarityTask(BaseTestCase):
         task = EuclideanSimilarityTask("Politicians", Path(self.resource_directory, "politicians.csv"))
         result = task.run(self._test_configuration)
 
-        assert len(result.case_results) == 9
+        assert len(result.case_results) == 2
         assert result.pass_rate() == 100
         assert result.execution_duration() > 0
 
@@ -36,6 +36,6 @@ class TestEuclideanSimilarityTask(BaseTestCase):
         task = EuclideanSimilarityTask("Politicians", Path(self.resource_directory, "politicians_with_failures.csv"))
         result = task.run(self._test_configuration)
 
-        assert len(result.case_results) == 9
-        assert result.pass_rate() == (7 / 9) * 100
+        assert len(result.case_results) == 2
+        assert result.pass_rate() == 0
         assert result.execution_duration() > 0

@@ -1,4 +1,3 @@
-a,b,is_similar
-wd:Q142,wd:Q183,true
-wd:Q142,wd:Q414,false
-wd:Q183,wd:Q414,false
+a,b,group_id,rank
+wd:Q142,wd:Q183,1,0
+wd:Q142,wd:Q414,1,1

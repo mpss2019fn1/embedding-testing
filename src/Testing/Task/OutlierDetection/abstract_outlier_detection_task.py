@@ -25,7 +25,7 @@ class AbstractOutlierDetectionTask(AbstractTask, ABC):
             group_id = line[1]
             is_outlier = line[2].lower() == "true"
 
-            if not self._current_group_id:
+            if self._current_group_id is None:
                 self._current_group_id = group_id
 
             if self._current_group_id == group_id:

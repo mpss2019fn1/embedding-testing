@@ -14,7 +14,10 @@ class EuclideanDistance(AbstractMetric):
         return np.var(matrix, 0, ddof=1).sum() * 2
 
     def is_better_than_noise(self, result, embedding):
-        return result < embedding.squared_euclidean_noise
+        return self.is_better_than(result, embedding.squared_euclidean_noise)
+
+    def is_better_than(self, actual, expected):
+        return actual < expected
 
     def __eq__(self, other):
         if not isinstance(other, EuclideanDistance):

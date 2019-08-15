@@ -9,7 +9,6 @@ from src.Testing.Result.category_result import CategoryResult
 
 
 class ResultServer:
-
     TEMPLATE_FOLDER = "__templates__"
     STATIC_FOLDER = "__static_files__"
 
@@ -44,8 +43,8 @@ class ResultServer:
         return render_template('index.html', category_results=ResultServer._results)
 
     @staticmethod
-    def run(debug: bool):
-        ResultServer.result_server.run(debug)
+    def run(debug: bool, port: int = None):
+        ResultServer.result_server.run(debug=debug, port=port)
 
     @staticmethod
     @result_server.route('/category/<search_id>', methods=['GET'])

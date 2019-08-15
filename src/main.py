@@ -67,7 +67,7 @@ def _run_tests(args):
 
 def _display_results(args):
     result_server = ResultServer(args.test_results)
-    result_server.run(debug=False)
+    result_server.run(debug=False, port=args.port)
 
 
 def _initialize_parser():
@@ -125,6 +125,13 @@ def _initialize_display_parser(subparsers):
         type=Path,
         help=f"Path to the stored test results",
         required=True
+    )
+    display_parser.add_argument(
+        "--port",
+        type=int,
+        help=f"Server port",
+        required=False,
+        default=None
     )
 
 

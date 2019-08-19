@@ -47,11 +47,11 @@ class AbstractOutlierDetectionTask(AbstractTask, ABC):
 
     def _perform_test(self, embedding):
         if len(self._current_group) <= 2:
-            return CaseResult(self._current_group_labels, "No expected output", "Too few elements in group", False)
+            return CaseResult(", ".join(self._current_group_labels), "No expected output", "Too few elements in group", False)
 
         outlier = self._identify_outlier(embedding)
         outlier_index = self._current_group.index(outlier)
-        return CaseResult(self._current_group_labels, self._current_outlier_label,
+        return CaseResult(", ".join(self._current_group_labels), self._current_outlier_label,
                           self._current_group_labels[outlier_index], self._current_outlier == outlier)
 
     @abstractmethod

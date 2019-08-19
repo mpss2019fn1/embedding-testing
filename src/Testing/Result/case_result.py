@@ -20,6 +20,6 @@ class CaseResult:
     def print(self, indent):
         representation = f"{self.test_input} {CaseResult.ACTUAL_OUTPUT_PREFIX} {self.actual_output}"
         if self.passed:
-            return indent + f"{CaseResult.PASSED_PREFIX}{representation}"
+            return indent + f"{CaseResult.PASSED_PREFIX}\t{representation}"
         else:
-            return indent + f"{CaseResult.NOT_PASSED_PREFIX}{representation} {CaseResult.EXPECTED_OUTPUT_PREFIX} {self.expected_output}"
+            return indent + f"{CaseResult.NOT_PASSED_PREFIX}\t{representation} {CaseResult.EXPECTED_OUTPUT_PREFIX} {self.expected_output}"

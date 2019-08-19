@@ -34,4 +34,4 @@ class AnalogyTask(AbstractTask):
                 label_c = labels[lineB[0]]
                 label_d = labels[lineB[1]]
 
-                yield CaseResult([(label_a, label_b), (label_c, "?")], label_d, prediction[0], prediction[0] == d)
+                yield CaseResult(f"{label_a} : {label_b} like {label_c} : [?]", label_d, prediction[0], prediction[0] == d)

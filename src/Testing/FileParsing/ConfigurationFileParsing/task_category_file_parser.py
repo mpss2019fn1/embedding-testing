@@ -93,7 +93,11 @@ class TaskCategoryFileParser(AbstractFileParser):
             entities_file = Path(self._file_path.parent, entities_file)
 
         if not entities_file.exists():
-            logging.error(f"The provided entities file {entities_file} does not exist")
+            logging.error(f"The provided entities file {entities_file} (category={configuration[self.LABEL_NAME]}) does not exist")
+            raise KeyError
+
+        if not entities_file.is_file():
+            logging.error(f"The provided entities file {entities_file} (category={configuration[self.LABEL_NAME]}) is not a file")
             raise KeyError
 
         return entities_file

@@ -32,9 +32,9 @@ class TestAnalogyTask(BaseTestCase):
         assert result.pass_rate() == 100
         assert result.execution_duration() > 0
 
-    def test_run_with_failing_tests(self):
+    def test_run_with_failing_tests_topn_1(self):
         task = AnalogyTask("Capitals", Path(self.resource_directory, "capitals_with_failures.csv"))
-        result = task.run(self._test_configuration)
+        result = task.run(self._test_configuration, topn=1)
 
         assert len(result.case_results) == 3
         assert result.pass_rate() == (1 / 3) * 100

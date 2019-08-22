@@ -19,7 +19,7 @@ class AbstractTask(ABC):
         self.test_set = test_set
         self._test_configuration = None
 
-    def run(self, test_configuration):
+    def run(self, test_configuration, *args, **kwargs):
         from src.Result.task_result import TaskResult
         self._test_configuration = test_configuration
         is_enabled = self._test_configuration.is_enabled(self.__class__.task_type())
@@ -27,7 +27,7 @@ class AbstractTask(ABC):
         if not is_enabled:
             return task_result.finalize()
 
-        for case_result in self._run():
+        for case_result in self._run(*args, **kwargs):
             task_result.add_case_result(case_result)
 
         return task_result.finalize()

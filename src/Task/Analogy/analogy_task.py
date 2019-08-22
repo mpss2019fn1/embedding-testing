@@ -13,7 +13,7 @@ class AnalogyTask(AbstractTask):
         from src.Task.task_type import TaskType
         return TaskType.ANALOGY
 
-    def _run(self):
+    def _run(self, topn=5):
         embedding = self._test_configuration.embedding
         linking = self._test_configuration.entity_linking
         for indexA, lineA in enumerate(self._test_set_lines()):
@@ -26,6 +26,7 @@ class AnalogyTask(AbstractTask):
                 c = linking[lineB[0]]
                 d = linking[lineB[1]]
 
-                prediction = embedding.word_vectors.most_similar(positive=[a, c], negative=[b], topn=1)[0]
+                predictions = embedding.word_vectors.most_similar(positive=[a, c], negative=[b], topn=topn)
+                top_entities = [entity for entity, _ in predictions]
 
-                yield CaseResult([(a, b), (c, "?")], d, prediction, prediction[0] == d)
+                yield CaseResult([(a, b), (c, "?")], d, top_entities, d in top_entities)

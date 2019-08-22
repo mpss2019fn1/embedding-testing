@@ -30,6 +30,7 @@ category:
     required:
         - name
         - enabled
+        - entities
         - tasks
         - categories
     properties:
@@ -37,6 +38,9 @@ category:
             type: string
         enabled:
             type: boolean
+        entities:
+            type: string
+            description: Path to file, which contains all linked entities, which are used to calculate the base noise for tasks.
         tasks:
             type: array
             items:

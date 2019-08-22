@@ -1,6 +1,6 @@
 configuration:
     task_configurations:
-        - task_configuration: 
+        - task_configuration:
             type: cosine_similarity
             enabled: true
         - task_configuration:
@@ -13,7 +13,7 @@ configuration:
             type: cosine_neighborhood
             enabled: false
         - task_configuration:
-            type: euclidean_neighborbood
+            type: euclidean_neighborhood
             enabled: false
         - task_configuration:
             type: cosine_outlier_detection
@@ -30,40 +30,25 @@ configuration:
                 - task:
                     name: is_conutry_similar_cosine
                     type: cosine_similarity
-                    test_set: is_conutry_similar/data.csv
-                - task:
-                    name: is_conutry_similar_euclidean
-                    type: euclidean_similarity
-                    test_set: is_conutry_similar/data.csv
-                - task:
-                    name: is_capital_of
-                    type: analogy
-                    metric: cosine
-                    test_set: is_capital_of/data.csv
+                    test_set: is_country_similar.csv
             categories:
                 - category:
                     name: Europe
-                    enabled: false
-                    entities: geography_entities.txt
-                    tasks:
-                        - task:
-                            name: is_capital_of
-                            type: cosine_neighborhood
-                            test_set: is_capital_of/data.csv
-                    categories:
-                - category:
-                    name: North_America
                     enabled: true
                     entities: geography_entities.txt
                     tasks:
                         - task:
-                            name: is_capital_of
-                            type: cosine_outlier_detection
-                            test_set: is_capital_of/data.csv
+                            name: is_capital_of_eu
+                            type: analogy
+                            test_set: is_capital_of_eu.csv
+                        - task:
+                              name: is_capital_of_eu2
+                              type: analogy
+                              test_set: is_capital_of_eu.csv
                     categories:
         - category:
             name: Food
-            enabled: false
+            enabled: true
             entities: all_entities.txt
             tasks:
             categories:
@@ -73,7 +58,18 @@ configuration:
                     entities: food_entities.txt
                     tasks:
                         - task:
-                            name: is_similar_food
-                            type: cosine_similarity
-                            test_set: food/data.csv
+                            name: outlier_meat
+                            type: cosine_outlier_detection
+                            test_set: outlier_meat.csv
                     categories:
+                        - category:
+                              name: Processed Meat
+                              enabled: true
+                              entities: food_entities.txt
+                              tasks:
+                                  - task:
+                                        name: outlier_meat
+                                        type: cosine_outlier_detection
+                                        test_set: outlier_meat.csv
+                              categories:
+

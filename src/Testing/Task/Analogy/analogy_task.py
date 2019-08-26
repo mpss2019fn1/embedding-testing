@@ -28,7 +28,7 @@ class AnalogyTask(AbstractTask):
                 d = linking[lineB[1]]
 
                 predictions = embedding.word_vectors.most_similar(positive=[a, c], negative=[b], topn=topn)
-                top_entities = [entity for entity, _ in predictions]
+                top_entities = [entity.lower() for entity, _ in predictions]
 
                 label_a = labels[lineA[0]]
                 label_b = labels[lineA[1]]
@@ -37,4 +37,4 @@ class AnalogyTask(AbstractTask):
                 top_entities_label = ', '.join(labels[entity] for entity in top_entities)
 
                 yield CaseResult(f"{label_a} : {label_b} like {label_c} : [?]", d, top_entities_label,
-                                 d in top_entities)
+                                 d.lower() in top_entities)

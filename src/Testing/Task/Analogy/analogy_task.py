@@ -22,13 +22,13 @@ class AnalogyTask(AbstractTask):
                 if indexA >= indexB:
                     continue
 
-                a = linking[lineA[0]]
-                b = linking[lineA[1]]
-                c = linking[lineB[0]]
-                d = linking[lineB[1]]
+                a = linking[lineA[0]].upper()
+                b = linking[lineA[1]].upper()
+                c = linking[lineB[0]].upper()
+                d = linking[lineB[1]].upper()
 
                 predictions = embedding.word_vectors.most_similar(positive=[a, c], negative=[b], topn=topn)
-                top_entities = [entity.lower() for entity, _ in predictions]
+                top_entities = [entity.upper() for entity, _ in predictions]
 
                 label_a = labels[lineA[0]]
                 label_b = labels[lineA[1]]
@@ -37,4 +37,4 @@ class AnalogyTask(AbstractTask):
                 top_entities_label = ', '.join(labels[entity] for entity in top_entities)
 
                 yield CaseResult(f"{label_a} : {label_b} like {label_c} : [?]", d, top_entities_label,
-                                 d.lower() in top_entities)
+                                 d in top_entities)

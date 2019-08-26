@@ -22,19 +22,35 @@ class AnalogyTask(AbstractTask):
                 if indexA >= indexB:
                     continue
 
-                a = linking[lineA[0]].upper()
-                b = linking[lineA[1]].upper()
-                c = linking[lineB[0]].upper()
-                d = linking[lineB[1]].upper()
+                a = labels[lineA[0]].upper()   # ! Heuristic to to use unified english label
+                b = labels[lineA[1]].upper()   # ! Heuristic to to use unified english label
+                c = labels[lineB[0]].upper()   # ! Heuristic to to use unified english label
+                d = labels[lineB[1]].upper()   # ! Heuristic to to use unified english label
 
-                predictions = embedding.word_vectors.most_similar(positive=[a, c], negative=[b], topn=topn)
-                top_entities = [entity.upper() for entity, _ in predictions]
+                if a not in embedding.word_vectors.wv:
+                    a = a.lower()
+                if b not in embedding.word_vectors.wv:
+                    b = b.lower()
+                if c not in embedding.word_vectors.wv:
+                    c = c.lower()
+                if d not in embedding.word_vectors.wv:
+                    d = d.lower()
+
+                if any(x not in embedding.word_vectors.wv for x in [a, b, c, d]):
+                    continue
+
+                predictions = embedding.word_vectors.most_similar(positive=[b, c], negative=[a], topn=topn)
+                top_entities = [entity.lower() for entity, _ in predictions]
 
                 label_a = labels[lineA[0]]
                 label_b = labels[lineA[1]]
                 label_c = labels[lineB[0]]
+                label_d = labels[lineB[1]]
 
-                top_entities_label = ', '.join(labels[entity] for entity in top_entities)
+                top_entity_labels = ', '.join(labels[entity] for entity in top_entities)
 
-                yield CaseResult(f"{label_a} : {label_b} like {label_c} : [?]", d, top_entities_label,
-                                 d in top_entities)
+                if label_d.lower() in top_entities:
+                    yield CaseResult(f"{label_a} : {label_b} like {label_c} : [?]", label_d, top_entity_labels, True)
+                else:
+                    yield CaseResult(f"{label_a} : {label_b} like {label_c} : [?]", d, top_entity_labels,
+                                     d.lower() in top_entities)

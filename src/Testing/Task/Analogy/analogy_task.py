@@ -36,4 +36,5 @@ class AnalogyTask(AbstractTask):
 
                 top_entities_label = ', '.join(labels[entity] for entity in top_entities)
 
-                yield CaseResult(f"{label_a} : {label_b} like {label_c} : [?]", top_entities_label, d, d in top_entities)
+                yield CaseResult(f"{label_a} : {label_b} like {label_c} : [?]", d, top_entities_label,
+                                 d in top_entities)

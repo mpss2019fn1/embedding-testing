@@ -1,3 +1,5 @@
+import logging
+
 from src.Testing.Result.case_result import CaseResult
 from src.Testing.Task.abstract_task import AbstractTask
 
@@ -22,30 +24,44 @@ class AnalogyTask(AbstractTask):
                 if indexA >= indexB:
                     continue
 
-                a = labels[lineA[0]].upper()   # ! Heuristic to to use unified english label
-                b = labels[lineA[1]].upper()   # ! Heuristic to to use unified english label
-                c = labels[lineB[0]].upper()   # ! Heuristic to to use unified english label
-                d = labels[lineB[1]].upper()   # ! Heuristic to to use unified english label
+                a = linking[lineA[0]]
+                b = linking[lineA[1]]
+                c = linking[lineB[0]]
+                d = linking[lineB[1]]
 
-                if a not in embedding.word_vectors.wv:
+                if a.upper() in embedding.word_vectors.wv:
+                    a = a.upper()
+                elif a.lower() in embedding.word_vectors.wv:
                     a = a.lower()
-                if b not in embedding.word_vectors.wv:
+
+                if b.upper() in embedding.word_vectors.wv:
+                    b = b.upper()
+                elif b.lower() in embedding.word_vectors.wv:
                     b = b.lower()
-                if c not in embedding.word_vectors.wv:
+
+                if c.upper() in embedding.word_vectors.wv:
+                    c = c.upper()
+                elif c.lower() in embedding.word_vectors.wv:
                     c = c.lower()
-                if d not in embedding.word_vectors.wv:
+
+                if d.upper() in embedding.word_vectors.wv:
+                    d = d.upper()
+                elif d.lower() in embedding.word_vectors.wv:
                     d = d.lower()
 
-                if any(x not in embedding.word_vectors.wv for x in [a, b, c, d]):
-                    continue
-
-                predictions = embedding.word_vectors.most_similar(positive=[b, c], negative=[a], topn=topn)
-                top_entities = [entity.lower() for entity, _ in predictions]
 
                 label_a = labels[lineA[0]]
                 label_b = labels[lineA[1]]
                 label_c = labels[lineB[0]]
                 label_d = labels[lineB[1]]
+
+                if any(x not in embedding.word_vectors.wv for x in [a, b, c, d]):
+                    logging.warning(f"Any of {[a, b, c, d]} is not in vocabulary")
+                    yield CaseResult(f"{label_a} : {label_b} like {label_c} : [?]", label_d, "OUT OF VOCABULARY", False)
+                    continue
+
+                predictions = embedding.word_vectors.most_similar(positive=[b, c], negative=[a], topn=topn)
+                top_entities = [entity.lower() for entity, _ in predictions]
 
                 top_entity_labels = ', '.join(labels[entity] for entity in top_entities)
 
